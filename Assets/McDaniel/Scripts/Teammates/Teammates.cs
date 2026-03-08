@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Teammates : MonoBehaviour
 {
+    // Stats of teammates.
     public string teammateType;
     public int level;
     public int equipment;
+    // Damange delt
     public float attackPower;
+    // Time between next attack. Lower is faster
     public float attackSpeed;
 
+    // Instantiating teammate allowing different starting stats for type, attack power, and attack speed, 
     public Teammates(string teammateType, float attackPower, float attackSpeed)
     {
         this.teammateType = teammateType;
@@ -24,6 +28,7 @@ public class Teammates : MonoBehaviour
         StartCoroutine(Attack());
     }
 
+    // Attacking first enemy in enemy list, repeating for x amount of seconds which is based on attack speed
     IEnumerator Attack()
     {
         // Attacks enemies

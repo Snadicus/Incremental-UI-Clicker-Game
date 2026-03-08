@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class PlayerUpgrads : MonoBehaviour
+public class PlayerUpgrades : MonoBehaviour
 {
+    // Player game components
     Player player;
 
     void Start()
@@ -9,6 +10,8 @@ public class PlayerUpgrads : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
+
+    // Upgrading different stats
     public void StrengthUpgrade()
     {
         player.stats[0] += 1;

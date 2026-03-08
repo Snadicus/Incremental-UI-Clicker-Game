@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
         enemyList = GameObject.Find("GameManager").GetComponent<EnemyLists>();
     }
 
+    /* Function is called when attack button is clicked
+     * Attacks first enemy in the enemy list.
+     */
     public void Attack()
     {
         float damage = stats[0];
