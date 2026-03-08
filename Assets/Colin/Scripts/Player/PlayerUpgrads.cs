@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class PlayerUpgrads : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    Player player;
+
     void Start()
     {
-        
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StrengthUpgrade()
     {
-        
+        player.stats[0] += 1;
+    }
+    public void AgilityUpgrade()
+    {
+        player.stats[1] += 1;
+    }
+    public void IntelligenceUpgrade()
+    {
+        player.stats[2] += 1;
+    }
+    public void WisdomUpgrade()
+    {
+        player.stats[3] += 1;
     }
 }
