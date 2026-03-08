@@ -6,7 +6,7 @@ public class ButtonCanClick : MonoBehaviour
 {
     // Other object references
     [SerializeField] ResourceTracker resourceTraker;
-    [SerializeField] TextMeshProUGUI costText, levelText;
+    [SerializeField] TextMeshProUGUI costText;
 
     // Mutable variables
     public int goldNeeded;
