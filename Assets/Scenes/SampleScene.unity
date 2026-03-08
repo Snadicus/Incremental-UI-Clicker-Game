@@ -290,7 +290,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833675b8c9294ea46b40b8356351ce61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
+  resourceTraker: {fileID: 0}
   costText: {fileID: 1968258305}
+  levelText: {fileID: 0}
   goldNeeded: 5
 --- !u!1 &203845895
 GameObject:
@@ -505,14 +507,14 @@ RectTransform:
   m_GameObject: {fileID: 396787222}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 786280177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 240}
+  m_AnchoredPosition: {x: -1.0636, y: 219.74}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &396787224
@@ -639,7 +641,7 @@ RectTransform:
   m_GameObject: {fileID: 442009986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 63928476}
@@ -648,7 +650,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1.0636, y: 5.1973}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &515925272
@@ -678,14 +680,14 @@ RectTransform:
   m_GameObject: {fileID: 515925272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 786280177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 160}
+  m_AnchoredPosition: {x: -1.0636, y: 148.23}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515925274
@@ -1497,7 +1499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833675b8c9294ea46b40b8356351ce61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
+  resourceTraker: {fileID: 0}
   costText: {fileID: 203845897}
+  levelText: {fileID: 0}
   goldNeeded: 10
 --- !u!1 &786280173
 GameObject:
@@ -1547,7 +1551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1567,7 +1571,7 @@ Canvas:
   m_GameObject: {fileID: 786280173}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1634,14 +1638,14 @@ RectTransform:
   m_GameObject: {fileID: 892636350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 786280177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 90}
+  m_AnchoredPosition: {x: -1.0636, y: 85.651}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &892636352
@@ -2122,7 +2126,7 @@ RectTransform:
   m_GameObject: {fileID: 1270712414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 912256221}
@@ -2130,7 +2134,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -152}
+  m_AnchoredPosition: {x: -1.0636, y: -130.68}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1270712416
@@ -2633,7 +2637,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833675b8c9294ea46b40b8356351ce61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
+  resourceTraker: {fileID: 0}
   costText: {fileID: 713577099}
+  levelText: {fileID: 0}
   goldNeeded: 2
 --- !u!1 &1564831926
 GameObject:
@@ -2718,7 +2724,7 @@ RectTransform:
   m_GameObject: {fileID: 1601723711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89393, y: 0.89393, z: 0.89393}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1526548452}
@@ -2726,7 +2732,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1.0636, y: 5.1973}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1659329044
@@ -2959,6 +2965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3790c6f16ab6a074aafd921adad23df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreateTeammates
+  enemySpawner: {fileID: 0}
 --- !u!1 &2092484786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,14 +2993,14 @@ RectTransform:
   m_GameObject: {fileID: 2092484786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.446965, y: 0.446965, z: 0.446965}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 786280177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 203, y: -22}
+  m_AnchoredPosition: {x: 222.83, y: -33.327}
   m_SizeDelta: {x: 750, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2092484788

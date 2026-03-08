@@ -7,7 +7,7 @@ public class PlayerUpgrades : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+        player = gameObject.GetComponent<Player>();
     }
 
 
