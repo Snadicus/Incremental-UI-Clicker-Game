@@ -2926,7 +2926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3790c6f16ab6a074aafd921adad23df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CreateTeammates
-  enemySpawner: {fileID: 0}
+  enemySpawner: {fileID: 269297731}
 --- !u!1 &2092484786
 GameObject:
   m_ObjectHideFlags: 0
