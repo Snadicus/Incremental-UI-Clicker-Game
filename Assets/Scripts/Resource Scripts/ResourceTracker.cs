@@ -63,15 +63,10 @@ public class ResourceTracker : MonoBehaviour
     #region
 
     // For removing Gold from other scripts
-    public bool SpendGold(int amount)
+    public void SpendGold(int amount)
     {
-        if (gold >= amount)
-        {
-            gold -= amount;
-            UpdateGoldText();
-            return true;
-        }
-        return false;
+        gold -= amount;
+        UpdateGoldText();
     }
 
     #endregion

@@ -2,26 +2,23 @@ using UnityEditor.Build.Content;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class ButtonCanClick : MonoBehaviour
 {
     // Other object references
-    GameManager gameManager;
+    [SerializeField] ResourceTracker resourceTraker;
+    [SerializeField] TextMeshProUGUI costText, levelText;
 
     // Mutable variables
-    public float goldNeeded;
-
-    void Start()
-    {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
+    public int goldNeeded;
 
     void Update()
     {
         /* When amount of gold is greater than gold needed, enable button
          * letting player upgrade. Else disable button.
          */
-        if (gameManager.resources["Gold"] >= goldNeeded)
+        if (resourceTraker.gold >= goldNeeded)
         {
             gameObject.GetComponent<Button>().enabled = true;
         }
@@ -34,6 +31,8 @@ public class ButtonCanClick : MonoBehaviour
     // Increaase the cost of upgrades after getting upgrade
     public void IncreaseCost()
     {
-        goldNeeded *= 2 + goldNeeded;
+        resourceTraker.SpendGold(goldNeeded);
+        goldNeeded *= 2;
+        costText.text = "Cost: " + goldNeeded;
     }
 }

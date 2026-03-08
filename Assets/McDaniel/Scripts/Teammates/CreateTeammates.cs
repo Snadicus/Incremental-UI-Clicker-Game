@@ -3,12 +3,13 @@ using TMPro;
 public class CreateTeammates : MonoBehaviour
 {
     // Get other game components
-    GameManager gameManager;
+    TeamManager teamManager;
+    public EnemySpawner enemySpawner;
     Teammates Archer, Wizard;
 
     private void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        teamManager = GameObject.Find("GameManager").GetComponentInChildren<TeamManager>();
     }
 
     
@@ -16,34 +17,44 @@ public class CreateTeammates : MonoBehaviour
     public void ArcherLevel()
     {
         // Create Archer if the Archer is not currently on the Teammates list
-        if (!gameManager.teammates.Contains("Archer"))
+        if (!teamManager.teammates.Contains("Archer"))
         {
-            gameManager.teammates.Add("Archer");
+            teamManager.teammates.Add("Archer");
             // Set up Archer teammate. Type, damage, attack speed
-            Archer = new Teammates("Archer", 1, 2);
+            Archer = new Teammates("Archer", 1, 2, enemySpawner);
+            StartCoroutine(Archer.Attack());
         }
         // If Archer does exist increase level and attack power
         else
         {
             Archer.level += 1;
             Archer.attackPower += 1;
+            if (Archer.level % 5 == 0)
+            {
+                Archer.attackSpeed -= Archer.attackSpeed * 0.05f;
+            }
         }
     }
 
     public void WizardLevel() 
     {
         // Create Wizard if the Wizard is not currently on the Teammates list
-        if (!gameManager.teammates.Contains("Wizard"))
+        if (!teamManager.teammates.Contains("Wizard"))
         {
-            gameManager.teammates.Add("Wizard");
+            teamManager.teammates.Add("Wizard");
             // Set up Wizard teammate. Type, damage, attack speed
-            Wizard = new Teammates("Wizard", 5, 5);
+            Wizard = new Teammates("Wizard", 5, 5, enemySpawner);
+            StartCoroutine(Wizard.Attack());
         }
         // Create Wizard if the Wizard is not currently on the Teammates list
         else
         {
             Wizard.level += 1;
             Wizard.attackPower += 1;
+            if (Wizard.level % 5 == 0)
+            {
+                Wizard.attackSpeed -= Wizard.attackSpeed * 0.05f;
+            }
         }
     }
 }
