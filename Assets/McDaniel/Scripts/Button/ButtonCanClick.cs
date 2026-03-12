@@ -10,7 +10,9 @@ public class ButtonCanClick : MonoBehaviour
 
     // Mutable variables
     public int goldNeeded;
-
+    // If the button can't click, then it should be darker and button disabled. 
+    // If button can be clicked, it should be brighter and button enabled.
+    // If purchased, highlight, buy the upgrade, increase cost of upgrade, then check if it should be enabled or disabled.
     void Update()
     {
         /* When amount of gold is greater than gold needed, enable button

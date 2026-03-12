@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
-public class CreateTeammates : MonoBehaviour
+using System;
+public class UpgradeTeammates : MonoBehaviour
 {
     // Get other game components
     TeamManager teamManager;
@@ -12,7 +13,6 @@ public class CreateTeammates : MonoBehaviour
         teamManager = GameObject.Find("GameManager").GetComponentInChildren<TeamManager>();
     }
 
-    
     // Functions from here and below are all about creating and upgrading teammate skills when it's respective upgrade is bought
     public void ArcherLevel()
     {
