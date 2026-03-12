@@ -11,9 +11,11 @@ public class EnemySpawner : MonoBehaviour
     public ResourceTracker resourceTracker;
 
     public int currentArea = 0; // Current area the player is in
+    public int enemyCounter = 0; // Tracks eney groups killed. Helps to spawn boss
 
     // Current enemy data and storage for stats
     private AreaList.enemyData currentEnemy;
+    private AreaList.bossData currentBoss;
 
     private float currentHealth;
     private float maxHealth;
@@ -29,12 +31,17 @@ public class EnemySpawner : MonoBehaviour
 
     #endregion
 
+    // Start
+    #region
+
     // Starting the program spawns the first enemy.
     void Start()
     {
         SpawnEnemy();
         UpdateAreaText();
     }
+
+    #endregion
 
     // Update
     #region
@@ -101,10 +108,19 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log(enemiesRemaining + " " + currentEnemy.name + " reamining!");
             ResourceTracker.Instance.AddGold(goldReward);
         }
+        else if (enemyCounter == 9)
+        {
+            Debug.Log("Spawning boss!");
+
+            var area = areaList.getArea(currentArea);
+            currentBoss = area.getBoss();
+        }
         else
         {
             Debug.Log("Enemy group defeated! You receive " + goldReward + " gold!");
             ResourceTracker.Instance.AddGold(goldReward);
+
+            enemyCounter += 1;
 
             SpawnEnemy();
         }
