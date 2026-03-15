@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -10,16 +11,23 @@ public class EnemySpawner : MonoBehaviour
     public AreaList areaList;
     public ResourceTracker resourceTracker;
 
-    public int currentArea = 0; // Current area the player is in
-    public int enemyCounter = 0; // Tracks eney groups killed. Helps to spawn boss
+    private int currentArea = 1; // Current area the player is in
+    private int enemyCounter = 0; // Tracks eney groups killed. Helps to spawn boss
 
     // Current enemy data and storage for stats
     private AreaList.enemyData currentEnemy;
-    private AreaList.bossData currentBoss;
 
     private float currentHealth;
     private float maxHealth;
     private int goldReward;
+
+    private float healthMultiplier;
+    private float goldMultiplier;
+    private int enemyMultiplier;
+
+    // For determining some logic that should only apply to boss battles
+    private bool bossBattle = false;
+    private Coroutine bossTimerRoutine;
 
     // For determining when to spawn new enemies
     private int enemiesRemaining;
@@ -28,6 +36,9 @@ public class EnemySpawner : MonoBehaviour
     public TextMeshProUGUI enemyHealthText;
     public TextMeshProUGUI enemyNumberText;
     public TextMeshProUGUI areaText;
+    public TextMeshProUGUI goldFeedbackText;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI enemyGroupsText;
 
     #endregion
 
@@ -36,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
 
     // Starting the program spawns the first enemy.
     void Start()
-    {
+    { 
         SpawnEnemy();
         UpdateAreaText();
     }
@@ -52,6 +63,7 @@ public class EnemySpawner : MonoBehaviour
     {
         UpdateEnemyHealthText();
         UpdateEnemyNumberText();
+        UpdateEnemyGroups();
     }
 
     #endregion
@@ -66,13 +78,15 @@ public class EnemySpawner : MonoBehaviour
 
         currentEnemy = area.getRandomEnemy();
 
+        GetMultipliers();
+
         // Health calculation
-        maxHealth = currentEnemy.baseHealth * area.healthMultiplier;
+        maxHealth = currentEnemy.baseHealth * healthMultiplier;
         currentHealth = maxHealth;
 
-        goldReward = Mathf.RoundToInt(currentEnemy.baseGold * area.goldMultiplier);
+        goldReward = Mathf.RoundToInt(currentEnemy.baseGold * goldMultiplier);
 
-        enemiesRemaining = area.enemyMultiplier;
+        enemiesRemaining = enemyMultiplier;
 
         Debug.Log("Spawning: " + enemiesRemaining + " " + currentEnemy.name);
     }
@@ -100,6 +114,7 @@ public class EnemySpawner : MonoBehaviour
     public void EnemyDie()
     {
         enemiesRemaining--;
+        UpdateEnemyFeedback();
 
         if (enemiesRemaining > 0)
         {
@@ -108,13 +123,6 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log(enemiesRemaining + " " + currentEnemy.name + " reamining!");
             ResourceTracker.Instance.AddGold(goldReward);
         }
-        else if (enemyCounter == 9)
-        {
-            Debug.Log("Spawning boss!");
-
-            var area = areaList.getArea(currentArea);
-            currentBoss = area.getBoss();
-        }
         else
         {
             Debug.Log("Enemy group defeated! You receive " + goldReward + " gold!");
@@ -122,8 +130,76 @@ public class EnemySpawner : MonoBehaviour
 
             enemyCounter += 1;
 
-            SpawnEnemy();
+            // Check to see if a boss battle is happening
+            if (bossBattle == false)
+            {
+                // Check to see if area is cleared, and if so, spawn boss
+                if (enemyCounter != 49)
+                {
+                    SpawnEnemy();
+                }
+                else
+                {
+                    SpawnBoss();
+                }
+            }
+            else if (bossBattle == true)
+            {
+                if (bossTimerRoutine != null)
+                {
+                    StopCoroutine(bossTimerRoutine);
+                }
+
+                timerText.text = "";
+
+                currentArea += 1;
+                enemyCounter = 0;
+                bossBattle = false;
+
+                UpdateAreaText();
+                SpawnEnemy();
+            }
         }
+    }
+
+    #endregion
+
+    // SpawnBoss
+    #region
+
+    // Spawns the boss, called when enemyCounter reaches desired amount
+    public void SpawnBoss()
+    {
+        var area = areaList.getArea(currentArea);
+
+        currentEnemy = area.getBoss();
+
+        bossBattle = true;
+
+        // Health calculation
+        maxHealth = currentEnemy.baseHealth;
+        currentHealth = maxHealth;
+
+        enemiesRemaining = 1;
+
+        Debug.Log("Spawning: " + enemiesRemaining + " " + currentEnemy.name);
+
+        BossTimer();
+    }
+
+    #endregion
+
+    // GetMultipliers
+    #region
+
+    // Gets the multipliers, which are calculated based off the current area
+    public void GetMultipliers() 
+    { 
+        var area = areaList.getArea(currentArea);
+    
+        healthMultiplier = Random.Range(0.9f * currentArea, 1.2f * currentArea);
+        goldMultiplier = Random.Range(0.9f * currentArea, 1.1f * currentArea);
+        enemyMultiplier = Random.Range(1 * currentArea, 3 * currentArea);
     }
 
     #endregion
@@ -145,7 +221,14 @@ public class EnemySpawner : MonoBehaviour
     // Constantly update enemy number amount
     public void UpdateEnemyNumberText()
     {
-        enemyNumberText.text = enemiesRemaining + " " + currentEnemy.name;
+        if (bossBattle == false)
+        {
+            enemyNumberText.text = enemiesRemaining + " " + currentEnemy.name;
+        }
+        else if (bossBattle == true)
+        {
+            enemyNumberText.text = currentEnemy.name;
+        }
     }
 
     #endregion
@@ -158,6 +241,69 @@ public class EnemySpawner : MonoBehaviour
     {
         var area = areaList.getArea(currentArea);
         areaText.text = "Area: " + area.areaName;
+    }
+
+    #endregion
+
+    // UpdateEnemyFeedback
+    #region
+
+    // Updates the bottom text to show the player how much gold they received from the previous kill
+    public void UpdateEnemyFeedback()
+    {
+        goldFeedbackText.text = "Enemy defeated! You gained " + goldReward + " gold!";
+    }
+
+    #endregion
+
+    // BossTimer
+    #region
+
+    // Gives the player 30 seconds to fight the boss
+    public void BossTimer()
+    {
+        if (bossTimerRoutine != null)
+        {
+            StopCoroutine(bossTimerRoutine);
+        }
+
+        bossTimerRoutine = StartCoroutine(BossTimerCoroutine());
+    }
+
+    IEnumerator BossTimerCoroutine()
+    {
+        float timer = 30f;
+
+        while (timer > 0 && bossBattle)
+        {
+            timerText.text = "Boss Time: " + Mathf.CeilToInt(timer);
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        // If boss still alive when time runs out
+        if (bossBattle)
+        {
+            timerText.text = "Boss Escaped!";
+
+            bossBattle = false;
+            enemyCounter = 0;
+
+            Debug.Log("Boss was not defeated in time!");
+
+            SpawnEnemy();
+        }
+    }
+
+    #endregion
+
+    // UpdateEnemyGroups
+    #region
+
+    // Constantly updates the amount of enemy groups needed to finish area
+    public void UpdateEnemyGroups()
+    {
+        enemyGroupsText.text = enemyCounter + " / 50";
     }
 
     #endregion
