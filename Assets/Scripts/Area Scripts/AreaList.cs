@@ -17,19 +17,6 @@ public class AreaList : MonoBehaviour
 
     #endregion
 
-    // Boss Data
-    #region
-
-    // Boss data
-    [System.Serializable]
-    public class bossData
-    {
-        public string name;
-        public float baseHealth;
-        public int baseGold;
-    }
-    #endregion
-
     // Area Data
     #region
 
@@ -38,26 +25,21 @@ public class AreaList : MonoBehaviour
     public class areaData
     {
         public string areaName;
-        public float healthMultiplier;
-        public float goldMultiplier;
-        public int enemyMultiplier;
 
         public List<enemyData> enemies;
-
-        public List<bossData> boss;
 
         // Gets a random enemy from the area
         public enemyData getRandomEnemy()
         {
-            int index = Random.Range(0, enemies.Count);
+            int index = Random.Range(0, enemies.Count-1);
             return enemies[index];
         }
 
-        // Gets the boss when enemyCounter is filled.=
-        public bossData getBoss()
+        // Gets the boss when enemyCounter is filled
+        public enemyData getBoss()
         {
-            int index = 0;
-            return boss[index];
+            int index = 10;
+            return enemies[index];
         }
     }
 
@@ -77,9 +59,6 @@ public class AreaList : MonoBehaviour
             new areaData
             {
                 areaName = "Test",
-                healthMultiplier = Random.Range(0.9f, 1.1f+0.1f),
-                goldMultiplier = Random.Range(0.9f, 1.1f+0.1f),
-                enemyMultiplier = Random.Range(1, 3+1),
 
                 enemies = new List<enemyData>()
                 {
@@ -97,17 +76,189 @@ public class AreaList : MonoBehaviour
                         name = "Tanky Test Enemies",
                         baseHealth = 10,
                         baseGold = 2
-                    }
-                },
+                    },
 
-                boss = new List<bossData>()
-                {
                     // Test boss enemy
-                    new bossData
+                    new enemyData
                     {
                         name = "Test Boss",
                         baseHealth = 20f,
                         baseGold = 50
+                    }
+                }
+            },
+
+            // Area One: Forests of the Grenwald
+            new areaData
+            {
+                areaName= "Forests of the Grenwald",
+
+                enemies = new List<enemyData>()
+                {
+                    new enemyData
+                    {
+                        name = "Dire Rats",
+                        baseHealth = 10f,
+                        baseGold = 2
+                    },
+
+                    new enemyData
+                    {
+                        name = "Giant Bats",
+                        baseHealth = 11f,
+                        baseGold = 2
+                    },
+
+                    new enemyData
+                    {
+                        name = "Giant Centipedes",
+                        baseHealth = 13f,
+                        baseGold = 2
+                    },
+
+                    new enemyData
+                    {
+                        name = "Green Slimes",
+                        baseHealth = 14f,
+                        baseGold = 2
+                    },
+
+                    new enemyData
+                    {
+                        name = "Wolves",
+                        baseHealth = 16f,
+                        baseGold = 2
+                    },
+
+                    new enemyData
+                    {
+                        name = "Mossy Skeletons",
+                        baseHealth = 17f,
+                        baseGold = 2
+                    },
+
+                    new enemyData
+                    {
+                        name = "Goblin Hunters",
+                        baseHealth = 19f,
+                        baseGold = 3
+                    },
+
+                    new enemyData
+                    {
+                        name = "Goblin Warriors",
+                        baseHealth = 21f,
+                        baseGold = 3
+                    },
+
+                    new enemyData
+                    {
+                        name = "Bandits",
+                        baseHealth = 22f,
+                        baseGold = 3
+                    },
+
+                    new enemyData
+                    {
+                        name = "Black Bears",
+                        baseHealth = 24f,
+                        baseGold = 3
+                    },
+
+                    // Boss
+                    new enemyData
+                    {
+                        name = "Goblin War Chief",
+                        baseHealth = 238f,
+                        baseGold = 30
+                    }
+                }
+            },
+
+            
+            // Area Two: The Forgotten Fortress of Festung
+            new areaData
+            {
+                areaName= "The Forgotten Fortress of Festung",
+
+                enemies = new List<enemyData>()
+                {
+                    new enemyData
+                    {
+                        name = "Rat Swarms",
+                        baseHealth = 26f,
+                        baseGold = 3
+                    },
+
+                    new enemyData
+                    {
+                        name = "Skeletal Guard Dogs",
+                        baseHealth = 27f,
+                        baseGold = 3
+                    },
+
+                    new enemyData
+                    {
+                        name = "Shrieker Fungi",
+                        baseHealth = 29f,
+                        baseGold = 4
+                    },
+
+                    new enemyData
+                    {
+                        name = "Giant Spiders",
+                        baseHealth = 31f,
+                        baseGold = 4
+                    },
+
+                    new enemyData
+                    {
+                        name = "Giant Scorpions",
+                        baseHealth = 32f,
+                        baseGold = 4
+                    },
+
+                    new enemyData
+                    {
+                        name = "Zombie Goblins",
+                        baseHealth = 34f,
+                        baseGold = 4
+                    },
+
+                    new enemyData
+                    {
+                        name = "Skeleton Guards",
+                        baseHealth = 36f,
+                        baseGold = 4
+                    },
+
+                    new enemyData
+                    {
+                        name = "Zombie Bandits",
+                        baseHealth = 38f,
+                        baseGold = 4
+                    },
+
+                    new enemyData
+                    {
+                        name = "Ghouls",
+                        baseHealth = 40f,
+                        baseGold = 4
+                    },
+
+                    new enemyData
+                    {
+                        name = "Spectres",
+                        baseHealth = 42f,
+                        baseGold = 5
+                    },
+
+                    // Boss
+                    new enemyData
+                    {
+                        name = "Ancient Wraith",
+                        baseHealth = 420f,
+                        baseGold = 46
                     }
                 }
             }
