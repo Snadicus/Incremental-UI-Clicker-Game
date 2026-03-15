@@ -22,7 +22,7 @@ public class ButtonUI : MonoBehaviour
     #region
     void Start()
     {
-        buildingsUpgrade = GameObject.Find("Buildings").GetComponent<BuildingsList>();
+        buildingsUpgrade = GameObject.Find("BuildingManager").GetComponent<BuildingsList>();
         teammateManager = GameObject.Find("TeamManager").GetComponent<TeammateManager>();
         int index = 0;
         // Establish type of upgrade

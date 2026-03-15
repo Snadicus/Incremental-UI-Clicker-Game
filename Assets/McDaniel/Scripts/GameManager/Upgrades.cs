@@ -59,10 +59,6 @@ public class Upgrades : MonoBehaviour
         {
             currentBuilding.level = 1;
             StartCoroutine(currentBuilding.GainIncome());
-            if (currentBuilding.type == ResourceTracker.ResourceType.gems)
-            {
-                currentBuilding.type = ResourceTracker.ResourceType.gold;
-            }
             return;
         }
         currentBuilding.level++;

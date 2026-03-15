@@ -115,7 +115,7 @@ public class ButtonCanClick : MonoBehaviour
                 resourceTraker.SpendGold(cost);
                 cost += Convert.ToInt32(cost * 0.5f);
                 costText.text = "Cost: " + cost;
-                return
+                return;
             case Upgrades.upgradeTypes.Building:
                 cost = building.cost;
                 building.IncreaseCost();

@@ -26,9 +26,10 @@ public class BuildingsList : MonoBehaviour
         {
             while (level >= 1)
             {
-                if (type == ResourceTracker.ResourceType.gems)
+                if (type == ResourceTracker.ResourceType.gold)
                 {
                     resourceTracker.AddGold(income);
+                    yield return new WaitForSeconds(speed);
                 }
                 else if (type == ResourceTracker.ResourceType.gems)
                 {
@@ -62,7 +63,8 @@ public class BuildingsList : MonoBehaviour
                 level = 0,
                 cost = 100,
                 income = 50,
-                speed = 8
+                speed = 8,
+                resourceTracker = resourceTracker
             },
 
             new BuildingData
@@ -73,7 +75,8 @@ public class BuildingsList : MonoBehaviour
                 level = 0,
                 cost = 1000,
                 income = 1,
-                speed = 20
+                speed = 20,
+                resourceTracker = resourceTracker
             }
         };
     }
