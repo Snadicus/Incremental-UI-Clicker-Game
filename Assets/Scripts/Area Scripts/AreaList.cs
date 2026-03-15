@@ -17,6 +17,19 @@ public class AreaList : MonoBehaviour
 
     #endregion
 
+    // Boss Data
+    #region
+
+    // Boss data
+    [System.Serializable]
+    public class bossData
+    {
+        public string name;
+        public float baseHealth;
+        public int baseGold;
+    }
+    #endregion
+
     // Area Data
     #region
 
@@ -31,11 +44,20 @@ public class AreaList : MonoBehaviour
 
         public List<enemyData> enemies;
 
+        public List<bossData> boss;
+
         // Gets a random enemy from the area
         public enemyData getRandomEnemy()
         {
             int index = Random.Range(0, enemies.Count);
             return enemies[index];
+        }
+
+        // Gets the boss when enemyCounter is filled.=
+        public bossData getBoss()
+        {
+            int index = 0;
+            return boss[index];
         }
     }
 
@@ -55,9 +77,9 @@ public class AreaList : MonoBehaviour
             new areaData
             {
                 areaName = "Test",
-                healthMultiplier = 1f,
-                goldMultiplier = 1f,
-                enemyMultiplier = 2,
+                healthMultiplier = Random.Range(0.9f, 1.1f+0.1f),
+                goldMultiplier = Random.Range(0.9f, 1.1f+0.1f),
+                enemyMultiplier = Random.Range(1, 3+1),
 
                 enemies = new List<enemyData>()
                 {
@@ -76,12 +98,24 @@ public class AreaList : MonoBehaviour
                         baseHealth = 10,
                         baseGold = 2
                     }
+                },
+
+                boss = new List<bossData>()
+                {
+                    // Test boss enemy
+                    new bossData
+                    {
+                        name = "Test Boss",
+                        baseHealth = 20f,
+                        baseGold = 50
+                    }
                 }
             }
         };
     }
 
     #endregion
+
      // Give away area data
     #region
 

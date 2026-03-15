@@ -958,7 +958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackButton
   enemySpawner: {fileID: 269297731}
-  player: {fileID: 0}
+  player: {fileID: 1564831928}
 --- !u!1 &612151996
 GameObject:
   m_ObjectHideFlags: 0
