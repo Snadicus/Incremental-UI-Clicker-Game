@@ -1,9 +1,13 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingsList : MonoBehaviour
 {
+    public ResourceTracker resourceTracker;
+
+
     // Building Data
     #region
     [System.Serializable]
@@ -11,8 +15,18 @@ public class BuildingsList : MonoBehaviour
     {
         public string name;
         public int level;
-        public float income;
+        public int income;
         public float speed;
+        public ResourceTracker resourceTracker;
+
+        public IEnumerator GainIncome()
+        {
+            while (level >= 1)
+            {
+                resourceTracker.AddGold(income);
+                yield return new WaitForSeconds(speed);
+            }
+        }
     }
     #endregion
 
@@ -35,17 +49,19 @@ public class BuildingsList : MonoBehaviour
     #endregion
 
     // Give related building for upgrades
+    #region
     public BuildingData? GetBuildingData(string name)
     {
         int index = 0;
         foreach (BuildingData building in buildings)
         {
-            if (building.name = name)
+            if (building.name == name)
             {
                 return buildings[index];
             }
             index++;
         }
-        return null
+        return null;
     }
+    #endregion
 }
