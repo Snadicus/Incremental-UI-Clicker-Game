@@ -216,16 +216,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2049626814}
-        m_TargetAssemblyTypeName: CreateTeammates, Assembly-CSharp
-        m_MethodName: ArcherLevel
-        m_Mode: 1
+      - m_Target: {fileID: 2049626816}
+        m_TargetAssemblyTypeName: UpgradeTeammate, Assembly-CSharp
+        m_MethodName: Upgrading
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Archer
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &63928478
@@ -1412,16 +1412,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2049626814}
-        m_TargetAssemblyTypeName: CreateTeammates, Assembly-CSharp
-        m_MethodName: WizardLevel
-        m_Mode: 1
+      - m_Target: {fileID: 2049626816}
+        m_TargetAssemblyTypeName: UpgradeTeammate, Assembly-CSharp
+        m_MethodName: Upgrading
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Wizard
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &766936866
@@ -2525,21 +2525,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1526548456}
-        m_TargetAssemblyTypeName: ButtonCanClick, Assembly-CSharp
-        m_MethodName: IncreaseCost
-        m_Mode: 1
+      - m_Target: {fileID: 1564831927}
+        m_TargetAssemblyTypeName: PlayerUpgrades, Assembly-CSharp
+        m_MethodName: Upgrade
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Strength
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1564831927}
-        m_TargetAssemblyTypeName: PlayerUpgrades, Assembly-CSharp
-        m_MethodName: StrengthUpgrade
+      - m_Target: {fileID: 1526548456}
+        m_TargetAssemblyTypeName: ButtonCanClick, Assembly-CSharp
+        m_MethodName: IncreaseCost
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2877,8 +2877,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2049626812}
-  - component: {fileID: 2049626813}
-  - component: {fileID: 2049626814}
+  - component: {fileID: 2049626815}
+  - component: {fileID: 2049626816}
   m_Layer: 0
   m_Name: TeamManager
   m_TagString: Untagged
@@ -2901,7 +2901,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1659329045}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2049626813
+--- !u!114 &2049626815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2910,23 +2910,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2049626811}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b3cf1dc9ea7152459c322fae49f406a, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c52bbc03fb6e6b46bd445c32cb852e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  teammates: []
---- !u!114 &2049626814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2049626811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3790c6f16ab6a074aafd921adad23df2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CreateTeammates
+  m_EditorClassIdentifier: Assembly-CSharp::TeammateManager
   enemySpawner: {fileID: 269297731}
+  teammates: []
+--- !u!114 &2049626816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049626811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce85d9b34afa3c44fa39a93eeaeedb2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeTeammate
+  teammateManager: {fileID: 2049626815}
 --- !u!1 &2092484786
 GameObject:
   m_ObjectHideFlags: 0
