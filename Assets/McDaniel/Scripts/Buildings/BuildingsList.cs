@@ -7,14 +7,16 @@ public class BuildingsList : MonoBehaviour
 {
     public ResourceTracker resourceTracker;
 
-
     // Building Data
     #region
     [System.Serializable]
     public class BuildingData
     {
         public string name;
+        public ResourceTracker.ResourceType type;
+        public Permanent permanent;
         public int level;
+        public int cost;
         public int income;
         public float speed;
         public ResourceTracker resourceTracker;
@@ -23,12 +25,21 @@ public class BuildingsList : MonoBehaviour
         {
             while (level >= 1)
             {
-                resourceTracker.AddGold(income);
-                yield return new WaitForSeconds(speed);
+                if (type == ResourceTracker.ResourceType.gems)
+                {
+                    resourceTracker.AddGold(income);
+                }
+                else if (type == ResourceTracker.ResourceType.gems)
+                {
+                    resourceTracker.AddGems(income);
+                    yield return new WaitForSeconds(speed);
+                }
             }
         }
     }
     #endregion
+
+
 
     public List<BuildingData> buildings;
     // List of buildings
@@ -40,9 +51,23 @@ public class BuildingsList : MonoBehaviour
             new BuildingData
             {
                 name = "Bar",
+                type = ResourceTracker.ResourceType.gold,
+                permanent = Permanent.temporary,
                 level = 0,
+                cost = 100,
                 income = 50,
                 speed = 8
+            },
+
+            new BuildingData
+            {
+                name = "GemMine",
+                type = ResourceTracker.ResourceType.gems,
+                permanent = Permanent.permanent,
+                level = 0,
+                cost = 1000,
+                income = 1,
+                speed = 20
             }
         };
     }
@@ -64,4 +89,11 @@ public class BuildingsList : MonoBehaviour
         return null;
     }
     #endregion
+    
+    // Enum for whether building is permanent or not
+    public enum Permanent
+    {
+        temporary,
+        permanent
+    }
 }

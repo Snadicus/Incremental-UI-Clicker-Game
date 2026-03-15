@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     // Variables
     // Player Stats
     public int[] stats = {1,1,1,1}; // Strength(attack damage), Agility(cooldown for special abilities), intelligece(spell damage), Wisdom(spell cooldown)
+    public int[] statsCost = { 2, 2, 2, 2 };
 
     public int? GetStat(string type)
     {

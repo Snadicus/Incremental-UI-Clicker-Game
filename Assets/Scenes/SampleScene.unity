@@ -418,7 +418,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
   resourceTraker: {fileID: 1299122399}
   costText: {fileID: 1968258305}
-  buttonUI: {fileID: 63928481}
   goldNeeded: 5
 --- !u!114 &63928481
 MonoBehaviour:
@@ -1843,7 +1842,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
   resourceTraker: {fileID: 1299122399}
   costText: {fileID: 203845897}
-  buttonUI: {fileID: 766936869}
   goldNeeded: 10
 --- !u!114 &766936869
 MonoBehaviour:
@@ -3248,7 +3246,6 @@ GameObject:
   - component: {fileID: 1526548454}
   - component: {fileID: 1526548453}
   - component: {fileID: 1526548456}
-  - component: {fileID: 1526548457}
   m_Layer: 5
   m_Name: UpgradeStrength
   m_TagString: Untagged
@@ -3397,21 +3394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
   resourceTraker: {fileID: 1299122399}
   costText: {fileID: 713577099}
-  buttonUI: {fileID: 1526548457}
   goldNeeded: 2
---- !u!114 &1526548457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1526548451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7862d5531d2649d4f85b6af7a6fb7146, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonUI
-  attackSlider: {fileID: 0}
 --- !u!1 &1564831926
 GameObject:
   m_ObjectHideFlags: 0

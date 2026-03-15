@@ -13,7 +13,7 @@ public class PlayerUpgrades : MonoBehaviour
     }
 
     // Upgrading different stats
-    public void Upgrade(string type)
+    public void PlayerUpgrade(string type)
     {
         int? foundStat = player.GetStat(type);
         int stat;

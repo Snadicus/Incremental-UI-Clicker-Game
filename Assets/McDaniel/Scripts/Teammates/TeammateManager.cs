@@ -26,6 +26,7 @@ public class TeammateManager : MonoBehaviour
         // Time between next attack. Lower is faster
         public float attackSpeed;
         public EnemySpawner enemySpawner;
+        public int cost;
 
         // Attacking first enemy in enemy list, repeating for x amount of seconds which is based on attack speed
         public IEnumerator Attack()
@@ -55,7 +56,8 @@ public class TeammateManager : MonoBehaviour
                 equipment = 0,
                 attackPower = 1,
                 attackSpeed = 2,
-                enemySpawner = enemySpawner
+                enemySpawner = enemySpawner,
+                cost = 5
             },
             new Teammates
             {
@@ -64,13 +66,14 @@ public class TeammateManager : MonoBehaviour
                 equipment = 0,
                 attackPower = 5,
                 attackSpeed = 5,
-                enemySpawner = enemySpawner
+                enemySpawner = enemySpawner,
+                cost = 10
             }
         };
     }
     #endregion
 
-    // Get teammate index based on name
+    // Get teammate based on name
     #region
     public Teammates? GetTeammate(string name)
     {

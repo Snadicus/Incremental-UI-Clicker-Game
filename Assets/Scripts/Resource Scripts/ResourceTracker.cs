@@ -36,6 +36,17 @@ public class ResourceTracker : MonoBehaviour
 
     #endregion
 
+    // Resource type enum for buying things
+    #region
+    public enum ResourceType
+    {
+        gold, 
+        mana,
+        gems,
+        divineFavor
+    }
+    #endregion
+
     // Update
     #region
 
@@ -61,7 +72,6 @@ public class ResourceTracker : MonoBehaviour
 
     // SpendGold
     #region
-
     // For removing Gold from other scripts
     public void SpendGold(int amount)
     {
@@ -70,6 +80,19 @@ public class ResourceTracker : MonoBehaviour
     }
 
     #endregion
+
+
+    // Adding Gems from other scripts
+    public void AddGems(int amount)
+    {
+        gem += amount;
+    }
+
+    // Spending gems
+    public void SpendGems(int amount)
+    {
+        gem -= amount; 
+    }
 
     // UpdateGoldText
     #region

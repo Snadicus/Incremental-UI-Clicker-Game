@@ -17,7 +17,9 @@ public class ButtonUI : MonoBehaviour
     // Variables
     string type; // Log type of upgrade to change what will happen
     float time; // How fast attack moves
-    
+
+    // Getting index of the upgrade type
+    #region
     void Start()
     {
         buildingsUpgrade = GameObject.Find("Buildings").GetComponent<BuildingsList>();
@@ -52,7 +54,9 @@ public class ButtonUI : MonoBehaviour
         }
         Debug.Log("Don't Got It");
     }
+    #endregion
 
+    // Raises attack bar/income bar to show players how long until next attck/income
     public IEnumerator RaiseAttackBar()
     {
         if (type == "Teammates")

@@ -1,23 +1,80 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class ButtonCanClick : MonoBehaviour
 {
     // Other object references
     [SerializeField] ResourceTracker resourceTraker;
     [SerializeField] TextMeshProUGUI costText;
+    [SerializeField] ButtonUI buttonUI;
+    [SerializeField] Upgrades upgrades;
+    [SerializeField] Player player;
 
     // Mutable variables
     public int goldNeeded;
+    int playerIndex;
+
+    // Upgrade type references
+    TeammateManager.Teammates teammate;
+    BuildingsList.BuildingData building;
+
+    // Variables for script to know what object to look at and change
+    Upgrades.upgradeTypes upgradeType;
+    object upgradeObject;
+
+    // States
+    public enum ButtonStates
+    {
+        Locked,
+        Available,
+        Purchased
+    }
+
+    void Start()
+    {
+        upgradeType = upgrades.GetUpgradeType(gameObject.name);
+        upgradeObject = upgrades.GetUpgradeObject(gameObject.name);
+        if (upgradeObject is TeammateManager.Teammates teammate)
+        {
+            this.teammate = teammate;
+        }
+        else if (upgradeObject is BuildingsList.BuildingData building)
+        {
+            this.building = building;
+        }
+    }
+
     // If the button can't click, then it should be darker and button disabled. 
     // If button can be clicked, it should be brighter and button enabled.
     // If purchased, highlight, buy the upgrade, increase cost of upgrade, then check if it should be enabled or disabled.
+    #region
     void Update()
     {
         /* When amount of gold is greater than gold needed, enable button
          * letting player upgrade. Else disable button.
          */
+        if (upgradeType == Upgrades.upgradeTypes.Building || upgradeType == Upgrades.upgradeTypes.Teammate)
+        {
+            if(teammate != null)
+            {
+               if (resourceTraker.gold >= teammate.cost)
+                {
+                    gameObject.GetComponent<Button>().enabled = true;
+                }
+            }
+            else if(building != null)
+            {
+                if (resourceTraker.gold >= building.cost)
+                {
+                    gameObject.GetComponent<Button>().enabled = true;
+                }
+            }
+        }
+        else if (upgradeType == Upgrades.upgradeTypes.Player)
+        {
+        }
         if (resourceTraker.gold >= goldNeeded)
         {
             gameObject.GetComponent<Button>().enabled = true;
@@ -27,12 +84,14 @@ public class ButtonCanClick : MonoBehaviour
             gameObject.GetComponent<Button>().enabled = false;
         }
     }
+    #endregion
 
     // Increaase the cost of upgrades after getting upgrade
     public void IncreaseCost()
     {
         resourceTraker.SpendGold(goldNeeded);
-        goldNeeded *= 2;
+        goldNeeded += Convert.ToInt32(goldNeeded * 0.5f);
         costText.text = "Cost: " + goldNeeded;
     }
+
 }
