@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,11 @@ public class BuildingsList : MonoBehaviour
                     yield return new WaitForSeconds(speed);
                 }
             }
+        }
+
+        public void IncreaseCost()
+        {
+            cost += Convert.ToInt32(cost * 0.5f);
         }
     }
     #endregion

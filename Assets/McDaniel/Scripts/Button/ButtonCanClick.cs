@@ -44,6 +44,10 @@ public class ButtonCanClick : MonoBehaviour
         {
             this.building = building;
         }
+        else
+        {
+            playerIndex = Convert.ToInt32(upgradeObject);
+        }
     }
 
     // If the button can't click, then it should be darker and button disabled. 
@@ -62,6 +66,7 @@ public class ButtonCanClick : MonoBehaviour
                if (resourceTraker.gold >= teammate.cost)
                 {
                     gameObject.GetComponent<Button>().enabled = true;
+                    return;
                 }
             }
             else if(building != null)
@@ -69,19 +74,17 @@ public class ButtonCanClick : MonoBehaviour
                 if (resourceTraker.gold >= building.cost)
                 {
                     gameObject.GetComponent<Button>().enabled = true;
+                    return;
                 }
             }
         }
         else if (upgradeType == Upgrades.upgradeTypes.Player)
         {
-        }
-        if (resourceTraker.gold >= goldNeeded)
-        {
-            gameObject.GetComponent<Button>().enabled = true;
-        }
-        else
-        {
-            gameObject.GetComponent<Button>().enabled = false;
+            if (resourceTraker.gold >= player.statsCost[playerIndex])
+            {
+                gameObject.GetComponent<Button>().enabled = true;
+                return;
+            }
         }
     }
     #endregion
@@ -89,9 +92,26 @@ public class ButtonCanClick : MonoBehaviour
     // Increaase the cost of upgrades after getting upgrade
     public void IncreaseCost()
     {
-        resourceTraker.SpendGold(goldNeeded);
-        goldNeeded += Convert.ToInt32(goldNeeded * 0.5f);
-        costText.text = "Cost: " + goldNeeded;
+        int cost;
+        switch (upgradeType)
+        {
+            case Upgrades.upgradeTypes.Player:
+                cost = player.statsCost[playerIndex];
+                player.IncreaseCost(playerIndex);
+                return;
+            case Upgrades.upgradeTypes.Building:
+                cost = building.cost;
+                return;
+            case Upgrades.upgradeTypes.Teammate:
+                cost = teammate.cost;
+                return;
+            default:
+                cost = 0;
+                return;
+        }
+        resourceTraker.SpendGold(cost);
+        cost += Convert.ToInt32(cost * 0.5f);
+        costText.text = "Cost: " + cost;
     }
 
 }

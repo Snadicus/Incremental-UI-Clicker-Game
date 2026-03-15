@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -23,5 +24,10 @@ public class Player : MonoBehaviour
             default:
                 return 0;
         }
+    }
+
+    public void IncreaseCost(int stat)
+    {
+        statsCost[stat] += Convert.ToInt32(statsCost[stat] * 0.5f);
     }
 }
