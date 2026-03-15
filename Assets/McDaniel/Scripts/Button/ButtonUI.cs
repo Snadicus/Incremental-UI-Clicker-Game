@@ -52,7 +52,6 @@ public class ButtonUI : MonoBehaviour
             }
             index++;
         }
-        Debug.Log("Don't Got It");
     }
     #endregion
 

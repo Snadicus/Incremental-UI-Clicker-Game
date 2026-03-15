@@ -418,6 +418,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
   resourceTraker: {fileID: 1299122399}
   costText: {fileID: 1968258305}
+  buttonUI: {fileID: 0}
+  upgrades: {fileID: 0}
+  player: {fileID: 0}
   goldNeeded: 5
 --- !u!114 &63928481
 MonoBehaviour:
@@ -620,6 +623,53 @@ MonoBehaviour:
   goldFeedbackText: {fileID: 980262280}
   timerText: {fileID: 749629051}
   enemyGroupsText: {fileID: 60308074}
+--- !u!1 &358333866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 358333867}
+  - component: {fileID: 358333868}
+  m_Layer: 0
+  m_Name: Upgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &358333867
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358333866}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1659329045}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &358333868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358333866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1df3407b0339c647896f850ad40ef29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Upgrades
+  teammateManager: {fileID: 2049626815}
+  buildingsList: {fileID: 1775089858}
+  player: {fileID: 1564831928}
 --- !u!1 &396787222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1842,6 +1892,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
   resourceTraker: {fileID: 1299122399}
   costText: {fileID: 203845897}
+  buttonUI: {fileID: 0}
+  upgrades: {fileID: 0}
+  player: {fileID: 0}
   goldNeeded: 10
 --- !u!114 &766936869
 MonoBehaviour:
@@ -3394,6 +3447,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
   resourceTraker: {fileID: 1299122399}
   costText: {fileID: 713577099}
+  buttonUI: {fileID: 0}
+  upgrades: {fileID: 0}
+  player: {fileID: 0}
   goldNeeded: 2
 --- !u!1 &1564831926
 GameObject:
@@ -3438,6 +3494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   stats: 01000000010000000100000001000000
+  statsCost: 02000000020000000200000002000000
 --- !u!4 &1564831929
 Transform:
   m_ObjectHideFlags: 0
@@ -3524,6 +3581,7 @@ Transform:
   - {fileID: 1299122398}
   - {fileID: 2049626812}
   - {fileID: 1775089856}
+  - {fileID: 358333867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1664447846

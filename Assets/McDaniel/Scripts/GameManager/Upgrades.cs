@@ -6,8 +6,6 @@ public class Upgrades : MonoBehaviour
     [SerializeField] TeammateManager teammateManager;
     [SerializeField] BuildingsList buildingsList;
     [SerializeField] Player player;
-
-    public float cost;
     
     public enum upgradeTypes
     {
@@ -16,7 +14,7 @@ public class Upgrades : MonoBehaviour
         Teammate
     }
 
-    void Upgrade(string type)
+    public void Upgrade(string type)
     {
         foreach (TeammateManager.Teammates teammate in teammateManager.teammates)
         {
@@ -39,7 +37,7 @@ public class Upgrades : MonoBehaviour
     // Different Upgrade logic for the different types of upgrades
     #region
     // Player upgrade
-    public void PlayerUpgrade(string type)
+    void PlayerUpgrade(string type)
     {
         // Get the stat that correlates to the name
         int? foundStat = player.GetStat(type);
@@ -52,7 +50,7 @@ public class Upgrades : MonoBehaviour
     }
 
     // Building upgrade
-    public void BuildingUpgrade(string type)
+    void BuildingUpgrade(string type)
     {
         // Get the correct building being worked with
         BuildingsList.BuildingData? currentBuilding = buildingsList.GetBuildingData(type);
@@ -71,7 +69,7 @@ public class Upgrades : MonoBehaviour
         currentBuilding.income += currentBuilding.income + (currentBuilding.level / currentBuilding.income);
     }
 
-    public void TeammateUpgrade(string type)
+    void TeammateUpgrade(string type)
     {
         TeammateManager.Teammates? currentTeammate = teammateManager.GetTeammate(type);
         if (currentTeammate == null)

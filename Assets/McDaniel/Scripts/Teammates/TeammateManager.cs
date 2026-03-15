@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -37,6 +38,11 @@ public class TeammateManager : MonoBehaviour
                 enemySpawner.EnemyAttacked(attackPower);
                 yield return new WaitForSeconds(attackSpeed);
             }
+        }
+
+        public void IncreaseCost()
+        {
+            cost += Convert.ToInt32(cost * 0.5f);
         }
     }
     #endregion
@@ -86,7 +92,6 @@ public class TeammateManager : MonoBehaviour
             }
             index++;
         }
-        Debug.Log($"{name} does not exist");
         return null;
     }
     #endregion

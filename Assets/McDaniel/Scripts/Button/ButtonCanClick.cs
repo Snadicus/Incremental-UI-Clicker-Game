@@ -8,12 +8,10 @@ public class ButtonCanClick : MonoBehaviour
     // Other object references
     [SerializeField] ResourceTracker resourceTraker;
     [SerializeField] TextMeshProUGUI costText;
-    [SerializeField] ButtonUI buttonUI;
     [SerializeField] Upgrades upgrades;
     [SerializeField] Player player;
 
     // Mutable variables
-    public int goldNeeded;
     int playerIndex;
 
     // Upgrade type references
@@ -47,6 +45,7 @@ public class ButtonCanClick : MonoBehaviour
         else
         {
             playerIndex = Convert.ToInt32(upgradeObject);
+            Debug.Log(playerIndex);
         }
     }
 
@@ -68,12 +67,22 @@ public class ButtonCanClick : MonoBehaviour
                     gameObject.GetComponent<Button>().enabled = true;
                     return;
                 }
+               else
+                {
+                    gameObject.GetComponent<Button>().enabled = false;
+                    return;
+                }
             }
             else if(building != null)
             {
                 if (resourceTraker.gold >= building.cost)
                 {
                     gameObject.GetComponent<Button>().enabled = true;
+                    return;
+                }
+                else
+                {
+                    gameObject.GetComponent<Button>().enabled = false;
                     return;
                 }
             }
@@ -83,6 +92,11 @@ public class ButtonCanClick : MonoBehaviour
             if (resourceTraker.gold >= player.statsCost[playerIndex])
             {
                 gameObject.GetComponent<Button>().enabled = true;
+                return;
+            }
+            else
+            {
+                gameObject.GetComponent<Button>().enabled = false;
                 return;
             }
         }
@@ -98,20 +112,28 @@ public class ButtonCanClick : MonoBehaviour
             case Upgrades.upgradeTypes.Player:
                 cost = player.statsCost[playerIndex];
                 player.IncreaseCost(playerIndex);
-                return;
+                resourceTraker.SpendGold(cost);
+                cost += Convert.ToInt32(cost * 0.5f);
+                costText.text = "Cost: " + cost;
+                return
             case Upgrades.upgradeTypes.Building:
                 cost = building.cost;
+                building.IncreaseCost();
+                resourceTraker.SpendGold(cost);
+                cost += Convert.ToInt32(cost * 0.5f);
+                costText.text = "Cost: " + cost;
                 return;
             case Upgrades.upgradeTypes.Teammate:
                 cost = teammate.cost;
+                teammate.IncreaseCost();
+                resourceTraker.SpendGold(cost);
+                cost += Convert.ToInt32(cost * 0.5f);
+                costText.text = "Cost: " + cost;
                 return;
             default:
                 cost = 0;
                 return;
         }
-        resourceTraker.SpendGold(cost);
-        cost += Convert.ToInt32(cost * 0.5f);
-        costText.text = "Cost: " + cost;
     }
 
 }
