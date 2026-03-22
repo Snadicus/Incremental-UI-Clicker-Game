@@ -1,5 +1,6 @@
-using UnityEngine;
+using Mono.Cecil;
 using TMPro;
+using UnityEngine;
 
 public class ResourceTracker : MonoBehaviour
 {
@@ -23,6 +24,17 @@ public class ResourceTracker : MonoBehaviour
     public int divineFavor;
     public int prestigeLevel;
 
+    // Enums
+
+    public enum resources
+    {
+        gold,
+        mana,
+        gem,
+        divineFavor,
+        prestigeLevel
+    };
+
     #endregion
 
     // Awake Instance
@@ -36,17 +48,6 @@ public class ResourceTracker : MonoBehaviour
 
     #endregion
 
-    // Resource type enum for buying things
-    #region
-    public enum ResourceType
-    {
-        gold, 
-        mana,
-        gems,
-        divineFavor
-    }
-    #endregion
-
     // Update
     #region
 
@@ -58,41 +59,70 @@ public class ResourceTracker : MonoBehaviour
 
     #endregion
 
-    // AddGold
+    // AddResource
     #region
 
-    // For adding Gold from other scripts
-    public void AddGold(int amount)
+    // For adding Resource from other scripts
+    public void AddResource(resources resource, int amount)
     {
-        gold += amount;
-        UpdateGoldText();
+        switch (resource)
+        {
+            case resources.gold:
+                gold += amount;
+                goldText.text = "Gold: " + gold.ToString();
+                return;
+            case resources.mana:
+                mana += amount;
+                manaText.text = "Mana: " + mana.ToString();
+                return;
+            case resources.gem:
+                gemText.text = "Gem: " + gem.ToString();
+                gem += amount;
+                return;
+            case resources.divineFavor:
+                divineText.text = "Divine Favor: " + divineFavor.ToString();
+                divineFavor += amount;
+                return;
+            case resources.prestigeLevel:
+                prestigeText.text = "Prestige Level: " + prestigeLevel.ToString();
+                prestigeLevel += amount;
+                return;
+        }
     }
 
     #endregion
 
-    // SpendGold
+    // SpendResource
     #region
-    // For removing Gold from other scripts
-    public void SpendGold(int amount)
+    // For removing Resources from other scripts
+    public void SpendResource(resources resource, int amount)
     {
-        gold -= amount;
-        UpdateGoldText();
+        switch (resource)
+        {
+            case resources.gold:
+                gold -= amount;
+                goldText.text = "Gold: " + gold.ToString();
+                return;
+            case resources.mana:
+                mana -= amount;
+                manaText.text = "Mana: " + mana.ToString();
+                return;
+            case resources.gem:
+                gem -= amount;
+                gemText.text = "Gem: " + gem.ToString();
+                return;
+            case resources.divineFavor:
+                divineFavor -= amount;
+                divineText.text = "Divine Favor: " + divineFavor.ToString();
+                return;
+            case resources.prestigeLevel:
+                prestigeLevel -= amount;
+                prestigeText.text = "Prestige Level: " + prestigeLevel.ToString();
+                return;
+        }
     }
 
     #endregion
-
-
-    // Adding Gems from other scripts
-    public void AddGems(int amount)
-    {
-        gem += amount;
-    }
-
-    // Spending gems
-    public void SpendGems(int amount)
-    {
-        gem -= amount; 
-    }
 
     // UpdateGoldText
     #region
@@ -104,4 +134,5 @@ public class ResourceTracker : MonoBehaviour
     }
 
     #endregion
+
 }

@@ -32,6 +32,7 @@ public class ButtonCanClick : MonoBehaviour
 
     void Start()
     {
+        // Get the upgrade type and game object
         upgradeType = upgrades.GetUpgradeType(gameObject.name);
         upgradeObject = upgrades.GetUpgradeObject(gameObject.name);
         if (upgradeObject is TeammateManager.Teammates teammate)
@@ -107,26 +108,36 @@ public class ButtonCanClick : MonoBehaviour
     public void IncreaseCost()
     {
         int cost;
+        ResourceTracker.resources resourceType;
         switch (upgradeType)
         {
             case Upgrades.upgradeTypes.Player:
                 cost = player.statsCost[playerIndex];
+                resourceType = ResourceTracker.resources.gold;
+
                 player.IncreaseCost(playerIndex);
-                resourceTraker.SpendGold(cost);
+                resourceTraker.SpendResource(resourceType, cost);
+
                 cost += Convert.ToInt32(cost * 0.5f);
                 costText.text = "Cost: " + cost;
                 return;
             case Upgrades.upgradeTypes.Building:
                 cost = building.cost;
+                resourceType = building.buyType;
+
                 building.IncreaseCost();
-                resourceTraker.SpendGold(cost);
+                resourceTraker.SpendResource(resourceType, cost);
+
                 cost += Convert.ToInt32(cost * 0.5f);
                 costText.text = "Cost: " + cost;
                 return;
             case Upgrades.upgradeTypes.Teammate:
                 cost = teammate.cost;
+                resourceType = teammate.buyType;
+
                 teammate.IncreaseCost();
-                resourceTraker.SpendGold(cost);
+                resourceTraker.SpendResource(resourceType, cost);
+
                 cost += Convert.ToInt32(cost * 0.5f);
                 costText.text = "Cost: " + cost;
                 return;
