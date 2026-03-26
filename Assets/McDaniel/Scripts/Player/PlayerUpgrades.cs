@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerUpgrades : MonoBehaviour
@@ -10,22 +12,15 @@ public class PlayerUpgrades : MonoBehaviour
         player = gameObject.GetComponent<Player>();
     }
 
-
     // Upgrading different stats
-    public void StrengthUpgrade()
+    public void PlayerUpgrade(string type)
     {
-        player.stats[0] += 1;
-    }
-    public void AgilityUpgrade()
-    {
-        player.stats[1] += 1;
-    }
-    public void IntelligenceUpgrade()
-    {
-        player.stats[2] += 1;
-    }
-    public void WisdomUpgrade()
-    {
-        player.stats[3] += 1;
+        int? foundStat = player.GetStat(type);
+        int stat;
+        if (foundStat != null)
+        {
+            stat = foundStat.Value;
+            player.stats[stat] += 1;
+        }
     }
 }
