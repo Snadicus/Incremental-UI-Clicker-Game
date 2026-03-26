@@ -121,12 +121,12 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log(currentEnemy.name + " defeated! You receive " + goldReward + " gold!");
             currentHealth = maxHealth;
             Debug.Log(enemiesRemaining + " " + currentEnemy.name + " reamining!");
-            ResourceTracker.Instance.AddGold(goldReward);
+            ResourceTracker.Instance.AddResource(ResourceTracker.resources.gold, goldReward);
         }
         else
         {
             Debug.Log("Enemy group defeated! You receive " + goldReward + " gold!");
-            ResourceTracker.Instance.AddGold(goldReward);
+            ResourceTracker.Instance.AddResource(ResourceTracker.resources.gold, goldReward);
 
             enemyCounter += 1;
 

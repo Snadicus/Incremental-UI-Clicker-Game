@@ -14,7 +14,8 @@ public class BuildingsList : MonoBehaviour
     public class BuildingData
     {
         public string name;
-        public ResourceTracker.ResourceType type;
+        public ResourceTracker.resources buyType;
+        public ResourceTracker.resources produceType;
         public Permanent permanent;
         public int level;
         public int cost;
@@ -26,16 +27,8 @@ public class BuildingsList : MonoBehaviour
         {
             while (level >= 1)
             {
-                if (type == ResourceTracker.ResourceType.gold)
-                {
-                    resourceTracker.AddGold(income);
-                    yield return new WaitForSeconds(speed);
-                }
-                else if (type == ResourceTracker.ResourceType.gems)
-                {
-                    resourceTracker.AddGems(income);
-                    yield return new WaitForSeconds(speed);
-                }
+                resourceTracker.AddResource(produceType, income);
+                yield return new WaitForSeconds(speed);
             }
         }
 
@@ -58,7 +51,8 @@ public class BuildingsList : MonoBehaviour
             new BuildingData
             {
                 name = "Bar",
-                type = ResourceTracker.ResourceType.gold,
+                buyType = ResourceTracker.resources.gold,
+                produceType = ResourceTracker.resources.gold,
                 permanent = Permanent.temporary,
                 level = 0,
                 cost = 100,
@@ -70,7 +64,8 @@ public class BuildingsList : MonoBehaviour
             new BuildingData
             {
                 name = "GemMine",
-                type = ResourceTracker.ResourceType.gems,
+                buyType = ResourceTracker.resources.gold,
+                produceType = ResourceTracker.resources.gem,
                 permanent = Permanent.permanent,
                 level = 0,
                 cost = 1000,

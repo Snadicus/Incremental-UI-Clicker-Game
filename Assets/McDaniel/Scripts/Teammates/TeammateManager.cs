@@ -27,6 +27,7 @@ public class TeammateManager : MonoBehaviour
         // Time between next attack. Lower is faster
         public float attackSpeed;
         public EnemySpawner enemySpawner;
+        public ResourceTracker.resources buyType;
         public int cost;
 
         // Attacking first enemy in enemy list, repeating for x amount of seconds which is based on attack speed
@@ -63,6 +64,7 @@ public class TeammateManager : MonoBehaviour
                 attackPower = 1,
                 attackSpeed = 2,
                 enemySpawner = enemySpawner,
+                buyType = ResourceTracker.resources.gold,
                 cost = 5
             },
             new Teammates
@@ -73,6 +75,7 @@ public class TeammateManager : MonoBehaviour
                 attackPower = 5,
                 attackSpeed = 5,
                 enemySpawner = enemySpawner,
+                buyType = ResourceTracker.resources.gold,
                 cost = 10
             }
         };
