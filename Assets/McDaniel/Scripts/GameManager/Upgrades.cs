@@ -58,6 +58,10 @@ public class Upgrades : MonoBehaviour
         if (currentBuilding.level <= 0)
         {
             currentBuilding.level = 1;
+            if (currentBuilding.buyType == ResourceTracker.resources.gem)
+            {
+                currentBuilding.buyType = ResourceTracker.resources.gold;
+            }
             StartCoroutine(currentBuilding.GainIncome());
             return;
         }
