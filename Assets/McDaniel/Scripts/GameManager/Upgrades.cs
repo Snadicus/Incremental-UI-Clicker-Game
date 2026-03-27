@@ -66,7 +66,7 @@ public class Upgrades : MonoBehaviour
             return;
         }
         currentBuilding.level++;
-        currentBuilding.income += currentBuilding.income + (currentBuilding.level / currentBuilding.income);
+        currentBuilding.income += (currentBuilding.income/currentBuilding.level);
     }
 
     void TeammateUpgrade(string type)
