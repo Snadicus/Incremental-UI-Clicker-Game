@@ -651,6 +651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   areaList: {fileID: 1343995334}
   resourceTracker: {fileID: 1299122399}
+  bossBattle: 0
   enemyHealthText: {fileID: 892636352}
   enemyNumberText: {fileID: 515925274}
   areaText: {fileID: 396787224}
@@ -3700,6 +3701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   stats: 01000000010000000100000001000000
   statsCost: 02000000020000000200000002000000
+  resourceTracker: {fileID: 1299122399}
 --- !u!4 &1564831929
 Transform:
   m_ObjectHideFlags: 0
