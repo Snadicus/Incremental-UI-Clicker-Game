@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     public ResourceTracker resourceTracker;
 
     private int currentArea = 1; // Current area the player is in
+    private int areaMax = 2; // Max amount of areas currently in the game, helps to loop.
     private int enemyCounter = 0; // Tracks eney groups killed. Helps to spawn boss
 
     // Current enemy data and storage for stats
@@ -24,9 +25,10 @@ public class EnemySpawner : MonoBehaviour
     private float healthMultiplier;
     private float goldMultiplier;
     private int enemyMultiplier;
+    private int loop = 1;
 
     // For determining some logic that should only apply to boss battles
-    private bool bossBattle = false;
+    public bool bossBattle = false;
     private Coroutine bossTimerRoutine;
 
     // For determining when to spawn new enemies
@@ -152,8 +154,16 @@ public class EnemySpawner : MonoBehaviour
 
                 timerText.text = "";
 
-                currentArea += 1;
-                enemyCounter = 0;
+                if (currentArea >= areaMax)
+                {
+                    currentArea = 1;
+                    loop += 1;
+                } else
+                {
+                    currentArea += 1;
+                }
+
+                    enemyCounter = 0;
                 bossBattle = false;
 
                 UpdateAreaText();
@@ -196,10 +206,10 @@ public class EnemySpawner : MonoBehaviour
     public void GetMultipliers() 
     { 
         var area = areaList.getArea(currentArea);
-    
-        healthMultiplier = Random.Range(0.9f * currentArea, 1.2f * currentArea);
-        goldMultiplier = Random.Range(0.9f * currentArea, 1.1f * currentArea);
-        enemyMultiplier = Random.Range(1 * currentArea, 3 * currentArea);
+
+        healthMultiplier = Random.Range((0.9f * currentArea) * loop, (1.2f * currentArea) * loop);
+        goldMultiplier = Random.Range((0.9f * currentArea) * loop, (1.2f * currentArea) * loop);
+        enemyMultiplier = Random.Range((1 * currentArea) * loop, (3 * currentArea) * loop);
     }
 
     #endregion
