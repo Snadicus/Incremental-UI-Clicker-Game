@@ -51,12 +51,12 @@ public class BuildingsList : MonoBehaviour
             new BuildingData
             {
                 name = "Bar",
-                buyType = ResourceTracker.resources.gold,
+                buyType = ResourceTracker.resources.gem,
                 produceType = ResourceTracker.resources.gold,
                 permanent = Permanent.temporary,
                 level = 0,
                 cost = 100,
-                income = 50,
+                income = 15,
                 speed = 8,
                 resourceTracker = resourceTracker
             },

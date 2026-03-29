@@ -1,4 +1,4 @@
-using Mono.Cecil;
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -19,7 +19,7 @@ public class ResourceTracker : MonoBehaviour
 
     // Variables
     public int gold;
-    public int mana;
+    public float mana;
     public int gem;
     public int divineFavor;
     public int prestigeLevel;
@@ -73,7 +73,8 @@ public class ResourceTracker : MonoBehaviour
                 return;
             case resources.mana:
                 mana += amount;
-                manaText.text = "Mana: " + mana.ToString();
+                int manaInt = Convert.ToInt32(mana);
+                manaText.text = "Mana: " + manaInt.ToString();
                 return;
             case resources.gem:
                 gemText.text = "Gem: " + gem.ToString();
@@ -134,5 +135,4 @@ public class ResourceTracker : MonoBehaviour
     }
 
     #endregion
-
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -29,5 +30,11 @@ public class Player : MonoBehaviour
     public void IncreaseCost(int stat)
     {
         statsCost[stat] += Convert.ToInt32(statsCost[stat] * 0.5f);
+    }
+
+    public IEnumerator IncreaseMana()
+    {
+
+        yield return new WaitForSeconds(90);
     }
 }
