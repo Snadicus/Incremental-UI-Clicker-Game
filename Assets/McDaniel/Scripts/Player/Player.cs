@@ -9,6 +9,14 @@ public class Player : MonoBehaviour
     // Player Stats
     public int[] stats = {1,1,1,1}; // Strength(attack damage), Agility(cooldown for special abilities), intelligece(spell damage), Wisdom(spell cooldown)
     public int[] statsCost = { 2, 2, 2, 2 };
+    float maxMana = 20;
+
+    public ResourceTracker resourceTracker;
+
+    private void Start()
+    {
+        StartCoroutine(IncreaseMana());
+    }
 
     public int? GetStat(string type)
     {
@@ -34,7 +42,14 @@ public class Player : MonoBehaviour
 
     public IEnumerator IncreaseMana()
     {
-
-        yield return new WaitForSeconds(90);
+        float stand = 0.0015f;
+        while (1 == 1)
+        {
+            if (resourceTracker.mana <= maxMana)
+            {
+                resourceTracker.mana += stand * (stats[3] * 0.5f);
+            }
+            yield return null;
+        }
     }
 }

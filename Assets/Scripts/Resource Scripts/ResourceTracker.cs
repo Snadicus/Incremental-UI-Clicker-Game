@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -18,11 +19,13 @@ public class ResourceTracker : MonoBehaviour
     public TextMeshProUGUI prestigeText;
 
     // Variables
-    public int gold;
+    public int gold = 300;
     public float mana;
     public int gem;
     public int divineFavor;
     public int prestigeLevel;
+
+    public float maxMana = 100;
 
     // Enums
 
@@ -46,6 +49,14 @@ public class ResourceTracker : MonoBehaviour
         Instance = this;
     }
 
+    #endregion
+
+    // Start Instance
+    #region
+    void Start()
+    {
+        StartCoroutine(IncreaseMana());
+    }
     #endregion
 
     // Update
@@ -132,7 +143,23 @@ public class ResourceTracker : MonoBehaviour
     public void UpdateGoldText()
     {
         goldText.text = "Gold: " + gold.ToString();
+        manaText.text = "Mana: " + mana.ToString("F2");
     }
 
+    #endregion
+
+    // Constatly increase mana
+    #region
+    IEnumerator IncreaseMana()
+    {
+        while (1==1)
+        {
+            if (mana <= maxMana)
+            {
+                mana += Time.deltaTime;
+            }
+            yield return null;
+        }
+    }
     #endregion
 }
