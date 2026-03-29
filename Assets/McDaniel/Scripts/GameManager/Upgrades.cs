@@ -5,13 +5,15 @@ public class Upgrades : MonoBehaviour
 {
     [SerializeField] TeammateManager teammateManager;
     [SerializeField] BuildingsList buildingsList;
+    [SerializeField] PlayerAbilities playerAbilities;
     [SerializeField] Player player;
     
     public enum upgradeTypes
     {
         Player,
         Building,
-        Teammate
+        Teammate,
+        Abilities
     }
 
     public void Upgrade(string type)
@@ -29,6 +31,13 @@ public class Upgrades : MonoBehaviour
             if (building.name == type)
             {
                 BuildingUpgrade(type);
+                return;
+            }
+        }
+        foreach (PlayerAbilities.AbilityData ability in playerAbilities.abilities)
+        {
+            if (ability.name == type)
+            {
                 return;
             }
         }
@@ -88,6 +97,25 @@ public class Upgrades : MonoBehaviour
             currentTeammate.attackPower += 1;
         }
     }
+
+    void AbilityUpgrade(string type)
+    {
+        PlayerAbilities.AbilityData? currentAbility = playerAbilities.GetAbility(type);
+        if (currentAbility == null)
+        {
+            return;
+        }
+        if (currentAbility.level <=0)
+        {
+            currentAbility.level += 1;
+            StartCoroutine(currentAbility.DecreaseCooldown());
+        }
+        else
+        {
+            currentAbility.level += 1;
+            return;
+        }
+    }
     #endregion
 
     // Give information about what is being/can be upgraded
@@ -110,6 +138,13 @@ public class Upgrades : MonoBehaviour
 
             }
         }
+        foreach (PlayerAbilities.AbilityData ability in playerAbilities.abilities)
+        {
+            if (ability.name == type)
+            {
+                return upgradeTypes.Abilities;
+            }
+        }
         return upgradeTypes.Player;
     }
 
@@ -129,6 +164,13 @@ public class Upgrades : MonoBehaviour
             {
                 return building;
 
+            }
+        }
+        foreach (PlayerAbilities.AbilityData ability in playerAbilities.abilities)
+        {
+            if (ability.name == type)
+            {
+                return ability;
             }
         }
         return player.GetStat(type);

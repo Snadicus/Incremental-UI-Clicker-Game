@@ -17,6 +17,7 @@ public class ButtonCanClick : MonoBehaviour
     // Upgrade type references
     TeammateManager.Teammates teammate;
     BuildingsList.BuildingData building;
+    PlayerAbilities.AbilityData ability;
 
     // Variables for script to know what object to look at and change
     Upgrades.upgradeTypes upgradeType;
@@ -42,6 +43,10 @@ public class ButtonCanClick : MonoBehaviour
         else if (upgradeObject is BuildingsList.BuildingData building)
         {
             this.building = building;
+        }
+        else if (upgradeObject is PlayerAbilities.AbilityData ability)
+        {
+            this.ability = ability;
         }
         else
         {
@@ -101,6 +106,17 @@ public class ButtonCanClick : MonoBehaviour
                 return;
             }
         }
+        else if (upgradeType == Upgrades.upgradeTypes.Abilities)
+        {
+            if (resourceTraker.gold >= ability.cost)
+            {
+                gameObject.GetComponent<Button>().enabled = true;
+            }
+            else
+            {
+                gameObject.GetComponent<Button>().enabled = false;
+            }
+        }
     }
     #endregion
 
@@ -136,6 +152,16 @@ public class ButtonCanClick : MonoBehaviour
                 resourceType = teammate.buyType;
 
                 teammate.IncreaseCost();
+                resourceTraker.SpendResource(resourceType, cost);
+
+                cost += Convert.ToInt32(cost * 0.5f);
+                costText.text = "Cost: " + cost;
+                return;
+            case Upgrades.upgradeTypes.Abilities:
+                cost = ability.cost;
+                resourceType = ResourceTracker.resources.gold;
+
+                ability.IncreaseCost();
                 resourceTraker.SpendResource(resourceType, cost);
 
                 cost += Convert.ToInt32(cost * 0.5f);

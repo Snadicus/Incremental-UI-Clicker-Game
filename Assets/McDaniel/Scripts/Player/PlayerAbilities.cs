@@ -1,6 +1,7 @@
-using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerAbilities : MonoBehaviour
 {
@@ -19,20 +20,29 @@ public class PlayerAbilities : MonoBehaviour
 
     // Defining abilities class
     #region
-    public class Ability
+    public class AbilityData
     {
         public string name;
         public int level;
-        public float mult; // Multiply strenght by x amount
+        public float mult; // Multiply strength by x amount
         public float cooldown; // How long each attack takes to use again. Higher equals longer.
         float time; // How long it has been ability since pressed. Does not go above cooldown.
         public AttackTypes attackType;
+        public int cost;
+        public float manaCost;
         public Player player;
         public EnemySpawner enemySpawner;
 
         public void UseAbility()
         {
-            enemySpawner.EnemyAttacked(player.stats[3] * mult * level);
+            if (attackType == AttackTypes.physical)
+            {
+                enemySpawner.EnemyAttacked((player.stats[0] + level) * mult);
+            }
+            else if (attackType == AttackTypes.magical)
+            {
+                enemySpawner.EnemyAttacked((player.stats[2] + level) * mult);
+            }
             time = cooldown;
         }
 
@@ -47,38 +57,61 @@ public class PlayerAbilities : MonoBehaviour
             }
             yield return null;
         }
+        public void IncreaseCost()
+        {
+            cost += Convert.ToInt32(cost * 0.5f);
+        }
     }
     #endregion
 
     // Creating abilities
     #region
-    public List<Ability> abilities;
+    public List<AbilityData> abilities;
 
     void Awake()
     {
-        abilities = new List<Ability>
+        abilities = new List<AbilityData>
         {
-            new Ability
+            new AbilityData
             {
                 name = "Magic Missle",
                 level = 0,
                 mult = 2,
                 cooldown = 5,
                 attackType = AttackTypes.magical,
+                cost = 300,
                 player = player,
                 enemySpawner = enemyspawner,
             },
-            new Ability
+            new AbilityData
             {
                 name = "Quick Strike",
                 level = 0,
                 mult = 1.25f,
                 cooldown = 2,
                 attackType = AttackTypes.physical,
+                cost = 250,
                 player = player,
                 enemySpawner = enemyspawner
             }
         };
+    }
+    #endregion
+
+    // Get which ability is being used
+    #region
+    public AbilityData? GetAbility(string name)
+    {
+        int index = 0;
+        foreach (AbilityData ability in abilities)
+        {
+            if (ability.name == name)
+            {
+                return abilities[index];
+            }
+            index++;
+        }
+        return null;
     }
     #endregion
 }
