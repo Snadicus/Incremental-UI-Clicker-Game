@@ -8,8 +8,8 @@ public class PlayerAbilities : MonoBehaviour
     // Variables
     #region
     // Script references
-    EnemySpawner enemyspawner;
-    Player player;
+    public EnemySpawner enemyspawner;
+    public Player player;
     public enum AttackTypes
     {
         physical,
@@ -26,7 +26,7 @@ public class PlayerAbilities : MonoBehaviour
         public int level;
         public float mult; // Multiply strength by x amount
         public float cooldown; // How long each attack takes to use again. Higher equals longer.
-        float time; // How long it has been ability since pressed. Does not go above cooldown.
+        public float time; // How long it has been ability since pressed. Does not go above cooldown.
         public AttackTypes attackType;
         public int cost;
         public float manaCost;
@@ -53,9 +53,9 @@ public class PlayerAbilities : MonoBehaviour
                 if(time >= 0)
                 {
                     time -= Time.deltaTime;
-                } 
+                }
+                yield return null;
             }
-            yield return null;
         }
         public void IncreaseCost()
         {
@@ -74,12 +74,13 @@ public class PlayerAbilities : MonoBehaviour
         {
             new AbilityData
             {
-                name = "Magic Missle",
+                name = "Magic Missile",
                 level = 0,
                 mult = 2,
                 cooldown = 5,
                 attackType = AttackTypes.magical,
-                cost = 300,
+                manaCost = 5,
+                cost = 3,
                 player = player,
                 enemySpawner = enemyspawner,
             },
@@ -90,6 +91,7 @@ public class PlayerAbilities : MonoBehaviour
                 mult = 1.25f,
                 cooldown = 2,
                 attackType = AttackTypes.physical,
+                manaCost = 3,
                 cost = 250,
                 player = player,
                 enemySpawner = enemyspawner

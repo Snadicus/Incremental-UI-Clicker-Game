@@ -13,6 +13,7 @@ public class ButtonCanClick : MonoBehaviour
 
     // Mutable variables
     int playerIndex;
+    public bool attack;
 
     // Upgrade type references
     TeammateManager.Teammates teammate;
@@ -108,13 +109,28 @@ public class ButtonCanClick : MonoBehaviour
         }
         else if (upgradeType == Upgrades.upgradeTypes.Abilities)
         {
-            if (resourceTraker.gold >= ability.cost)
+            if (!attack)
             {
-                gameObject.GetComponent<Button>().enabled = true;
+
+                if (resourceTraker.gold >= ability.cost)
+                {
+                    gameObject.GetComponent<Button>().enabled = true;
+                }
+                else
+                {
+                    gameObject.GetComponent<Button>().enabled = false;
+                }
             }
             else
             {
-                gameObject.GetComponent<Button>().enabled = false;
+                if (resourceTraker.mana >= ability.manaCost && ability.time <= 0)
+                {
+                    gameObject.GetComponent<Button>().enabled = true;
+                }
+                else
+                {
+                    gameObject.GetComponent<Button>().enabled = false;
+                }
             }
         }
     }

@@ -38,6 +38,7 @@ public class Upgrades : MonoBehaviour
         {
             if (ability.name == type)
             {
+                AbilityUpgrade(type);
                 return;
             }
         }
