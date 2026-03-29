@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 48995817}
   - component: {fileID: 48995816}
   - component: {fileID: 48995819}
+  - component: {fileID: 48995820}
   m_Layer: 5
   m_Name: Magic Missile
   m_TagString: Untagged
@@ -189,7 +190,6 @@ RectTransform:
   m_Children:
   - {fileID: 1974190980}
   - {fileID: 1974603763}
-  - {fileID: 2085578361}
   m_Father: {fileID: 1378242385}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -241,10 +241,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1564831926}
-        m_TargetAssemblyTypeName: Upgrades, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 5
+      - m_Target: {fileID: 48995820}
+        m_TargetAssemblyTypeName: ButtonAbilityAttack, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -304,10 +304,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
   resourceTraker: {fileID: 1299122399}
-  costText: {fileID: 1605844552}
+  costText: {fileID: 0}
   upgrades: {fileID: 358333868}
   player: {fileID: 1564831928}
-  attack: 0
+  attack: 1
+--- !u!114 &48995820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48995814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124132e868bcc634c92b9bc80622d60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonAbilityAttack
+  resourceTracker: {fileID: 1299122399}
+  playerAbilities: {fileID: 1564831930}
 --- !u!1 &60308073
 GameObject:
   m_ObjectHideFlags: 0
@@ -3168,6 +3182,7 @@ MonoBehaviour:
   gem: 0
   divineFavor: 0
   prestigeLevel: 0
+  maxMana: 100
 --- !u!1 &1343995333
 GameObject:
   m_ObjectHideFlags: 0
@@ -3515,6 +3530,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2085578361}
   - {fileID: 48995815}
   m_Father: {fileID: 786280177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3911,6 +3927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c26e50682c204b439d458c568a9eca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilities
+  enemyspawner: {fileID: 269297731}
+  player: {fileID: 1564831928}
 --- !u!1 &1601723711
 GameObject:
   m_ObjectHideFlags: 0
@@ -5061,15 +5079,15 @@ RectTransform:
   m_GameObject: {fileID: 2085578360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.45404044, y: 0.9080809, z: 0.9080809}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1605844551}
-  m_Father: {fileID: 48995815}
+  m_Father: {fileID: 1378242385}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 172, y: 0.000015258789}
+  m_AnchoredPosition: {x: -274.50507, y: -84.09998}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2085578362
@@ -5084,10 +5102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833675b8c9294ea46b40b8356351ce61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonCanClick
-  resourceTraker: {fileID: 0}
-  costText: {fileID: 0}
-  upgrades: {fileID: 0}
-  player: {fileID: 0}
+  resourceTraker: {fileID: 1299122399}
+  costText: {fileID: 1605844552}
+  upgrades: {fileID: 358333868}
+  player: {fileID: 1564831928}
   attack: 0
 --- !u!114 &2085578363
 MonoBehaviour:
@@ -5145,13 +5163,13 @@ MonoBehaviour:
           m_StringArgument: Magic Missile
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 2085578362}
+        m_TargetAssemblyTypeName: ButtonCanClick, Assembly-CSharp
+        m_MethodName: IncreaseCost
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
