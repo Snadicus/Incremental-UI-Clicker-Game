@@ -90,7 +90,7 @@ public class ButtonCanClick : MonoBehaviour
                     ? building.buyType
                     : building.upgradeType;
 
-                if (resourceTraker.GetResource(type) >= cost)
+                if (resourceTraker.GetResource(type) >= cost && building.unlocked)
                 {
                     gameObject.GetComponent<Button>().enabled = true;
                     return;
