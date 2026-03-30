@@ -6,6 +6,7 @@ public class Upgrades : MonoBehaviour
     [SerializeField] TeammateManager teammateManager;
     [SerializeField] BuildingsList buildingsList;
     [SerializeField] PlayerAbilities playerAbilities;
+    [SerializeField] ResourceTracker resourceTracker;
     [SerializeField] Player player;
     
     public enum upgradeTypes
@@ -62,21 +63,37 @@ public class Upgrades : MonoBehaviour
     // Building upgrade
     void BuildingUpgrade(string type)
     {
-        // Get the correct building being worked with
         BuildingsList.BuildingData? currentBuilding = buildingsList.GetBuildingData(type);
-        // If building has not been bought, add on level to it
+
+        if (currentBuilding == null)
+        {
+            return;
+        }
+
+        // Logic before first purchase
         if (currentBuilding.level <= 0)
         {
-            currentBuilding.level = 1;
-            if (currentBuilding.buyType == ResourceTracker.resources.gem)
+            int cost = currentBuilding.cost;
+
+            if (resourceTracker.GetResource(currentBuilding.buyType) < cost)
             {
-                currentBuilding.buyType = ResourceTracker.resources.gold;
+                return;
             }
+
+            resourceTracker.SpendResource(currentBuilding.buyType, cost);
+
+            currentBuilding.level = 1;
             StartCoroutine(currentBuilding.GainIncome());
             return;
         }
+
+        // Logic after upgrade
+        int upgradeCost = currentBuilding.GetUpgradeCost();
+
+        resourceTracker.SpendResource(currentBuilding.upgradeType, upgradeCost);
+
         currentBuilding.level++;
-        currentBuilding.income += (currentBuilding.income/currentBuilding.level);
+        currentBuilding.income += (currentBuilding.income / currentBuilding.level);
     }
 
     void TeammateUpgrade(string type)

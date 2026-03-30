@@ -80,9 +80,17 @@ public class ButtonCanClick : MonoBehaviour
                     return;
                 }
             }
-            else if(building != null)
+            else if (building != null)
             {
-                if (resourceTraker.gold >= building.cost)
+                int cost = (building.level <= 0)
+                    ? building.cost
+                    : building.GetUpgradeCost();
+
+                ResourceTracker.resources type = (building.level <= 0)
+                    ? building.buyType
+                    : building.upgradeType;
+
+                if (resourceTraker.GetResource(type) >= cost)
                 {
                     gameObject.GetComponent<Button>().enabled = true;
                     return;
