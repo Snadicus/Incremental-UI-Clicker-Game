@@ -63,7 +63,7 @@ public class BuildingsList : MonoBehaviour
             new BuildingData
             {
                 name = "Bar",
-                buyType = ResourceTracker.resources.gem,
+                buyType = ResourceTracker.resources.gold,
                 produceType = ResourceTracker.resources.gold,
                 upgradeType = ResourceTracker.resources.gold,
                 permanent = Permanent.temporary,

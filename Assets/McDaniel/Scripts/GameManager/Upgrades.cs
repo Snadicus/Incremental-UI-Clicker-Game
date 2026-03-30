@@ -90,8 +90,6 @@ public class Upgrades : MonoBehaviour
         // Logic after upgrade
         int upgradeCost = currentBuilding.GetUpgradeCost();
 
-        resourceTracker.SpendResource(currentBuilding.upgradeType, upgradeCost);
-
         currentBuilding.level++;
         currentBuilding.income += (currentBuilding.income / currentBuilding.level);
     }
