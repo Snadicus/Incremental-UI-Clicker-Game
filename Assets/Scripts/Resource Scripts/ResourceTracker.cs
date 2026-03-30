@@ -19,7 +19,7 @@ public class ResourceTracker : MonoBehaviour
     public TextMeshProUGUI prestigeText;
 
     // Variables
-    public int gold = 300;
+    public int gold;
     public float mana;
     public int gem;
     public int divineFavor;
@@ -144,6 +144,7 @@ public class ResourceTracker : MonoBehaviour
     {
         goldText.text = "Gold: " + gold.ToString();
         manaText.text = "Mana: " + mana.ToString("F2");
+        gemText.text = "Gems: " + gem.ToString();
     }
 
     #endregion
@@ -159,6 +160,24 @@ public class ResourceTracker : MonoBehaviour
                 mana += Time.deltaTime;
             }
             yield return null;
+        }
+    }
+    #endregion
+
+    // Gives other scripts access to the amount of resources
+    #region
+    public int GetResource(ResourceTracker.resources type)
+    {
+        switch (type)
+        {
+            case resources.gold:
+                return gold;
+
+            case resources.gem:
+                return gem;
+
+            default:
+                return 0;
         }
     }
     #endregion
