@@ -19,7 +19,7 @@ public class ResourceTracker : MonoBehaviour
     public TextMeshProUGUI prestigeText;
 
     // Variables
-    public int gold = 300;
+    public int gold;
     public float mana;
     public int gem;
     public int divineFavor;
