@@ -5273,7 +5273,7 @@ GameObject:
   - component: {fileID: 1827461190}
   - component: {fileID: 1827461189}
   m_Layer: 5
-  m_Name: Gem Mine
+  m_Name: GemMine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
