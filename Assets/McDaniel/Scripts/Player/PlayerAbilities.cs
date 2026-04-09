@@ -80,7 +80,7 @@ public class PlayerAbilities : MonoBehaviour
                 cooldown = 5,
                 attackType = AttackTypes.magical,
                 manaCost = 5,
-                cost = 3,
+                cost = 300,
                 player = player,
                 enemySpawner = enemyspawner,
             },

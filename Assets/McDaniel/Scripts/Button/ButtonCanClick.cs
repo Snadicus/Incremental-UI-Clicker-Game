@@ -80,9 +80,17 @@ public class ButtonCanClick : MonoBehaviour
                     return;
                 }
             }
-            else if(building != null)
+            else if (building != null)
             {
-                if (resourceTraker.gold >= building.cost)
+                int cost = (building.level <= 0)
+                    ? building.cost
+                    : building.GetUpgradeCost();
+
+                ResourceTracker.resources type = (building.level <= 0)
+                    ? building.buyType
+                    : building.upgradeType;
+
+                if (resourceTraker.GetResource(type) >= cost && building.unlocked)
                 {
                     gameObject.GetComponent<Button>().enabled = true;
                     return;
@@ -154,13 +162,12 @@ public class ButtonCanClick : MonoBehaviour
                 costText.text = "Cost: " + cost;
                 return;
             case Upgrades.upgradeTypes.Building:
-                cost = building.cost;
-                resourceType = building.buyType;
+                cost = (building.level <= 0) ? building.cost : building.GetUpgradeCost();
+                resourceType = (building.level <= 0) ? building.buyType: building.upgradeType;
 
-                building.IncreaseCost();
                 resourceTraker.SpendResource(resourceType, cost);
 
-                cost += Convert.ToInt32(cost * 0.5f);
+                cost = Mathf.RoundToInt(building.baseUpgradeCost * Mathf.Pow(building.upgradeCostMultiplier, building.level));
                 costText.text = "Cost: " + cost;
                 return;
             case Upgrades.upgradeTypes.Teammate:
