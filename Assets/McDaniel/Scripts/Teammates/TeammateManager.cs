@@ -28,9 +28,9 @@ public class TeammateManager : MonoBehaviour
         public float attackPower;
         // Time between next attack. Lower is faster
         public float attackSpeed;
-        public EnemySpawner enemySpawner;
-        public ResourceTracker.resources buyType;
         public int cost;
+        [System.Xml.Serialization.XmlIgnore] public EnemySpawner enemySpawner;
+        public ResourceTracker.resources buyType;
 
         // Attacking first enemy in enemy list, repeating for x amount of seconds which is based on attack speed
         public IEnumerator Attack()
@@ -56,7 +56,8 @@ public class TeammateManager : MonoBehaviour
     #region
     void Awake()
     {
-        string dataPath = Application.persistentDataPath + "/Teammate_Data/Teammates.xml";
+        string filePath = Application.persistentDataPath + "/Teammate_Data/";
+        string dataPath = filePath + "Teammates.xml";
         if (File.Exists(dataPath))
         {
             var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
@@ -98,6 +99,11 @@ public class TeammateManager : MonoBehaviour
                 }
             };
             var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
+
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
 
             using (FileStream stream = File.Create(dataPath))
             {
