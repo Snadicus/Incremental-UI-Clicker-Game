@@ -60,6 +60,7 @@ public class TeammateManager : MonoBehaviour
         string dataPath = filePath + "Teammates.xml";
         if (File.Exists(dataPath))
         {
+            Debug.Log("doing This.");
             var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
 
             using(FileStream stream = File.OpenRead(dataPath))
@@ -129,4 +130,22 @@ public class TeammateManager : MonoBehaviour
         return null;
     }
     #endregion
+
+    // Save Teammate stats
+    private void OnApplicationQuit()
+    {
+        string filePath = Application.persistentDataPath + "/Teammate_Data/";
+        string dataPath = filePath + "Teammates.xml";
+        var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
+
+        if (!Directory.Exists(filePath))
+        {
+            Directory.CreateDirectory(filePath);
+        }
+        using (FileStream stream = File.Create(dataPath))
+        {
+            xmlSerializer.Serialize(stream, teammates);
+        }
+
+    }
 }

@@ -40,19 +40,25 @@ public class ButtonCanClick : MonoBehaviour
         if (upgradeObject is TeammateManager.Teammates teammate)
         {
             this.teammate = teammate;
+            costText.text = "Cost: " + teammate.cost;
         }
         else if (upgradeObject is BuildingsList.BuildingData building)
         {
             this.building = building;
+            costText.text = "Cost: " + building.cost;
         }
         else if (upgradeObject is PlayerAbilities.AbilityData ability)
         {
             this.ability = ability;
+            if (costText != null)
+            {
+                costText.text = "Cost: " + ability.cost;
+            }
         }
         else
         {
             playerIndex = Convert.ToInt32(upgradeObject);
-            Debug.Log(playerIndex);
+            costText.text = "Cost: " + player.statsCost[playerIndex];
         }
     }
 
