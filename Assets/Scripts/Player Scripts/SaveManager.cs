@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SaveManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class SaveManager : MonoBehaviour
     private void Awake()
     {
         saveFilePath = Application.persistentDataPath + "/saveFile.json";
+
+        Debug.Log("File path: " + saveFilePath);
     }
 
     #endregion
@@ -35,14 +38,16 @@ public class SaveManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Keyboard.current.sKey.wasPressedThisFrame)
         {
             SaveGame();
+            Debug.Log("Game Saved!");
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             LoadGame();
+            Debug.Log("Game Loaded!");
         }
     }
 
