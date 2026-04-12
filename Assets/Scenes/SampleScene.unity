@@ -4031,7 +4031,7 @@ MonoBehaviour:
   gemText: {fileID: 1101759143}
   divineText: {fileID: 0}
   prestigeText: {fileID: 0}
-  gold: 5000
+  gold: 0
   mana: 0
   gem: 0
   divineFavor: 0
