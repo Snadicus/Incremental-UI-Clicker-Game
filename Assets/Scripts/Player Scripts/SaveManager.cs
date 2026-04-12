@@ -10,12 +10,12 @@ public class SaveManager : MonoBehaviour
     string saveFilePath;
 
     // Script References
-    public ResourceTracker resources;
-    public BuildingsList buildings;
-    public TeammateManager teammates;
-    public PlayerAbilities abilites;
-    public Player stats;
-    public EnemySpawner areas;
+    public ResourceTracker resourceTracker;
+    public BuildingsList buildingsList;
+    public TeammateManager teammateManager;
+    public PlayerAbilities playerAbilities;
+    public Player player;
+    public EnemySpawner enemySpawner;
 
     #endregion
 
@@ -30,17 +30,19 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
-    // Start
+    // Update
     #region
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Update()
     {
-        SaveData data = LoadGame();
-
-        if (data != null)
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            
+            SaveGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadGame();
         }
     }
 
@@ -54,13 +56,53 @@ public class SaveManager : MonoBehaviour
     {
         SaveData data = new SaveData();
 
-        // Taken from ResourceTracker
-
-
         // Taken from BuildingLists
+        foreach (var building in buildingsList.buildings)
+        {
+            BuildingSaveData b = new BuildingSaveData();
 
+            b.name = building.name;
+            b.level = building.level;
+            b.unlocked = building.unlocked;
+
+            data.buildings.Add(b);
+        }
+
+        // Taken from PlayerAbilities
+        foreach (var ability in playerAbilities.abilities)
+        {
+            AbilitySaveData a = new AbilitySaveData();
+
+            a.name = ability.name;
+            a.level = ability.level;
+
+            data.abilities.Add(a);
+        }
+
+        // Taken from TeammateManager
+        foreach (var teammate in teammateManager.teammates)
+        {
+            TeammateSaveData t = new TeammateSaveData();
+
+            t.name = teammate.teammateType;
+            t.level = teammate.level;
+
+            data.teammates.Add(t);
+        }
+
+        // Taken from ResourceTracker
+        data.currentArea = enemySpawner.currentArea;
+        data.loop = enemySpawner.loop;
 
         // Taken from EnemySpawner
+        data.gold = resourceTracker.gold;
+        data.mana = resourceTracker.mana;
+        data.gem = resourceTracker.gem;
+        data.divineFavor = resourceTracker.divineFavor;
+        data.prestigeLevel = resourceTracker.prestigeLevel;
+
+        // Taken from Player
+        data.playerStats = player.stats;
 
         string json = JsonUtility.ToJson(data, true);
 
@@ -75,19 +117,59 @@ public class SaveManager : MonoBehaviour
     #region
 
     // Loads the game when called
-    public SaveData LoadGame() 
-    { 
-        if (File.Exists(saveFilePath))
-        {
-            string json = File.ReadAllText(saveFilePath);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+    public void LoadGame() 
+    {
+        if (!File.Exists(saveFilePath)) return;
 
-            return data;
-        }
-        else
+        string json = File.ReadAllText(saveFilePath);
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+        // For Player Stats
+        player.stats = data.playerStats;
+
+        // For Resources
+        resourceTracker.gold = data.gold;
+        resourceTracker.mana = data.mana;
+        resourceTracker.gem = data.gem;
+        resourceTracker.divineFavor = data.divineFavor;
+        resourceTracker.prestigeLevel = data.prestigeLevel;
+
+        // For Area
+        enemySpawner.currentArea = data.currentArea;
+        enemySpawner.loop = data.loop;
+
+        // For Buildings
+        foreach (var savedBuilding in data.buildings)
         {
-            Debug.Log("No save found!");
-            return null;
+            var building = buildingsList.GetBuildingData(savedBuilding.name);
+
+            if (building != null)
+            {
+                building.level = savedBuilding.level;
+                building.unlocked = savedBuilding.unlocked;
+            }
+        }
+
+        // For Abilities
+        foreach (var savedAbility in data.abilities)
+        {
+            var ability = playerAbilities.GetAbility(savedAbility.name);
+
+            if (ability != null)
+            {
+                ability.level = savedAbility.level;
+            }
+        }
+
+        // For Teammates
+        foreach (var savedTeammate in data.teammates)
+        {
+            var teammate = teammateManager.GetTeammate(savedTeammate.name);
+
+            if (teammate != null)
+            {
+                teammate.level = savedTeammate.level;
+            }
         }
     }
 

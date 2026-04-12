@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     private float healthMultiplier;
     private float goldMultiplier;
     private int enemyMultiplier;
-    private int loop = 1;
+    public int loop = 1;
 
     // For determining some logic that should only apply to boss battles
     public bool bossBattle = false;

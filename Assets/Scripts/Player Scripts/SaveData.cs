@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 [System.Serializable]
 public class BuildingSaveData
 {
@@ -30,10 +33,10 @@ public class SaveData
     public List<BuildingSaveData> buildings = new List<BuildingSaveData>();
 
     // For saving Player Abilities
-    public List<AbilitySaveData> buildings = new List<AbilitySaveData>();
+    public List<AbilitySaveData> abilities = new List<AbilitySaveData>();
 
     // For saving Teammates
-    public List<TeammateSaveData> buildings = new List<TeammateSaveData>();
+    public List<TeammateSaveData> teammates = new List<TeammateSaveData>();
 
     // From ResourceTracker
     public int gold;
@@ -43,7 +46,7 @@ public class SaveData
     public int prestigeLevel;
 
     // From Player
-
+    public int[] playerStats;
 
     // From EnemySpawner
     public int currentArea;
