@@ -31,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
     // For determining some logic that should only apply to boss battles
     public bool bossBattle = false;
     private Coroutine bossTimerRoutine;
+    public delegate void bossDelegate();
 
     // For determining when to spawn new enemies
     private int enemiesRemaining;
