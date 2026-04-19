@@ -58,22 +58,24 @@ public class TeammateManager : MonoBehaviour
     {
         string filePath = Application.persistentDataPath + "/Teammate_Data/";
         string dataPath = filePath + "Teammates.xml";
-        if (File.Exists(dataPath))
+        try
         {
-            Debug.Log("doing This.");
+            Debug.Log("Doing This");
             var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
 
-            using(FileStream stream = File.OpenRead(dataPath))
+            using (FileStream stream = File.OpenRead(dataPath))
             {
                 var teammateList = (List<Teammates>)xmlSerializer.Deserialize(stream);
-                foreach(var teammate in teammateList)
+                foreach (var teammate in teammateList)
                 {
                     teammates.Add(teammate);
                 }
             }
         }
-        else
+        catch (DirectoryNotFoundException)
         {
+            Debug.Log("Doing That");
+            Directory.CreateDirectory(filePath);
             teammates = new List<Teammates>()
             {
                 new Teammates
@@ -101,11 +103,40 @@ public class TeammateManager : MonoBehaviour
             };
             var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
 
-            if (!Directory.Exists(filePath))
+            using (FileStream stream = File.Create(dataPath))
             {
-                Directory.CreateDirectory(filePath);
+                xmlSerializer.Serialize(stream, teammates);
             }
-
+        }
+        catch (FileNotFoundException)
+        {
+            Debug.Log("Doing The Third");
+            teammates = new List<Teammates>()
+            {
+                new Teammates
+                {
+                    teammateType = "Archer",
+                    level = 0,
+                    equipment = 0,
+                    attackPower = 1,
+                    attackSpeed = 2,
+                    enemySpawner = enemySpawner,
+                    buyType = ResourceTracker.resources.gold,
+                    cost = 5
+                },
+                new Teammates
+                {
+                    teammateType = "Wizard",
+                    level = 0,
+                    equipment = 0,
+                    attackPower = 5,
+                    attackSpeed = 5,
+                    enemySpawner = enemySpawner,
+                    buyType = ResourceTracker.resources.gold,
+                    cost = 10
+                }
+            };
+            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
             using (FileStream stream = File.Create(dataPath))
             {
                 xmlSerializer.Serialize(stream, teammates);
