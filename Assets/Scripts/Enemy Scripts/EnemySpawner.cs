@@ -75,6 +75,49 @@ public class EnemySpawner : MonoBehaviour
 
     #endregion
 
+    // OnEnable
+    #region
+
+    void OnEnable()
+    {
+        OnBossStart += HandleBossStart;
+        OnBossEnd += HandleBossEnd;
+    }
+
+    #endregion
+
+    // OnDisable
+    #region
+
+    void HandleBossStart()
+    {
+        goldFeedbackText.text = "Boss battle has begun!";
+    }
+
+    #endregion
+
+    // HandleBossStart
+    #region
+
+
+    void HandleBossEnd()
+    {
+        goldFeedbackText.text = "Boss defeated!";
+    }
+
+    #endregion
+
+    // HandleBossEnd
+    #region
+
+    void OnDisable()
+    {
+        OnBossStart -= HandleBossStart;
+        OnBossEnd -= HandleBossEnd;
+    }
+
+    #endregion
+
     // SpawnEnemy
     #region
 
