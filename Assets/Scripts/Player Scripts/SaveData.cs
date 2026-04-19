@@ -5,21 +5,25 @@ using System.Collections.Generic;
 public class BuildingSaveData
 {
     // From BuildingLists
-    public BuildingsList.BuildingData building;
+    public string name;
+    public int level;
+    public bool unlocked;
 }
 
 [System.Serializable]
 public class AbilitySaveData
 {
     // From PlayerAbilites
-    public PlayerAbilities.AbilityData ability;
+    public string name;
+    public int level;
 }
 
 [System.Serializable]
 public class TeammateSaveData
 {
     // From TeammateManager
-    public TeammateManager.Teammates teammate;
+    public string name;
+    public int level;
 }
 
 [System.Serializable]

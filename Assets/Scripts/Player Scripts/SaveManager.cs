@@ -26,8 +26,8 @@ public class SaveManager : MonoBehaviour
     // Called when loaded. Sets the save path.
     private void Awake()
     {
-        saveFilePath = Application.persistentDataPath + "/saveFile/";
-        LoadGame();
+        saveFilePath = Application.persistentDataPath + "/saveFile.json";
+
         Debug.Log("File path: " + saveFilePath);
     }
 
@@ -53,11 +53,6 @@ public class SaveManager : MonoBehaviour
 
     #endregion
 
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-    }
-
     // SaveGame
     #region
 
@@ -66,52 +61,39 @@ public class SaveManager : MonoBehaviour
     {
         SaveData data = new SaveData();
 
-        string dataFilePath = saveFilePath + "buildings.json"; 
-
         // Taken from BuildingLists
         foreach (var building in buildingsList.buildings)
         {
             BuildingSaveData b = new BuildingSaveData();
-            b.building = building;
+
+            b.name = building.name;
+            b.level = building.level;
+            b.unlocked = building.unlocked;
 
             data.buildings.Add(b);
         }
-
-        string json = JsonUtility.ToJson(data.buildings, true);
-
-        File.WriteAllText(dataFilePath, json);
-
-        dataFilePath = saveFilePath + "abilities.json";
 
         // Taken from PlayerAbilities
         foreach (var ability in playerAbilities.abilities)
         {
             AbilitySaveData a = new AbilitySaveData();
 
-            a.ability = ability;
+            a.name = ability.name;
+            a.level = ability.level;
 
             data.abilities.Add(a);
         }
-
-        json = JsonUtility.ToJson(data.abilities, true);
-
-        File.WriteAllText (dataFilePath, json);
-
-        dataFilePath = saveFilePath + "teammates.json";
 
         // Taken from TeammateManager
         foreach (var teammate in teammateManager.teammates)
         {
             TeammateSaveData t = new TeammateSaveData();
 
-            t.teammate = teammate;
+            t.name = teammate.teammateType;
+            t.level = teammate.level;
 
             data.teammates.Add(t);
         }
-
-        json = JsonUtility.ToJson(data.teammates, true);
-
-        File.WriteAllText(dataFilePath, json);
 
         // Taken from ResourceTracker
         data.currentArea = enemySpawner.currentArea;
@@ -127,7 +109,7 @@ public class SaveManager : MonoBehaviour
         // Taken from Player
         data.playerStats = player.stats;
 
-        json = JsonUtility.ToJson(data, true);
+        string json = JsonUtility.ToJson(data, true);
 
         File.WriteAllText(saveFilePath, json);
 
@@ -140,20 +122,61 @@ public class SaveManager : MonoBehaviour
     #region
 
     // Loads the game when called
-    public void LoadGame()
+    public void LoadGame() 
     {
-        try 
-        {
+        if (!File.Exists(saveFilePath)) return;
 
-        }
-        catch (DirectoryNotFoundException)
-        {
+        string json = File.ReadAllText(saveFilePath);
+        SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-        }
-        catch (FileNotFoundException) 
+        // For Player Stats
+        player.stats = data.playerStats;
+
+        // For Resources
+        resourceTracker.gold = data.gold;
+        resourceTracker.mana = data.mana;
+        resourceTracker.gem = data.gem;
+        resourceTracker.divineFavor = data.divineFavor;
+        resourceTracker.prestigeLevel = data.prestigeLevel;
+
+        // For Area
+        enemySpawner.currentArea = data.currentArea;
+        enemySpawner.loop = data.loop;
+
+        // For Buildings
+        foreach (var savedBuilding in data.buildings)
         {
-            
+            var building = buildingsList.GetBuildingData(savedBuilding.name);
+
+            if (building != null)
+            {
+                building.level = savedBuilding.level;
+                building.unlocked = savedBuilding.unlocked;
+            }
+        }
+
+        // For Abilities
+        foreach (var savedAbility in data.abilities)
+        {
+            var ability = playerAbilities.GetAbility(savedAbility.name);
+
+            if (ability != null)
+            {
+                ability.level = savedAbility.level;
+            }
+        }
+
+        // For Teammates
+        foreach (var savedTeammate in data.teammates)
+        {
+            var teammate = teammateManager.GetTeammate(savedTeammate.name);
+
+            if (teammate != null)
+            {
+                teammate.level = savedTeammate.level;
+            }
         }
     }
+
     #endregion
 }
