@@ -29,8 +29,10 @@ public class EnemySpawner : MonoBehaviour
     public int loop = 1;
 
     // For determining some logic that should only apply to boss battles
-    public bool bossBattle = false;
+    public bool isBossActive = false;
     private Coroutine bossTimerRoutine;
+    public event System.Action OnBossStart;
+    public event System.Action OnBossEnd;
 
     // For determining when to spawn new enemies
     private int enemiesRemaining;
@@ -136,7 +138,7 @@ public class EnemySpawner : MonoBehaviour
             enemyCounter += 1;
 
             // Check to see if a boss battle is happening
-            if (bossBattle == false)
+            if (!isBossActive)
             {
                 // Check to see if area is cleared, and if so, spawn boss
                 if (enemyCounter != 49)
@@ -148,7 +150,7 @@ public class EnemySpawner : MonoBehaviour
                     SpawnBoss();
                 }
             }
-            else if (bossBattle == true)
+            else if (isBossActive)
             {
                 if (bossTimerRoutine != null)
                 {
@@ -157,18 +159,21 @@ public class EnemySpawner : MonoBehaviour
 
                 timerText.text = "";
 
+                OnBossEnd?.Invoke();
+
                 if (currentArea >= areaMax)
                 {
                     currentArea = 1;
                     loop += 1;
-                } else
+                } 
+                else
                 {
                     currentArea += 1;
                     buildingsList.UnlockBuildings();
                 }
 
                 enemyCounter = 0;
-                bossBattle = false;
+                isBossActive = false;
 
                 UpdateAreaText();
                 SpawnEnemy();
@@ -188,7 +193,7 @@ public class EnemySpawner : MonoBehaviour
 
         currentEnemy = area.getBoss();
 
-        bossBattle = true;
+        isBossActive = true;
 
         // Health calculation
         maxHealth = currentEnemy.baseHealth;
@@ -197,6 +202,8 @@ public class EnemySpawner : MonoBehaviour
         enemiesRemaining = 1;
 
         Debug.Log("Spawning: " + enemiesRemaining + " " + currentEnemy.name);
+
+        OnBossStart?.Invoke();
 
         BossTimer();
     }
@@ -235,11 +242,11 @@ public class EnemySpawner : MonoBehaviour
     // Constantly update enemy number amount
     public void UpdateEnemyNumberText()
     {
-        if (bossBattle == false)
+        if (!isBossActive)
         {
             enemyNumberText.text = enemiesRemaining + " " + currentEnemy.name;
         }
-        else if (bossBattle == true)
+        else
         {
             enemyNumberText.text = currentEnemy.name;
         }
@@ -288,7 +295,7 @@ public class EnemySpawner : MonoBehaviour
     {
         float timer = 30f;
 
-        while (timer > 0 && bossBattle)
+        while (timer > 0 && isBossActive)
         {
             timerText.text = "Boss Time: " + Mathf.CeilToInt(timer);
             timer -= Time.deltaTime;
@@ -296,11 +303,13 @@ public class EnemySpawner : MonoBehaviour
         }
 
         // If boss still alive when time runs out
-        if (bossBattle)
+        if (isBossActive)
         {
             timerText.text = "Boss Escaped!";
 
-            bossBattle = false;
+            OnBossEnd?.Invoke();
+
+            isBossActive = false;
             enemyCounter = 0;
 
             Debug.Log("Boss was not defeated in time!");
