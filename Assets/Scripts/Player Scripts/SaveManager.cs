@@ -27,8 +27,9 @@ public class SaveManager : MonoBehaviour
     private void Awake()
     {
         saveFilePath = Application.persistentDataPath + "/saveFile.json";
+        LoadGame();
 
-        Debug.Log("File path: " + saveFilePath);
+        //Debug.Log("File path: " + saveFilePath);
     }
 
     #endregion
@@ -64,35 +65,20 @@ public class SaveManager : MonoBehaviour
         // Taken from BuildingLists
         foreach (var building in buildingsList.buildings)
         {
-            BuildingSaveData b = new BuildingSaveData();
 
-            b.name = building.name;
-            b.level = building.level;
-            b.unlocked = building.unlocked;
-
-            data.buildings.Add(b);
+            data.buildingData.Add(building);
         }
 
         // Taken from PlayerAbilities
         foreach (var ability in playerAbilities.abilities)
         {
-            AbilitySaveData a = new AbilitySaveData();
-
-            a.name = ability.name;
-            a.level = ability.level;
-
-            data.abilities.Add(a);
+            data.abilityData.Add(ability);
         }
 
         // Taken from TeammateManager
         foreach (var teammate in teammateManager.teammates)
         {
-            TeammateSaveData t = new TeammateSaveData();
-
-            t.name = teammate.teammateType;
-            t.level = teammate.level;
-
-            data.teammates.Add(t);
+            data.teammatesData.Add(teammate);
         }
 
         // Taken from ResourceTracker
@@ -124,59 +110,61 @@ public class SaveManager : MonoBehaviour
     // Loads the game when called
     public void LoadGame() 
     {
-        if (!File.Exists(saveFilePath)) return;
-
-        string json = File.ReadAllText(saveFilePath);
-        SaveData data = JsonUtility.FromJson<SaveData>(json);
-
-        // For Player Stats
-        player.stats = data.playerStats;
-
-        // For Resources
-        resourceTracker.gold = data.gold;
-        resourceTracker.mana = data.mana;
-        resourceTracker.gem = data.gem;
-        resourceTracker.divineFavor = data.divineFavor;
-        resourceTracker.prestigeLevel = data.prestigeLevel;
-
-        // For Area
-        enemySpawner.currentArea = data.currentArea;
-        enemySpawner.loop = data.loop;
-
-        // For Buildings
-        foreach (var savedBuilding in data.buildings)
+        try
         {
-            var building = buildingsList.GetBuildingData(savedBuilding.name);
+            string json = File.ReadAllText(saveFilePath);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            if (building != null)
+            // For Player Stats
+            player.stats = data.playerStats;
+
+            // For Resources
+            resourceTracker.gold = data.gold;
+            resourceTracker.mana = data.mana;
+            resourceTracker.gem = data.gem;
+            resourceTracker.divineFavor = data.divineFavor;
+            resourceTracker.prestigeLevel = data.prestigeLevel;
+
+            // For Area
+            enemySpawner.currentArea = data.currentArea;
+            enemySpawner.loop = data.loop;
+
+            // Clear data the gets created at awake
+            buildingsList.buildings.Clear();
+            playerAbilities.abilities.Clear();
+            teammateManager.teammates.Clear();
+
+            // For Buildings
+            foreach (var savedBuilding in data.buildingData)
             {
-                building.level = savedBuilding.level;
-                building.unlocked = savedBuilding.unlocked;
+                buildingsList.buildings.Add(savedBuilding);
+            }
+
+            // For Abilities
+            foreach (var savedAbility in data.abilityData)
+            {
+                playerAbilities.abilities.Add(savedAbility);
+            }
+
+            // For Teammates
+            foreach (var savedTeammate in data.teammatesData)
+            {
+                teammateManager.teammates.Add(savedTeammate);
             }
         }
-
-        // For Abilities
-        foreach (var savedAbility in data.abilities)
+        catch (FileNotFoundException)
         {
-            var ability = playerAbilities.GetAbility(savedAbility.name);
-
-            if (ability != null)
-            {
-                ability.level = savedAbility.level;
-            }
-        }
-
-        // For Teammates
-        foreach (var savedTeammate in data.teammates)
-        {
-            var teammate = teammateManager.GetTeammate(savedTeammate.name);
-
-            if (teammate != null)
-            {
-                teammate.level = savedTeammate.level;
-            }
+            
         }
     }
 
+    #endregion
+
+    // OnApplicationQuit
+    #region
+    void OnApplicationQuit()
+    {
+        SaveGame();
+    }
     #endregion
 }

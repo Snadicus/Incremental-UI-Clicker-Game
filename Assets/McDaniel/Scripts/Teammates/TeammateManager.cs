@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using UnityEngine;
 
+[System.Serializable]
 public class TeammateManager : MonoBehaviour
 {
     // Variables
@@ -56,26 +57,8 @@ public class TeammateManager : MonoBehaviour
     #region
     void Awake()
     {
-        string filePath = Application.persistentDataPath + "/Teammate_Data/";
-        string dataPath = filePath + "Teammates.xml";
-        try
+        if (teammates == null)
         {
-            Debug.Log("Doing This");
-            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-            using (FileStream stream = File.OpenRead(dataPath))
-            {
-                var teammateList = (List<Teammates>)xmlSerializer.Deserialize(stream);
-                foreach (var teammate in teammateList)
-                {
-                    teammates.Add(teammate);
-                }
-            }
-        }
-        catch (DirectoryNotFoundException)
-        {
-            Debug.Log("Doing That");
-            Directory.CreateDirectory(filePath);
             teammates = new List<Teammates>()
             {
                 new Teammates
@@ -101,52 +84,12 @@ public class TeammateManager : MonoBehaviour
                     cost = 10
                 }
             };
-            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-            using (FileStream stream = File.Create(dataPath))
-            {
-                xmlSerializer.Serialize(stream, teammates);
-            }
-        }
-        catch (FileNotFoundException)
-        {
-            Debug.Log("Doing The Third");
-            teammates = new List<Teammates>()
-            {
-                new Teammates
-                {
-                    teammateType = "Archer",
-                    level = 0,
-                    equipment = 0,
-                    attackPower = 1,
-                    attackSpeed = 2,
-                    enemySpawner = enemySpawner,
-                    buyType = ResourceTracker.resources.gold,
-                    cost = 5
-                },
-                new Teammates
-                {
-                    teammateType = "Wizard",
-                    level = 0,
-                    equipment = 0,
-                    attackPower = 5,
-                    attackSpeed = 5,
-                    enemySpawner = enemySpawner,
-                    buyType = ResourceTracker.resources.gold,
-                    cost = 10
-                }
-            };
-            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-            using (FileStream stream = File.Create(dataPath))
-            {
-                xmlSerializer.Serialize(stream, teammates);
-            }
         }
     }
     #endregion
 
-    // Get teammate based on name
-    #region
+        // Get teammate based on name
+        #region
     public Teammates? GetTeammate(string name)
     {
         int index = 0;
