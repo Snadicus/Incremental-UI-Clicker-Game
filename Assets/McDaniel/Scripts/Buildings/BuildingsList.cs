@@ -4,12 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class BuildingsList : MonoBehaviour
 {
     // Script References
     public ResourceTracker resourceTracker;
     public EnemySpawner enemySpawner;
+
 
     // Building Data
     #region
@@ -61,9 +61,9 @@ public class BuildingsList : MonoBehaviour
     #region
     void Awake()
     {
-        if (buildings == null)
+        buildings = new List<BuildingData>()
         {
-            buildings = new List<BuildingData>()
+            new BuildingData
             {
                 name = "Bar",
                 buyType = ResourceTracker.resources.gold,
