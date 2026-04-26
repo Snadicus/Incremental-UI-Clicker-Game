@@ -52,4 +52,25 @@ public class Player : MonoBehaviour
             yield return null;
         }
     }
+
+    // PrestigeProgress
+    #region
+
+    // Resets some progress for prestige
+    public void PrestigeProgress()
+    {
+        for (int i = 0; i < stats.Length; i++)
+        {
+            stats[i] = 1;
+        }
+
+        for (int i = 0; i < statsCost.Length; i++)
+        {
+            statsCost[i] = 2;
+        }
+
+        maxMana = 20;
+    }
+
+    #endregion
 }
