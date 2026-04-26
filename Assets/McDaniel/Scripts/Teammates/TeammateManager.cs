@@ -30,9 +30,12 @@ public class TeammateManager : MonoBehaviour
         // Time between next attack. Lower is faster
         public float attackSpeed;
         public int cost;
+<<<<<<< HEAD
         public int baseCost;
         public int baseAttackPower;
         public int baseAttackSpeed;
+=======
+>>>>>>> parent of 0a0f320 (Merge branch 'Pierce')
         [System.Xml.Serialization.XmlIgnore] public EnemySpawner enemySpawner;
         public ResourceTracker.resources buyType;
 
@@ -73,10 +76,14 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 2,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
+<<<<<<< HEAD
                     cost = 5,
                     baseCost = 5,
                     baseAttackPower = 1,
                     baseAttackSpeed = 2
+=======
+                    cost = 5
+>>>>>>> parent of 0a0f320 (Merge branch 'Pierce')
                 },
                 new Teammates
                 {
@@ -87,10 +94,7 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 5,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
-                    cost = 10,
-                    baseCost = 10,
-                    baseAttackPower = 5,
-                    baseAttackSpeed = 5
+                    cost = 10
                 }
             };
         }
@@ -131,6 +135,7 @@ public class TeammateManager : MonoBehaviour
         }
 
     }
+<<<<<<< HEAD
 
     // PrestigeProgress
     #region
@@ -150,4 +155,7 @@ public class TeammateManager : MonoBehaviour
 
     #endregion
 
+}}}}
+=======
 }
+>>>>>>> parent of 0a0f320 (Merge branch 'Pierce')

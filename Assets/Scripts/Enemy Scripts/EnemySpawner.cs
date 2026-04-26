@@ -373,19 +373,4 @@ public class EnemySpawner : MonoBehaviour
     }
 
     #endregion
-
-    // PrestigeProgress
-    #region
-
-    // Resets some progress for prestige
-    public void PrestigeProgress()
-    {
-        enemyCounter = 0;
-        loop = 1;
-        currentArea = 1;
-
-        SpawnEnemy();
-    }
-
-    #endregion
 }
