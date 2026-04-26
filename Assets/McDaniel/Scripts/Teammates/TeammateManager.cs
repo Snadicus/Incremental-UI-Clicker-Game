@@ -57,7 +57,7 @@ public class TeammateManager : MonoBehaviour
     #region
     void Awake()
     {
-        if (teammates == null)
+        if (teammates.Count == 0)
         {
             teammates = new List<Teammates>()
             {

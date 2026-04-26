@@ -71,7 +71,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void Awake()
     {
-        if (abilities == null)
+        if (abilities.Count == 0)
         {
             abilities = new List<AbilityData>
             {

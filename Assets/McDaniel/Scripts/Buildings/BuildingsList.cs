@@ -58,7 +58,8 @@ public class BuildingsList : MonoBehaviour
     #region
     void Awake()
     {
-        if (buildings == null)
+        Debug.Log(buildings.Count);
+        if (buildings.Count == 0)
         {
             buildings = new List<BuildingData>()
             {
