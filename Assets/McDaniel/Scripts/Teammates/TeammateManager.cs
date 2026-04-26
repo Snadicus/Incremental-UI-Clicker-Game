@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using UnityEngine;
 
+[System.Serializable]
 public class TeammateManager : MonoBehaviour
 {
     // Variables
@@ -56,23 +57,7 @@ public class TeammateManager : MonoBehaviour
     #region
     void Awake()
     {
-        string filePath = Application.persistentDataPath + "/Teammate_Data/";
-        string dataPath = filePath + "Teammates.xml";
-        if (File.Exists(dataPath))
-        {
-            Debug.Log("doing This.");
-            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-            using(FileStream stream = File.OpenRead(dataPath))
-            {
-                var teammateList = (List<Teammates>)xmlSerializer.Deserialize(stream);
-                foreach(var teammate in teammateList)
-                {
-                    teammates.Add(teammate);
-                }
-            }
-        }
-        else
+        if (teammates == null)
         {
             teammates = new List<Teammates>()
             {
@@ -99,23 +84,12 @@ public class TeammateManager : MonoBehaviour
                     cost = 10
                 }
             };
-            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-            if (!Directory.Exists(filePath))
-            {
-                Directory.CreateDirectory(filePath);
-            }
-
-            using (FileStream stream = File.Create(dataPath))
-            {
-                xmlSerializer.Serialize(stream, teammates);
-            }
         }
     }
     #endregion
 
-    // Get teammate based on name
-    #region
+        // Get teammate based on name
+        #region
     public Teammates? GetTeammate(string name)
     {
         int index = 0;

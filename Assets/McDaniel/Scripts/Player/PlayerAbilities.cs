@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerAbilities : MonoBehaviour
 {
     // Variables
@@ -17,7 +18,7 @@ public class PlayerAbilities : MonoBehaviour
     }
     #endregion
 
-
+    [System.Serializable]
     // Defining abilities class
     #region
     public class AbilityData
@@ -70,33 +71,36 @@ public class PlayerAbilities : MonoBehaviour
 
     void Awake()
     {
-        abilities = new List<AbilityData>
+        if (abilities == null)
         {
-            new AbilityData
+            abilities = new List<AbilityData>
             {
-                name = "Magic Missile",
-                level = 0,
-                mult = 2,
-                cooldown = 5,
-                attackType = AttackTypes.magical,
-                manaCost = 5,
-                cost = 300,
-                player = player,
-                enemySpawner = enemyspawner,
-            },
-            new AbilityData
-            {
-                name = "Quick Strike",
-                level = 0,
-                mult = 1.25f,
-                cooldown = 2,
-                attackType = AttackTypes.physical,
-                manaCost = 3,
-                cost = 250,
-                player = player,
-                enemySpawner = enemyspawner
-            }
-        };
+                new AbilityData
+                {
+                    name = "Magic Missile",
+                    level = 0,
+                    mult = 2,
+                    cooldown = 5,
+                    attackType = AttackTypes.magical,
+                    manaCost = 5,
+                    cost = 300,
+                    player = player,
+                    enemySpawner = enemyspawner,
+                },
+                new AbilityData
+                {
+                    name = "Quick Strike",
+                    level = 0,
+                    mult = 1.25f,
+                    cooldown = 2,
+                    attackType = AttackTypes.physical,
+                    manaCost = 3,
+                    cost = 250,
+                    player = player,
+                    enemySpawner = enemyspawner
+                }
+            };
+        }
     }
     #endregion
 
