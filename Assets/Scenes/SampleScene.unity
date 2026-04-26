@@ -5414,6 +5414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilities
   enemyspawner: {fileID: 269297731}
   player: {fileID: 1564831928}
+  abilities: []
 --- !u!1 &1593797103
 GameObject:
   m_ObjectHideFlags: 0
