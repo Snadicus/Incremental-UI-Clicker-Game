@@ -28,6 +28,9 @@ public class BuildingsList : MonoBehaviour
         public float upgradeCostMultiplier;
         public int income;
         public float speed;
+        public int baseCost;
+        public float baseSpeed;
+        public int baseIncome;
         public ResourceTracker resourceTracker;
 
         public IEnumerator GainIncome()
@@ -74,6 +77,9 @@ public class BuildingsList : MonoBehaviour
                 upgradeCostMultiplier = 1.2f,
                 income = 15,
                 speed = 8,
+                baseCost = 100,
+                baseSpeed = 8,
+                baseIncome = 15,
                 resourceTracker = resourceTracker
             },
 
@@ -91,6 +97,9 @@ public class BuildingsList : MonoBehaviour
                 upgradeCostMultiplier = 1.2f,
                 income = 1,
                 speed = 20,
+                baseCost = 1000,
+                baseSpeed = 20,
+                baseIncome = 1,
                 resourceTracker = resourceTracker
             }
         };
@@ -136,6 +145,26 @@ public class BuildingsList : MonoBehaviour
                     building.unlocked = true;
                 }
             }
+        }
+    }
+
+    #endregion
+
+    // PrestigeProgress
+    #region
+
+    // Resets some progress for prestige
+    public void PrestigeProgress()
+    {
+        foreach (var building in buildings)
+        {
+            if (building.permanent == Permanent.permanent)
+                continue;
+
+            building.level = 0;
+            building.cost = building.baseCost;
+            building.income = building.baseIncome;
+            building.speed = building.baseSpeed;
         }
     }
 

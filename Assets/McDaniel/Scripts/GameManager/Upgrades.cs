@@ -105,7 +105,13 @@ public class Upgrades : MonoBehaviour
         if (currentTeammate.level <= 0)
         {
             currentTeammate.level += 1;
-            StartCoroutine(currentTeammate.Attack());
+
+            if (currentTeammate.attackRoutine != null)
+            {
+                StopCoroutine(currentTeammate.attackRoutine);
+            }
+
+            currentTeammate.attackRoutine = StartCoroutine(currentTeammate.Attack());
         }
         else
         {

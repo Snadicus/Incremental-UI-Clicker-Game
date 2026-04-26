@@ -29,7 +29,12 @@ public class TeammateManager : MonoBehaviour
         // Time between next attack. Lower is faster
         public float attackSpeed;
         public int cost;
+        // For Prestige
+        public float baseAttackPower;
+        public float baseAttackSpeed;
+        public int baseCost;
         [System.Xml.Serialization.XmlIgnore] public EnemySpawner enemySpawner;
+        [System.Xml.Serialization.XmlIgnore] public Coroutine attackRoutine;
         public ResourceTracker.resources buyType;
 
         // Attacking first enemy in enemy list, repeating for x amount of seconds which is based on attack speed
@@ -45,7 +50,7 @@ public class TeammateManager : MonoBehaviour
 
         public void IncreaseCost()
         {
-            cost += Convert.ToInt32(cost * 0.5f);
+            cost = Mathf.Max(baseCost, cost + Mathf.CeilToInt(cost * 0.5f));
         }
     }
     #endregion
@@ -63,11 +68,22 @@ public class TeammateManager : MonoBehaviour
             Debug.Log("doing This.");
             var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
 
-            using(FileStream stream = File.OpenRead(dataPath))
+            using (FileStream stream = File.OpenRead(dataPath))
             {
                 var teammateList = (List<Teammates>)xmlSerializer.Deserialize(stream);
+
+                teammates = new List<Teammates>();
+
                 foreach(var teammate in teammateList)
                 {
+                    teammate.enemySpawner = enemySpawner;
+                    teammate.level = Mathf.Max(0, teammate.level);
+                    teammate.equipment = Mathf.Max(0, teammate.equipment);
+
+                    teammate.cost = teammate.baseCost;
+                    teammate.attackPower = teammate.baseAttackPower;
+                    teammate.attackSpeed = Mathf.Max(0.1f, teammate.baseAttackSpeed);
+
                     teammates.Add(teammate);
                 }
             }
@@ -85,7 +101,10 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 2,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
-                    cost = 5
+                    cost = 5,
+                    baseAttackPower = 1,
+                    baseAttackSpeed = 2,
+                    baseCost = 5
                 },
                 new Teammates
                 {
@@ -96,7 +115,10 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 5,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
-                    cost = 10
+                    cost = 10,
+                    baseAttackPower = 5,
+                    baseAttackSpeed = 5,
+                    baseCost = 10
                 }
             };
             var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
@@ -148,4 +170,29 @@ public class TeammateManager : MonoBehaviour
         }
 
     }
+
+    // PrestigeProgress
+    #region
+
+    // Resets some progress for prestige
+    public void PrestigeProgress()
+    {
+        foreach (var teammate in teammates)
+        {
+            if (teammate.attackRoutine != null)
+            {
+                StopCoroutine(teammate.attackRoutine);
+                teammate.attackRoutine = null;
+            }
+
+            teammate.level = 0;
+            teammate.equipment = 0;
+
+            teammate.cost = Mathf.Max(1, teammate.baseCost);
+            teammate.attackPower = teammate.baseAttackPower;
+            teammate.attackSpeed = Mathf.Max(0.1f, teammate.baseAttackSpeed);
+        }
+    }
+
+    #endregion
 }
