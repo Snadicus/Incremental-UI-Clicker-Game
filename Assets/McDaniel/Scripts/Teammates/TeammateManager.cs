@@ -30,6 +30,9 @@ public class TeammateManager : MonoBehaviour
         // Time between next attack. Lower is faster
         public float attackSpeed;
         public int cost;
+        public int baseCost;
+        public float baseAttackPower;
+        public float baseAttackSpeed;
         [System.Xml.Serialization.XmlIgnore] public EnemySpawner enemySpawner;
         public ResourceTracker.resources buyType;
 
@@ -70,8 +73,11 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 2,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
-                    cost = 5
-                },
+                    cost = 5,
+                    baseCost = 5,
+                    baseAttackPower = 1,
+                    baseAttackSpeed = 2
+},
                 new Teammates
                 {
                     teammateType = "Wizard",
@@ -81,7 +87,10 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 5,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
-                    cost = 10
+                    cost = 10,
+                    baseCost = 10,
+                    baseAttackPower = 5,
+                    baseAttackSpeed = 5
                 }
             };
         }
@@ -122,4 +131,22 @@ public class TeammateManager : MonoBehaviour
         }
 
     }
+
+    // PrestigeProgress
+    #region
+
+    // Resets some progress for prestige
+    public void PrestigeProgress()
+    {
+        foreach (var teammate in teammates)
+        {
+            teammate.level = 0;
+            teammate.equipment = 0;
+            teammate.cost = teammate.baseCost;
+            teammate.attackPower = teammate.baseAttackPower;
+            teammate.attackSpeed = teammate.baseAttackSpeed;
+        }
+    }
+
+    #endregion
 }

@@ -31,6 +31,8 @@ public class PlayerAbilities : MonoBehaviour
         public AttackTypes attackType;
         public int cost;
         public float manaCost;
+        public float baseCooldown;
+        public int baseCost;
         public Player player;
         public EnemySpawner enemySpawner;
 
@@ -75,32 +77,33 @@ public class PlayerAbilities : MonoBehaviour
         {
             abilities = new List<AbilityData>
             {
-                new AbilityData
-                {
-                    name = "Magic Missile",
-                    level = 0,
-                    mult = 2,
-                    cooldown = 5,
-                    attackType = AttackTypes.magical,
-                    manaCost = 5,
-                    cost = 300,
-                    player = player,
-                    enemySpawner = enemyspawner,
-                },
-                new AbilityData
-                {
-                    name = "Quick Strike",
-                    level = 0,
-                    mult = 1.25f,
-                    cooldown = 2,
-                    attackType = AttackTypes.physical,
-                    manaCost = 3,
-                    cost = 250,
-                    player = player,
-                    enemySpawner = enemyspawner
-                }
-            };
-        }
+                name = "Magic Missile",
+                level = 0,
+                mult = 2,
+                cooldown = 5,
+                attackType = AttackTypes.magical,
+                manaCost = 5,
+                cost = 300,
+                baseCooldown = 5,
+                baseCost = 300,
+                player = player,
+                enemySpawner = enemyspawner,
+            },
+            new AbilityData
+            {
+                name = "Quick Strike",
+                level = 0,
+                mult = 1.25f,
+                cooldown = 2,
+                attackType = AttackTypes.physical,
+                manaCost = 3,
+                cost = 250,
+                baseCooldown = 3,
+                baseCost = 250,
+                player = player,
+                enemySpawner = enemyspawner
+            }
+        };
     }
     #endregion
 
@@ -119,5 +122,21 @@ public class PlayerAbilities : MonoBehaviour
         }
         return null;
     }
+    #endregion
+
+    // PrestigeProgress
+    #region
+
+    // Resets some progress for prestige
+    public void PrestigeProgress()
+    {
+        foreach (var ability in abilities)
+        {
+            ability.level = 0;
+            ability.cooldown = ability.baseCooldown;
+            ability.cost = ability.baseCost;
+        }
+    }
+
     #endregion
 }

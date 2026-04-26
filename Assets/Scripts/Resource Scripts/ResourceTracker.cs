@@ -181,4 +181,16 @@ public class ResourceTracker : MonoBehaviour
         }
     }
     #endregion
+
+    // PrestigeProgress
+    #region
+
+    // Resets some progress for prestige
+    public void PrestigeProgress()
+    {
+        gold = 0;
+        mana = 0;
+    }
+
+    #endregion
 }
