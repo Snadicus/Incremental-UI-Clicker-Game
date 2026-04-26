@@ -60,7 +60,7 @@ public class TeammateManager : MonoBehaviour
     #region
     void Awake()
     {
-        if (teammates == null)
+        if (teammates == null || teammates.Count == 0)
         {
             teammates = new List<Teammates>()
             {
@@ -97,8 +97,8 @@ public class TeammateManager : MonoBehaviour
     }
     #endregion
 
-        // Get teammate based on name
-        #region
+    // Get teammate based on name
+    #region
     public Teammates? GetTeammate(string name)
     {
         int index = 0;

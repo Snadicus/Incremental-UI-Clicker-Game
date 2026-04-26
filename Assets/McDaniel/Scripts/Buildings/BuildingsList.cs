@@ -61,9 +61,11 @@ public class BuildingsList : MonoBehaviour
     #region
     void Awake()
     {
-        if (buildings == null)
+        if (buildings == null || buildings.Count == 0)
         {
             buildings = new List<BuildingData>()
+        {
+            new BuildingData
             {
                 name = "Bar",
                 buyType = ResourceTracker.resources.gold,
@@ -103,6 +105,7 @@ public class BuildingsList : MonoBehaviour
                 resourceTracker = resourceTracker
             }
         };
+        }
     }
     #endregion
 

@@ -147,6 +147,16 @@ public class ButtonCanClick : MonoBehaviour
                 }
             }
         }
+
+        if (teammate != null)
+        {
+            costText.text = "Cost: " + teammate.cost;
+        }
+        else if (building != null)
+        {
+            int displayCost = (building.level <= 0) ? building.cost : building.GetUpgradeCost();
+            costText.text = "Cost: " + displayCost;
+        }
     }
     #endregion
 

@@ -97,21 +97,25 @@ public class Upgrades : MonoBehaviour
     void TeammateUpgrade(string type)
     {
         TeammateManager.Teammates? currentTeammate = teammateManager.GetTeammate(type);
-        if (currentTeammate == null)
-        {
-            return;
-        }
+        if (currentTeammate == null) return;
+
+        // Check if player can afford it before upgrading
+        if (resourceTracker.GetResource(currentTeammate.buyType) < currentTeammate.cost) return;
+
+        resourceTracker.SpendResource(currentTeammate.buyType, currentTeammate.cost);
 
         if (currentTeammate.level <= 0)
         {
-            currentTeammate.level += 1;
-            StartCoroutine(currentTeammate.Attack());
+            currentTeammate.level = 1;
+            teammateManager.StartCoroutine(currentTeammate.Attack());
         }
         else
         {
             currentTeammate.level += 1;
             currentTeammate.attackPower += 1;
         }
+
+        currentTeammate.IncreaseCost();
     }
 
     void AbilityUpgrade(string type)
