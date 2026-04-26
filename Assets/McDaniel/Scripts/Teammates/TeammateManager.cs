@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using UnityEngine;
 
+[System.Serializable]
 public class TeammateManager : MonoBehaviour
 {
     // Variables
@@ -30,8 +31,8 @@ public class TeammateManager : MonoBehaviour
         public float attackSpeed;
         public int cost;
         public int baseCost;
-        public float baseAttackPower;
-        public float baseAttackSpeed;
+        public int baseAttackPower;
+        public int baseAttackSpeed;
         [System.Xml.Serialization.XmlIgnore] public EnemySpawner enemySpawner;
         public ResourceTracker.resources buyType;
 
@@ -59,23 +60,7 @@ public class TeammateManager : MonoBehaviour
     #region
     void Awake()
     {
-        string filePath = Application.persistentDataPath + "/Teammate_Data/";
-        string dataPath = filePath + "Teammates.xml";
-        if (File.Exists(dataPath))
-        {
-            Debug.Log("doing This.");
-            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-            using (FileStream stream = File.OpenRead(dataPath))
-            {
-                var teammateList = (List<Teammates>)xmlSerializer.Deserialize(stream);
-                foreach (var teammate in teammateList)
-                {
-                    teammates.Add(teammate);
-                }
-            }
-        }
-        else
+        if (teammates == null)
         {
             teammates = new List<Teammates>()
             {
@@ -92,7 +77,7 @@ public class TeammateManager : MonoBehaviour
                     baseCost = 5,
                     baseAttackPower = 1,
                     baseAttackSpeed = 2
-},
+                },
                 new Teammates
                 {
                     teammateType = "Wizard",
@@ -108,17 +93,6 @@ public class TeammateManager : MonoBehaviour
                     baseAttackSpeed = 5
                 }
             };
-            var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-            if (!Directory.Exists(filePath))
-            {
-                Directory.CreateDirectory(filePath);
-            }
-
-            using (FileStream stream = File.Create(dataPath))
-            {
-                xmlSerializer.Serialize(stream, teammates);
-            }
         }
     }
     #endregion
@@ -175,4 +149,5 @@ public class TeammateManager : MonoBehaviour
     }
 
     #endregion
+
 }
