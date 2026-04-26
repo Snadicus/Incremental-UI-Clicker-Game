@@ -65,44 +65,47 @@ public class BuildingsList : MonoBehaviour
         {
             buildings = new List<BuildingData>()
             {
-                name = "Bar",
-                buyType = ResourceTracker.resources.gold,
-                produceType = ResourceTracker.resources.gold,
-                upgradeType = ResourceTracker.resources.gold,
-                permanent = Permanent.temporary,
-                unlocked = true,
-                level = 0,
-                cost = 100,
-                baseUpgradeCost = 150,
-                upgradeCostMultiplier = 1.2f,
-                income = 15,
-                speed = 8,
-                baseCost = 100,
-                baseSpeed = 8,
-                baseIncome = 15,
-                resourceTracker = resourceTracker
-            },
+                new BuildingData
+                {
+                    name = "Bar",
+                    buyType = ResourceTracker.resources.gold,
+                    produceType = ResourceTracker.resources.gold,
+                    upgradeType = ResourceTracker.resources.gold,
+                    permanent = Permanent.temporary,
+                    unlocked = true,
+                    level = 0,
+                    cost = 100,
+                    baseUpgradeCost = 150,
+                    upgradeCostMultiplier = 1.2f,
+                    income = 15,
+                    speed = 8,
+                    baseCost = 100,
+                    baseSpeed = 8,
+                    baseIncome = 15,
+                    resourceTracker = resourceTracker
+                },
 
-            new BuildingData
-            {
-                name = "GemMine",
-                buyType = ResourceTracker.resources.gold,
-                produceType = ResourceTracker.resources.gem,
-                upgradeType = ResourceTracker.resources.gem,
-                permanent = Permanent.permanent,
-                unlocked = false,
-                level = 0,
-                cost = 1000,
-                baseUpgradeCost = 20,
-                upgradeCostMultiplier = 1.2f,
-                income = 1,
-                speed = 20,
-                baseCost = 1000,
-                baseSpeed = 20,
-                baseIncome = 1,
-                resourceTracker = resourceTracker
-            }
-        };
+                new BuildingData
+                {
+                    name = "GemMine",
+                    buyType = ResourceTracker.resources.gold,
+                    produceType = ResourceTracker.resources.gem,
+                    upgradeType = ResourceTracker.resources.gem,
+                    permanent = Permanent.permanent,
+                    unlocked = false,
+                    level = 0,
+                    cost = 1000,
+                    baseUpgradeCost = 20,
+                    upgradeCostMultiplier = 1.2f,
+                    income = 1,
+                    speed = 20,
+                    baseCost = 1000,
+                    baseSpeed = 20,
+                    baseIncome = 1,
+                    resourceTracker = resourceTracker
+                }
+            };
+        }
     }
     #endregion
 
