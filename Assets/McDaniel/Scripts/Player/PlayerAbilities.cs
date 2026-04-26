@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public class PlayerAbilities : MonoBehaviour
 {
     // Variables
@@ -18,7 +17,7 @@ public class PlayerAbilities : MonoBehaviour
     }
     #endregion
 
-    [System.Serializable]
+
     // Defining abilities class
     #region
     public class AbilityData
@@ -73,9 +72,9 @@ public class PlayerAbilities : MonoBehaviour
 
     void Awake()
     {
-        if (abilities == null)
+        abilities = new List<AbilityData>
         {
-            abilities = new List<AbilityData>
+            new AbilityData
             {
                 name = "Magic Missile",
                 level = 0,

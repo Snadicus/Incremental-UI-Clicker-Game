@@ -2,16 +2,41 @@ using System;
 using System.Collections.Generic;
 
 [System.Serializable]
+public class BuildingSaveData
+{
+    // From BuildingLists
+    public string name;
+    public int level;
+    public bool unlocked;
+}
+
+[System.Serializable]
+public class AbilitySaveData
+{
+    // From PlayerAbilites
+    public string name;
+    public int level;
+}
+
+[System.Serializable]
+public class TeammateSaveData
+{
+    // From TeammateManager
+    public string name;
+    public int level;
+}
+
+[System.Serializable]
 public class SaveData
 {
-    // Saving teammate List
-    public List<TeammateManager.Teammates> teammatesData = new List<TeammateManager.Teammates>();
+    // For saving Buildings
+    public List<BuildingSaveData> buildings = new List<BuildingSaveData>();
 
-    // Saving buildingData
-    public List<BuildingsList.BuildingData> buildingData = new List<BuildingsList.BuildingData>();
+    // For saving Player Abilities
+    public List<AbilitySaveData> abilities = new List<AbilitySaveData>();
 
-    // Saving ability data
-    public List<PlayerAbilities.AbilityData> abilityData = new List<PlayerAbilities.AbilityData>();
+    // For saving Teammates
+    public List<TeammateSaveData> teammates = new List<TeammateSaveData>();
 
     // From ResourceTracker
     public int gold;
