@@ -86,7 +86,6 @@ public class Prestige : MonoBehaviour
         enemySpawner.PrestigeProgress();
         player.PrestigeProgress();
         teammateManager.PrestigeProgress();
-        playerAbilities.PrestigeProgress();
         buildingsList.PrestigeProgress();
 
         UpdatePrestigeLevel();

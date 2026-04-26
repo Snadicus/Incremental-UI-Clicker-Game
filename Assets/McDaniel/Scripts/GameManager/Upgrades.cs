@@ -8,7 +8,7 @@ public class Upgrades : MonoBehaviour
     [SerializeField] PlayerAbilities playerAbilities;
     [SerializeField] ResourceTracker resourceTracker;
     [SerializeField] Player player;
-    
+
     public enum upgradeTypes
     {
         Player,
@@ -105,13 +105,7 @@ public class Upgrades : MonoBehaviour
         if (currentTeammate.level <= 0)
         {
             currentTeammate.level += 1;
-
-            if (currentTeammate.attackRoutine != null)
-            {
-                StopCoroutine(currentTeammate.attackRoutine);
-            }
-
-            currentTeammate.attackRoutine = StartCoroutine(currentTeammate.Attack());
+            StartCoroutine(currentTeammate.Attack());
         }
         else
         {
@@ -127,7 +121,7 @@ public class Upgrades : MonoBehaviour
         {
             return;
         }
-        if (currentAbility.level <=0)
+        if (currentAbility.level <= 0)
         {
             currentAbility.level += 1;
             StartCoroutine(currentAbility.DecreaseCooldown());
