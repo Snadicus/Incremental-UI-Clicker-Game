@@ -97,8 +97,8 @@ public class TeammateManager : MonoBehaviour
     }
     #endregion
 
-    // Get teammate based on name
-    #region
+        // Get teammate based on name
+        #region
     public Teammates? GetTeammate(string name)
     {
         int index = 0;

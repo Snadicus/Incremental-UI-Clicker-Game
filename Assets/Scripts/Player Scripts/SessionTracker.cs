@@ -20,13 +20,13 @@ public class SessionTracker : MonoBehaviour
     {
         filePath = Path.Combine(Application.persistentDataPath, "SessionTime.txt");
 
-        Debug.Log("File path: " + filePath);
+        //Debug.Log("File path: " + filePath);
 
         // Creates text file if its not there
         if (!File.Exists(filePath))
         {
             File.WriteAllText(filePath, "Session Log\n");
-            Debug.Log("Created session trakcer at: " + filePath);
+           //Debug.Log("Created session trakcer at: " + filePath);
         }
     }
 
