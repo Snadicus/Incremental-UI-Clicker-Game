@@ -77,12 +77,12 @@ public class ButtonCanClick : MonoBehaviour
             {
                if (resourceTraker.gold >= teammate.cost)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                     return;
                 }
                else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                     return;
                 }
             }
@@ -98,12 +98,12 @@ public class ButtonCanClick : MonoBehaviour
 
                 if (resourceTraker.GetResource(type) >= cost && building.unlocked)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                     return;
                 }
                 else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                     return;
                 }
             }
@@ -112,12 +112,12 @@ public class ButtonCanClick : MonoBehaviour
         {
             if (resourceTraker.gold >= player.statsCost[playerIndex])
             {
-                gameObject.GetComponent<Button>().enabled = true;
+                gameObject.GetComponent<Button>().interactable = true;
                 return;
             }
             else
             {
-                gameObject.GetComponent<Button>().enabled = false;
+                gameObject.GetComponent<Button>().interactable = false;
                 return;
             }
         }
@@ -128,22 +128,22 @@ public class ButtonCanClick : MonoBehaviour
 
                 if (resourceTraker.gold >= ability.cost)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                 }
                 else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                 }
             }
             else
             {
                 if (resourceTraker.mana >= ability.manaCost && ability.time <= 0)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                 }
                 else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                 }
             }
         }
@@ -171,7 +171,7 @@ public class ButtonCanClick : MonoBehaviour
                 cost = (building.level <= 0) ? building.cost : building.GetUpgradeCost();
                 resourceType = (building.level <= 0) ? building.buyType: building.upgradeType;
 
-                resourceTraker.SpendResource(resourceType, cost);
+                //resourceTraker.SpendResource(resourceType, cost);
 
                 cost = Mathf.RoundToInt(building.baseUpgradeCost * Mathf.Pow(building.upgradeCostMultiplier, building.level));
                 costText.text = "Cost: " + cost;

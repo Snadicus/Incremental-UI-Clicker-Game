@@ -33,11 +33,17 @@ public class BuildingsList : MonoBehaviour
         public int baseIncome;
         public ResourceTracker resourceTracker;
 
+        public void StartProduction(MonoBehaviour runner)
+        {
+            runner.StartCoroutine(GainIncome());
+        }
+
         public IEnumerator GainIncome()
         {
             while (level >= 1)
             {
-                resourceTracker.AddResource(produceType, income);
+                if (resourceTracker != null)
+                    resourceTracker.AddResource(produceType, income);
                 yield return new WaitForSeconds(speed);
             }
         }
@@ -107,6 +113,11 @@ public class BuildingsList : MonoBehaviour
                 }
             };
         }
+
+        foreach (var b in buildings)
+        {
+            b.resourceTracker = this.resourceTracker;
+        }
     }
     #endregion
 
@@ -144,7 +155,7 @@ public class BuildingsList : MonoBehaviour
         {
             if (building.name == "GemMine" && !building.unlocked)
             {
-                if (enemySpawner.currentArea >= 2)
+                if (enemySpawner.currentArea >= 2 || enemySpawner.loop >= 2)
                 {
                     building.unlocked = true;
                 }
@@ -162,7 +173,7 @@ public class BuildingsList : MonoBehaviour
     {
         foreach (var building in buildings)
         {
-            if (building.permanent == Permanent.permanent)
+            if (building.permanent == Permanent.temporary)
                 continue;
 
             building.level = 0;
