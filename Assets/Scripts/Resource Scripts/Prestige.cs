@@ -87,6 +87,7 @@ public class Prestige : MonoBehaviour
         player.PrestigeProgress();
         teammateManager.PrestigeProgress();
         buildingsList.PrestigeProgress();
+        playerAbilities.PrestigeProgress();
 
         // Update Buttons
         ButtonCanClick[] upgradeButtons = FindObjectsOfType<ButtonCanClick>();
