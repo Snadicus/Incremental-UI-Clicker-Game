@@ -173,7 +173,7 @@ public class BuildingsList : MonoBehaviour
     {
         foreach (var building in buildings)
         {
-            if (building.permanent == Permanent.temporary)
+            if (building.permanent == Permanent.permanent)
                 continue;
 
             building.level = 0;

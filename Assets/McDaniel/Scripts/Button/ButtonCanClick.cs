@@ -202,4 +202,30 @@ public class ButtonCanClick : MonoBehaviour
         }
     }
 
+
+    public void RefreshCostUI()
+    {
+        if (teammate != null)
+        {
+            costText.text = "Cost: " + teammate.cost;
+        }
+        else if (building != null)
+        {
+            int currentCost = (building.level <= 0)
+                ? building.cost
+                : building.GetUpgradeCost();
+            costText.text = "Cost: " + currentCost;
+        }
+        else if (ability != null)
+        {
+            if (costText != null)
+            {
+                costText.text = "Cost: " + ability.cost;
+            }
+        }
+        else if (upgradeObject != null && upgradeType == Upgrades.upgradeTypes.Player)
+        {
+            costText.text = "Cost: " + player.statsCost[playerIndex];
+        }
+    }
 }
