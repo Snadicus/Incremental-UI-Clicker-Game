@@ -138,6 +138,7 @@ public class PlayerAbilities : MonoBehaviour
             ability.level = 0;
             ability.cooldown = ability.baseCooldown;
             ability.cost = ability.baseCost;
+            ability.time = 0;
         }
     }
 

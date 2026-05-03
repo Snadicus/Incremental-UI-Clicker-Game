@@ -164,7 +164,7 @@ public class SaveManager : MonoBehaviour
     #region
     void OnApplicationQuit()
     {
-        SaveGame();
+        //SaveGame();
     }
     #endregion
 }
