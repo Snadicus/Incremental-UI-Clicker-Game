@@ -33,11 +33,17 @@ public class BuildingsList : MonoBehaviour
         public int baseIncome;
         public ResourceTracker resourceTracker;
 
+        public void StartProduction(MonoBehaviour runner)
+        {
+            runner.StartCoroutine(GainIncome());
+        }
+
         public IEnumerator GainIncome()
         {
             while (level >= 1)
             {
-                resourceTracker.AddResource(produceType, income);
+                if (resourceTracker != null)
+                    resourceTracker.AddResource(produceType, income);
                 yield return new WaitForSeconds(speed);
             }
         }
@@ -61,48 +67,57 @@ public class BuildingsList : MonoBehaviour
     #region
     void Awake()
     {
-        if (buildings == null)
+        Debug.Log(buildings.Count);
+        if (buildings.Count == 0)
         {
             buildings = new List<BuildingData>()
             {
-                name = "Bar",
-                buyType = ResourceTracker.resources.gold,
-                produceType = ResourceTracker.resources.gold,
-                upgradeType = ResourceTracker.resources.gold,
-                permanent = Permanent.temporary,
-                unlocked = true,
-                level = 0,
-                cost = 100,
-                baseUpgradeCost = 150,
-                upgradeCostMultiplier = 1.2f,
-                income = 15,
-                speed = 8,
-                baseCost = 100,
-                baseSpeed = 8,
-                baseIncome = 15,
-                resourceTracker = resourceTracker
-            },
+                new BuildingData
+                {
+                    name = "Bar",
+                    buyType = ResourceTracker.resources.gold,
+                    produceType = ResourceTracker.resources.gold,
+                    upgradeType = ResourceTracker.resources.gold,
+                    permanent = Permanent.temporary,
+                    unlocked = true,
+                    level = 0,
+                    cost = 100,
+                    baseUpgradeCost = 150,
+                    upgradeCostMultiplier = 1.2f,
+                    income = 15,
+                    speed = 8,
+                    baseCost = 100,
+                    baseSpeed = 8,
+                    baseIncome = 15,
+                    resourceTracker = resourceTracker
+                },
 
-            new BuildingData
-            {
-                name = "GemMine",
-                buyType = ResourceTracker.resources.gold,
-                produceType = ResourceTracker.resources.gem,
-                upgradeType = ResourceTracker.resources.gem,
-                permanent = Permanent.permanent,
-                unlocked = false,
-                level = 0,
-                cost = 1000,
-                baseUpgradeCost = 20,
-                upgradeCostMultiplier = 1.2f,
-                income = 1,
-                speed = 20,
-                baseCost = 1000,
-                baseSpeed = 20,
-                baseIncome = 1,
-                resourceTracker = resourceTracker
-            }
-        };
+                new BuildingData
+                {
+                    name = "GemMine",
+                    buyType = ResourceTracker.resources.gold,
+                    produceType = ResourceTracker.resources.gem,
+                    upgradeType = ResourceTracker.resources.gem,
+                    permanent = Permanent.permanent,
+                    unlocked = false,
+                    level = 0,
+                    cost = 1000,
+                    baseUpgradeCost = 20,
+                    upgradeCostMultiplier = 1.2f,
+                    income = 1,
+                    speed = 20,
+                    baseCost = 1000,
+                    baseSpeed = 20,
+                    baseIncome = 1,
+                    resourceTracker = resourceTracker
+                }
+            };
+        }
+
+        foreach (var b in buildings)
+        {
+            b.resourceTracker = this.resourceTracker;
+        }
     }
     #endregion
 
@@ -140,7 +155,7 @@ public class BuildingsList : MonoBehaviour
         {
             if (building.name == "GemMine" && !building.unlocked)
             {
-                if (enemySpawner.currentArea >= 2)
+                if (enemySpawner.currentArea >= 2 || enemySpawner.loop >= 2)
                 {
                     building.unlocked = true;
                 }

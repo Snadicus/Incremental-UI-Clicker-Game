@@ -73,37 +73,40 @@ public class PlayerAbilities : MonoBehaviour
 
     void Awake()
     {
-        if (abilities == null)
+        if (abilities.Count == 0)
         {
             abilities = new List<AbilityData>
             {
-                name = "Magic Missile",
-                level = 0,
-                mult = 2,
-                cooldown = 5,
-                attackType = AttackTypes.magical,
-                manaCost = 5,
-                cost = 300,
-                baseCooldown = 5,
-                baseCost = 300,
-                player = player,
-                enemySpawner = enemyspawner,
-            },
-            new AbilityData
-            {
-                name = "Quick Strike",
-                level = 0,
-                mult = 1.25f,
-                cooldown = 2,
-                attackType = AttackTypes.physical,
-                manaCost = 3,
-                cost = 250,
-                baseCooldown = 3,
-                baseCost = 250,
-                player = player,
-                enemySpawner = enemyspawner
-            }
-        };
+                new AbilityData
+                {
+                    name = "Magic Missile",
+                    level = 0,
+                    mult = 2,
+                    cooldown = 5,
+                    attackType = AttackTypes.magical,
+                    manaCost = 5,
+                    cost = 300,
+                    baseCooldown = 5,
+                    baseCost = 300,
+                    player = player,
+                    enemySpawner = enemyspawner,
+                },
+                new AbilityData
+                {
+                    name = "Quick Strike",
+                    level = 0,
+                    mult = 1.25f,
+                    cooldown = 2,
+                    attackType = AttackTypes.physical,
+                    manaCost = 3,
+                    cost = 250,
+                    baseCooldown = 3,
+                    baseCost = 250,
+                    player = player,
+                    enemySpawner = enemyspawner
+                }
+            };
+        }
     }
     #endregion
 
@@ -135,6 +138,7 @@ public class PlayerAbilities : MonoBehaviour
             ability.level = 0;
             ability.cooldown = ability.baseCooldown;
             ability.cost = ability.baseCost;
+            ability.time = 0;
         }
     }
 

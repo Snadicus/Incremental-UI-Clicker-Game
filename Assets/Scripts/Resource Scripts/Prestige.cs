@@ -87,6 +87,21 @@ public class Prestige : MonoBehaviour
         player.PrestigeProgress();
         teammateManager.PrestigeProgress();
         buildingsList.PrestigeProgress();
+        playerAbilities.PrestigeProgress();
+
+        // Update Buttons
+        ButtonCanClick[] upgradeButtons = FindObjectsOfType<ButtonCanClick>();
+        foreach (var btn in upgradeButtons)
+        {
+            btn.RefreshCostUI();
+        }
+
+        // Reset Sliders
+        ButtonUI[] uiBars = FindObjectsOfType<ButtonUI>();
+        foreach (var bar in uiBars)
+        {
+            if (bar.attackSlider != null) bar.attackSlider.value = 0;
+        }
 
         UpdatePrestigeLevel();
         Debug.Log("Progress reset!");
