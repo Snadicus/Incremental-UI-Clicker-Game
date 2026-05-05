@@ -3,20 +3,20 @@ using UnityEngine.UI;
 
 public class ShowHideButtons : MonoBehaviour
 {
-    public Canvas canvas;
+    public CanvasGroup canvas;
 
     public LayoutElement layoutElement;
 
     public void ShowHide()
     {
-        if (canvas.enabled)
+        if (canvas.alpha >0)
         {
-            canvas.enabled = false;
+            canvas.alpha = 0;
             layoutElement.ignoreLayout = true;
         }
         else
         {
-            canvas.enabled = true;
+            canvas.alpha = 1;
             layoutElement.ignoreLayout = false;
         }
     }

@@ -1220,7 +1220,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2451,7 +2451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 442009987}
   - component: {fileID: 442009989}
-  - component: {fileID: 442009988}
+  - component: {fileID: 442009990}
   m_Layer: 5
   m_Name: Teammates
   m_TagString: Untagged
@@ -2482,29 +2482,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 193.9, y: 390.28186}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!223 &442009988
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442009986}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!114 &442009989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2525,6 +2502,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!225 &442009990
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442009986}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &475213588
 GameObject:
   m_ObjectHideFlags: 0
@@ -4982,7 +4971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef5137ca1753894abeb2be94816dffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowHideButtons
-  canvas: {fileID: 442009988}
+  canvas: {fileID: 442009990}
   layoutElement: {fileID: 442009989}
 --- !u!114 &775737760
 MonoBehaviour:
@@ -6511,9 +6500,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 961162288}
-  - component: {fileID: 961162291}
-  - component: {fileID: 961162290}
   - component: {fileID: 961162289}
+  - component: {fileID: 961162290}
   m_Layer: 5
   m_Name: Stats
   m_TagString: Untagged
@@ -6564,37 +6552,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!222 &961162290
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961162287}
-  m_CullTransparentMesh: 1
---- !u!223 &961162291
-Canvas:
+--- !u!225 &961162290
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961162287}
   m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &980262277
 GameObject:
   m_ObjectHideFlags: 0
@@ -7237,8 +7206,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1080423942}
-  - component: {fileID: 1080423944}
   - component: {fileID: 1080423943}
+  - component: {fileID: 1080423944}
   m_Layer: 5
   m_Name: Abilities
   m_TagString: Untagged
@@ -7287,29 +7256,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!223 &1080423944
-Canvas:
+--- !u!225 &1080423944
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080423941}
   m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1101759141
 GameObject:
   m_ObjectHideFlags: 0
@@ -8503,7 +8461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef5137ca1753894abeb2be94816dffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowHideButtons
-  canvas: {fileID: 961162291}
+  canvas: {fileID: 961162290}
   layoutElement: {fileID: 961162289}
 --- !u!114 &1192677972
 MonoBehaviour:
@@ -13852,8 +13810,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2016937753}
-  - component: {fileID: 2016937755}
   - component: {fileID: 2016937754}
+  - component: {fileID: 2016937755}
   m_Layer: 5
   m_Name: Buildings
   m_TagString: Untagged
@@ -13904,29 +13862,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!223 &2016937755
-Canvas:
+--- !u!225 &2016937755
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016937752}
   m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2019870160
 GameObject:
   m_ObjectHideFlags: 0
