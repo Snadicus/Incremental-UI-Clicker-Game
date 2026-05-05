@@ -45,9 +45,6 @@ public class ButtonUI : MonoBehaviour
                 type = "Teammates";
                 this.index = index;
                 StartCoroutine(RaiseAttackBar());
-                Debug.Log("Got It");
-                Debug.Log(type);
-                Debug.Log(this.index);
                 return;
             }
             index++;
