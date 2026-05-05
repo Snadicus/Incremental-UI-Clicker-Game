@@ -1,4 +1,5 @@
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,13 +19,15 @@ public class SaveManager : MonoBehaviour
     public Player player;
     public EnemySpawner enemySpawner;
 
+    public TextMeshProUGUI goldFeedbackText;
+
     #endregion
 
     // Awake
     #region
 
     // Called when loaded. Sets the save path.
-    private void Awake()
+    private void Start()
     {
         saveFilePath = Application.persistentDataPath + "/saveFile.json";
         LoadGame();
@@ -43,12 +46,14 @@ public class SaveManager : MonoBehaviour
         {
             SaveGame();
             Debug.Log("Game Saved!");
+            goldFeedbackText.text = "Game Saved!";
         }
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             LoadGame();
             Debug.Log("Game Loaded!");
+            goldFeedbackText.text = "Game Loaded!";
         }
     }
 
@@ -85,6 +90,8 @@ public class SaveManager : MonoBehaviour
         data.currentArea = enemySpawner.currentArea;
         data.loop = enemySpawner.loop;
 
+        data.version = "3";
+
         // Taken from EnemySpawner
         data.gold = resourceTracker.gold;
         data.mana = resourceTracker.mana;
@@ -94,6 +101,7 @@ public class SaveManager : MonoBehaviour
 
         // Taken from Player
         data.playerStats = player.stats;
+        data.playerCosts = player.statsCost;
 
         string json = JsonUtility.ToJson(data, true);
 
@@ -115,6 +123,8 @@ public class SaveManager : MonoBehaviour
             string json = File.ReadAllText(saveFilePath);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
+            if (data.version != "3" || data.version == null) throw new FileNotFoundException();
+
             // For Player Stats
             player.stats = data.playerStats;
 
@@ -134,10 +144,24 @@ public class SaveManager : MonoBehaviour
             playerAbilities.abilities.Clear();
             teammateManager.teammates.Clear();
 
+            for (int i=0; i < data.playerStats.Length; i++)
+            {
+                player.stats[i] = data.playerStats[i];
+            }
+            for (int i = 0; i < data.playerStats.Length; i++)
+            {
+                player.statsCost[i] = data.playerCosts[i];
+            }
+
             // For Buildings
             foreach (var savedBuilding in data.buildingData)
             {
+                savedBuilding.resourceTracker = resourceTracker;
                 buildingsList.buildings.Add(savedBuilding);
+                if (savedBuilding.level > 0)
+                {
+                    StartCoroutine(savedBuilding.GainIncome());
+                }
             }
 
             // For Abilities
@@ -149,7 +173,12 @@ public class SaveManager : MonoBehaviour
             // For Teammates
             foreach (var savedTeammate in data.teammatesData)
             {
+                savedTeammate.enemySpawner = enemySpawner;
                 teammateManager.teammates.Add(savedTeammate);
+                if (savedTeammate.level > 0)
+                {
+                    StartCoroutine(savedTeammate.Attack());
+                }
             }
         }
         catch (FileNotFoundException)

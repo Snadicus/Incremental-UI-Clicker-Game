@@ -31,7 +31,7 @@ public class TeammateManager : MonoBehaviour
         public float attackSpeed;
         public int cost;
         public int baseCost;
-        public float baseAttackPower;
+        public int baseAttackPower;
         public float baseAttackSpeed;
         [System.Xml.Serialization.XmlIgnore] public EnemySpawner enemySpawner;
         public ResourceTracker.resources buyType;
@@ -60,7 +60,7 @@ public class TeammateManager : MonoBehaviour
     #region
     void Awake()
     {
-        if (teammates == null || teammates.Count == 0)
+        if (teammates.Count == 0)
         {
             teammates = new List<Teammates>()
             {
@@ -77,7 +77,7 @@ public class TeammateManager : MonoBehaviour
                     baseCost = 5,
                     baseAttackPower = 1,
                     baseAttackSpeed = 2
-},
+                },
                 new Teammates
                 {
                     teammateType = "Wizard",
@@ -87,10 +87,38 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 5,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
-                    cost = 10,
-                    baseCost = 10,
+                    cost = 100,
+                    baseCost = 100,
                     baseAttackPower = 5,
                     baseAttackSpeed = 5
+                },
+                new Teammates
+                {
+                    teammateType = "Fighter",
+                    level = 0,
+                    equipment = 0,
+                    attackPower = 3,
+                    attackSpeed = 3.5f,
+                    enemySpawner = enemySpawner,
+                    buyType = ResourceTracker.resources.gold,
+                    cost = 50,
+                    baseCost = 50,
+                    baseAttackPower = 3,
+                    baseAttackSpeed = 3
+                },
+                new Teammates
+                {
+                    teammateType = "Rogue",
+                    level = 0,
+                    equipment = 0,
+                    attackPower = 2,
+                    attackSpeed = 1.5f,
+                    enemySpawner = enemySpawner,
+                    buyType = ResourceTracker.resources.gold,
+                    cost = 20,
+                    baseCost = 20,
+                    baseAttackPower = 2,
+                    baseAttackSpeed = 1.5f
                 }
             };
         }
@@ -114,24 +142,6 @@ public class TeammateManager : MonoBehaviour
     }
     #endregion
 
-    // Save Teammate stats
-    private void OnApplicationQuit()
-    {
-        string filePath = Application.persistentDataPath + "/Teammate_Data/";
-        string dataPath = filePath + "Teammates.xml";
-        var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-        if (!Directory.Exists(filePath))
-        {
-            Directory.CreateDirectory(filePath);
-        }
-        using (FileStream stream = File.Create(dataPath))
-        {
-            xmlSerializer.Serialize(stream, teammates);
-        }
-
-    }
-
     // PrestigeProgress
     #region
 
@@ -149,4 +159,5 @@ public class TeammateManager : MonoBehaviour
     }
 
     #endregion
+
 }

@@ -31,6 +31,7 @@ public class Prestige : MonoBehaviour
     {
         UpdateDivineFavor();
         UpdatePrestigeCost();
+        UpdatePrestigeLevel();
     }
 
     #endregion
@@ -87,8 +88,21 @@ public class Prestige : MonoBehaviour
         player.PrestigeProgress();
         teammateManager.PrestigeProgress();
         buildingsList.PrestigeProgress();
+        playerAbilities.PrestigeProgress();
 
-        UpdatePrestigeLevel();
+        // Update Buttons
+        ButtonCanClick[] upgradeButtons = FindObjectsOfType<ButtonCanClick>();
+        foreach (var btn in upgradeButtons)
+        {
+            btn.RefreshCostUI();
+        }
+
+        // Reset Sliders
+        ButtonUI[] uiBars = FindObjectsOfType<ButtonUI>();
+        foreach (var bar in uiBars)
+        {
+            if (bar.attackSlider != null) bar.attackSlider.value = 0;
+        }
         Debug.Log("Progress reset!");
     }
 
@@ -123,7 +137,7 @@ public class Prestige : MonoBehaviour
     void UpdatePrestigeCost()
     {
         prestigeCost = CalculatePrestigeCost();
-        prestigeCostText.text = "Cost: " + prestigeCost;
+        prestigeCostText.text = "Cost: " + prestigeCost + " gems";
     }
 
     #endregion

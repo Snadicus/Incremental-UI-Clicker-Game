@@ -73,7 +73,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void Awake()
     {
-        if (abilities == null || abilities.Count == 0)
+        if (abilities.Count == 0)
         {
             abilities = new List<AbilityData>
             {
@@ -138,6 +138,7 @@ public class PlayerAbilities : MonoBehaviour
             ability.level = 0;
             ability.cooldown = ability.baseCooldown;
             ability.cost = ability.baseCost;
+            ability.time = 0;
         }
     }
 

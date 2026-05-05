@@ -60,38 +60,30 @@ public class Upgrades : MonoBehaviour
         }
     }
 
-    // Building upgrade
     void BuildingUpgrade(string type)
     {
         BuildingsList.BuildingData? currentBuilding = buildingsList.GetBuildingData(type);
+        if (currentBuilding == null) return;
 
-        if (currentBuilding == null)
-        {
-            return;
-        }
-
-        // Logic before first purchase
         if (currentBuilding.level <= 0)
         {
-            int cost = currentBuilding.cost;
-
-            if (resourceTracker.GetResource(currentBuilding.buyType) < cost)
+            if (resourceTracker.GetResource(currentBuilding.buyType) >= currentBuilding.cost)
             {
-                return;
+                resourceTracker.SpendResource(currentBuilding.buyType, currentBuilding.cost);
+                currentBuilding.level = 1;
+                buildingsList.StartCoroutine(currentBuilding.GainIncome());
             }
-
-            resourceTracker.SpendResource(currentBuilding.buyType, cost);
-
-            currentBuilding.level = 1;
-            StartCoroutine(currentBuilding.GainIncome());
-            return;
         }
-
-        // Logic after upgrade
-        int upgradeCost = currentBuilding.GetUpgradeCost();
-
-        currentBuilding.level++;
-        currentBuilding.income += (currentBuilding.income / currentBuilding.level);
+        else
+        {
+            int upgradeCost = currentBuilding.GetUpgradeCost();
+            if (resourceTracker.GetResource(currentBuilding.upgradeType) >= upgradeCost)
+            {
+                resourceTracker.SpendResource(currentBuilding.upgradeType, upgradeCost);
+                currentBuilding.level++;
+                currentBuilding.income += Mathf.Max(1, currentBuilding.baseIncome / 2);
+            }
+        }
     }
 
     void TeammateUpgrade(string type)

@@ -34,32 +34,7 @@ public class ButtonCanClick : MonoBehaviour
 
     void Start()
     {
-        // Get the upgrade type and game object
-        upgradeType = upgrades.GetUpgradeType(gameObject.name);
-        upgradeObject = upgrades.GetUpgradeObject(gameObject.name);
-        if (upgradeObject is TeammateManager.Teammates teammate)
-        {
-            this.teammate = teammate;
-            costText.text = "Cost: " + teammate.cost;
-        }
-        else if (upgradeObject is BuildingsList.BuildingData building)
-        {
-            this.building = building;
-            costText.text = "Cost: " + building.cost;
-        }
-        else if (upgradeObject is PlayerAbilities.AbilityData ability)
-        {
-            this.ability = ability;
-            if (costText != null)
-            {
-                costText.text = "Cost: " + ability.cost;
-            }
-        }
-        else
-        {
-            playerIndex = Convert.ToInt32(upgradeObject);
-            costText.text = "Cost: " + player.statsCost[playerIndex];
-        }
+        Invoke("AssignEverything", 0.01f);
     }
 
     // If the button can't click, then it should be darker and button disabled. 
@@ -77,12 +52,12 @@ public class ButtonCanClick : MonoBehaviour
             {
                if (resourceTraker.gold >= teammate.cost)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                     return;
                 }
                else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                     return;
                 }
             }
@@ -98,12 +73,12 @@ public class ButtonCanClick : MonoBehaviour
 
                 if (resourceTraker.GetResource(type) >= cost && building.unlocked)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                     return;
                 }
                 else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                     return;
                 }
             }
@@ -112,12 +87,12 @@ public class ButtonCanClick : MonoBehaviour
         {
             if (resourceTraker.gold >= player.statsCost[playerIndex])
             {
-                gameObject.GetComponent<Button>().enabled = true;
+                gameObject.GetComponent<Button>().interactable = true;
                 return;
             }
             else
             {
-                gameObject.GetComponent<Button>().enabled = false;
+                gameObject.GetComponent<Button>().interactable = false;
                 return;
             }
         }
@@ -128,22 +103,22 @@ public class ButtonCanClick : MonoBehaviour
 
                 if (resourceTraker.gold >= ability.cost)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                 }
                 else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                 }
             }
             else
             {
                 if (resourceTraker.mana >= ability.manaCost && ability.time <= 0)
                 {
-                    gameObject.GetComponent<Button>().enabled = true;
+                    gameObject.GetComponent<Button>().interactable = true;
                 }
                 else
                 {
-                    gameObject.GetComponent<Button>().enabled = false;
+                    gameObject.GetComponent<Button>().interactable = false;
                 }
             }
         }
@@ -181,7 +156,7 @@ public class ButtonCanClick : MonoBehaviour
                 cost = (building.level <= 0) ? building.cost : building.GetUpgradeCost();
                 resourceType = (building.level <= 0) ? building.buyType: building.upgradeType;
 
-                resourceTraker.SpendResource(resourceType, cost);
+                //resourceTraker.SpendResource(resourceType, cost);
 
                 cost = Mathf.RoundToInt(building.baseUpgradeCost * Mathf.Pow(building.upgradeCostMultiplier, building.level));
                 costText.text = "Cost: " + cost;
@@ -212,4 +187,60 @@ public class ButtonCanClick : MonoBehaviour
         }
     }
 
+
+    public void RefreshCostUI()
+    {
+        if (teammate != null)
+        {
+            costText.text = "Cost: " + teammate.cost;
+        }
+        else if (building != null)
+        {
+            int currentCost = (building.level <= 0)
+                ? building.cost
+                : building.GetUpgradeCost();
+            costText.text = "Cost: " + currentCost;
+        }
+        else if (ability != null)
+        {
+            if (costText != null)
+            {
+                costText.text = "Cost: " + ability.cost;
+            }
+        }
+        else if (upgradeObject != null && upgradeType == Upgrades.upgradeTypes.Player)
+        {
+            costText.text = "Cost: " + player.statsCost[playerIndex];
+        }
+    }
+
+    void AssignEverything()
+    {
+        // Get the upgrade type and game object
+        upgradeType = upgrades.GetUpgradeType(gameObject.name);
+        upgradeObject = upgrades.GetUpgradeObject(gameObject.name);
+        if (upgradeObject is TeammateManager.Teammates teammate)
+        {
+            this.teammate = teammate;
+            costText.text = "Cost: " + teammate.cost;
+        }
+        else if (upgradeObject is BuildingsList.BuildingData building)
+        {
+            this.building = building;
+            costText.text = "Cost: " + building.cost;
+        }
+        else if (upgradeObject is PlayerAbilities.AbilityData ability)
+        {
+            this.ability = ability;
+            if (costText != null)
+            {
+                costText.text = "Cost: " + ability.cost;
+            }
+        }
+        else
+        {
+            playerIndex = Convert.ToInt32(upgradeObject);
+            costText.text = "Cost: " + player.statsCost[playerIndex];
+        }
+    }
 }
