@@ -34,32 +34,7 @@ public class ButtonCanClick : MonoBehaviour
 
     void Start()
     {
-        // Get the upgrade type and game object
-        upgradeType = upgrades.GetUpgradeType(gameObject.name);
-        upgradeObject = upgrades.GetUpgradeObject(gameObject.name);
-        if (upgradeObject is TeammateManager.Teammates teammate)
-        {
-            this.teammate = teammate;
-            costText.text = "Cost: " + teammate.cost;
-        }
-        else if (upgradeObject is BuildingsList.BuildingData building)
-        {
-            this.building = building;
-            costText.text = "Cost: " + building.cost;
-        }
-        else if (upgradeObject is PlayerAbilities.AbilityData ability)
-        {
-            this.ability = ability;
-            if (costText != null)
-            {
-                costText.text = "Cost: " + ability.cost;
-            }
-        }
-        else
-        {
-            playerIndex = Convert.ToInt32(upgradeObject);
-            costText.text = "Cost: " + player.statsCost[playerIndex];
-        }
+        Invoke("AssignEverything", 0.01f);
     }
 
     // If the button can't click, then it should be darker and button disabled. 
@@ -225,6 +200,36 @@ public class ButtonCanClick : MonoBehaviour
         }
         else if (upgradeObject != null && upgradeType == Upgrades.upgradeTypes.Player)
         {
+            costText.text = "Cost: " + player.statsCost[playerIndex];
+        }
+    }
+
+    void AssignEverything()
+    {
+        // Get the upgrade type and game object
+        upgradeType = upgrades.GetUpgradeType(gameObject.name);
+        upgradeObject = upgrades.GetUpgradeObject(gameObject.name);
+        if (upgradeObject is TeammateManager.Teammates teammate)
+        {
+            this.teammate = teammate;
+            costText.text = "Cost: " + teammate.cost;
+        }
+        else if (upgradeObject is BuildingsList.BuildingData building)
+        {
+            this.building = building;
+            costText.text = "Cost: " + building.cost;
+        }
+        else if (upgradeObject is PlayerAbilities.AbilityData ability)
+        {
+            this.ability = ability;
+            if (costText != null)
+            {
+                costText.text = "Cost: " + ability.cost;
+            }
+        }
+        else
+        {
+            playerIndex = Convert.ToInt32(upgradeObject);
             costText.text = "Cost: " + player.statsCost[playerIndex];
         }
     }

@@ -55,6 +55,7 @@ public class BuildingsList : MonoBehaviour
 
         public int GetUpgradeCost()
         {
+            cost = Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(upgradeCostMultiplier, level - 1));
             return Mathf.RoundToInt(baseUpgradeCost * Mathf.Pow(upgradeCostMultiplier, level - 1));
         }
     }
@@ -67,7 +68,6 @@ public class BuildingsList : MonoBehaviour
     #region
     void Awake()
     {
-        Debug.Log(buildings.Count);
         if (buildings.Count == 0)
         {
             buildings = new List<BuildingData>()

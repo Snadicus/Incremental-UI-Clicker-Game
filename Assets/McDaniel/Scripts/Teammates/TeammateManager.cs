@@ -97,8 +97,8 @@ public class TeammateManager : MonoBehaviour
     }
     #endregion
 
-        // Get teammate based on name
-        #region
+    // Get teammate based on name
+    #region
     public Teammates? GetTeammate(string name)
     {
         int index = 0;
@@ -113,24 +113,6 @@ public class TeammateManager : MonoBehaviour
         return null;
     }
     #endregion
-
-    // Save Teammate stats
-    private void OnApplicationQuit()
-    {
-        string filePath = Application.persistentDataPath + "/Teammate_Data/";
-        string dataPath = filePath + "Teammates.xml";
-        var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
-
-        if (!Directory.Exists(filePath))
-        {
-            Directory.CreateDirectory(filePath);
-        }
-        using (FileStream stream = File.Create(dataPath))
-        {
-            xmlSerializer.Serialize(stream, teammates);
-        }
-
-    }
 
     // PrestigeProgress
     #region

@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     // Current enemy data and storage for stats
     private AreaList.enemyData currentEnemy;
 
-    private float currentHealth;
+    [HideInInspector] public float currentHealth;
     private float maxHealth;
     private int goldReward;
 
@@ -56,7 +56,6 @@ public class EnemySpawner : MonoBehaviour
         SpawnEnemy();
         UpdateAreaText();
         areaMax = areaList.areas.Count - 1;
-        Debug.Log(areaMax);
     }
 
     #endregion
@@ -138,7 +137,7 @@ public class EnemySpawner : MonoBehaviour
 
         enemiesRemaining = enemyMultiplier;
 
-        Debug.Log("Spawning: " + enemiesRemaining + " " + currentEnemy.name);
+        //Debug.Log("Spawning: " + enemiesRemaining + " " + currentEnemy.name);
     }
 
     #endregion

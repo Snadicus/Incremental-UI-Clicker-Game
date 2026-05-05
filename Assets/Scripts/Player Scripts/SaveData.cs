@@ -22,6 +22,7 @@ public class SaveData
 
     // From Player
     public int[] playerStats;
+    public int[] playerCosts; 
 
     // From EnemySpawner
     public int currentArea;

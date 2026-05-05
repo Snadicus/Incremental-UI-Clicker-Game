@@ -24,7 +24,7 @@ public class SaveManager : MonoBehaviour
     #region
 
     // Called when loaded. Sets the save path.
-    private void Awake()
+    private void Start()
     {
         saveFilePath = Application.persistentDataPath + "/saveFile.json";
         LoadGame();
@@ -94,6 +94,7 @@ public class SaveManager : MonoBehaviour
 
         // Taken from Player
         data.playerStats = player.stats;
+        data.playerCosts = player.statsCost;
 
         string json = JsonUtility.ToJson(data, true);
 
@@ -134,10 +135,24 @@ public class SaveManager : MonoBehaviour
             playerAbilities.abilities.Clear();
             teammateManager.teammates.Clear();
 
+            for (int i=0; i < data.playerStats.Length; i++)
+            {
+                player.stats[i] = data.playerStats[i];
+            }
+            for (int i = 0; i < data.playerStats.Length; i++)
+            {
+                player.statsCost[i] = data.playerCosts[i];
+            }
+
             // For Buildings
             foreach (var savedBuilding in data.buildingData)
             {
+                savedBuilding.resourceTracker = resourceTracker;
                 buildingsList.buildings.Add(savedBuilding);
+                if (savedBuilding.level > 0)
+                {
+                    StartCoroutine(savedBuilding.GainIncome());
+                }
             }
 
             // For Abilities
@@ -149,7 +164,12 @@ public class SaveManager : MonoBehaviour
             // For Teammates
             foreach (var savedTeammate in data.teammatesData)
             {
+                savedTeammate.enemySpawner = enemySpawner;
                 teammateManager.teammates.Add(savedTeammate);
+                if (savedTeammate.level > 0)
+                {
+                    StartCoroutine(savedTeammate.Attack());
+                }
             }
         }
         catch (FileNotFoundException)
@@ -164,7 +184,7 @@ public class SaveManager : MonoBehaviour
     #region
     void OnApplicationQuit()
     {
-        //SaveGame();
+        SaveGame();
     }
     #endregion
 }
