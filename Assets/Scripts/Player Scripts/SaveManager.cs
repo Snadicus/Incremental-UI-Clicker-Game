@@ -90,6 +90,8 @@ public class SaveManager : MonoBehaviour
         data.currentArea = enemySpawner.currentArea;
         data.loop = enemySpawner.loop;
 
+        data.version = "3";
+
         // Taken from EnemySpawner
         data.gold = resourceTracker.gold;
         data.mana = resourceTracker.mana;
@@ -120,6 +122,8 @@ public class SaveManager : MonoBehaviour
         {
             string json = File.ReadAllText(saveFilePath);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            if (data.version != "3" || data.version == null) throw new FileNotFoundException();
 
             // For Player Stats
             player.stats = data.playerStats;

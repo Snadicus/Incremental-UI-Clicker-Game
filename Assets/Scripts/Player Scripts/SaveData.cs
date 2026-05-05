@@ -4,6 +4,8 @@ using System.Collections.Generic;
 [System.Serializable]
 public class SaveData
 {
+    public string version;
+
     // Saving teammate List
     public List<TeammateManager.Teammates> teammatesData = new List<TeammateManager.Teammates>();
 

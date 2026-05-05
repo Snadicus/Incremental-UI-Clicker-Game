@@ -110,6 +110,46 @@ public class BuildingsList : MonoBehaviour
                     baseSpeed = 20,
                     baseIncome = 1,
                     resourceTracker = resourceTracker
+                },
+
+                new BuildingData
+                {
+                    name = "ManaPool",
+                    buyType = ResourceTracker.resources.gem,
+                    produceType = ResourceTracker.resources.mana,
+                    upgradeType = ResourceTracker.resources.gold,
+                    permanent = Permanent.permanent,
+                    unlocked = false,
+                    level = 0,
+                    cost = 1500,
+                    baseUpgradeCost = 2000,
+                    upgradeCostMultiplier = 1.1f,
+                    income = 1,
+                    speed = 2,
+                    baseCost = 1500,
+                    baseSpeed = 2,
+                    baseIncome = 1,
+                    resourceTracker = resourceTracker
+                },
+
+                new BuildingData
+                {
+                    name = "GuildHall",
+                    buyType = ResourceTracker.resources.gem,
+                    produceType = ResourceTracker.resources.gold,
+                    upgradeType = ResourceTracker.resources.gold,
+                    permanent = Permanent.permanent,
+                    unlocked = false,
+                    level = 0,
+                    cost = 2000,
+                    baseUpgradeCost = 2250,
+                    upgradeCostMultiplier = 1.15f,
+                    income = 45,
+                    speed = 30,
+                    baseCost = 2000,
+                    baseSpeed = 30,
+                    baseIncome = 45,
+                    resourceTracker = resourceTracker
                 }
             };
         }
@@ -173,8 +213,12 @@ public class BuildingsList : MonoBehaviour
     {
         foreach (var building in buildings)
         {
-            if (building.permanent == Permanent.permanent)
+            if (building.permanent == Permanent.permanent && building.upgradeType == ResourceTracker.resources.gem)
                 continue;
+            else if(building.permanent == Permanent.permanent)
+            {
+
+            }
 
             building.level = 0;
             building.cost = building.baseCost;
