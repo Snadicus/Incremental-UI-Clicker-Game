@@ -1,4 +1,5 @@
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,6 +18,8 @@ public class SaveManager : MonoBehaviour
     public PlayerAbilities playerAbilities;
     public Player player;
     public EnemySpawner enemySpawner;
+
+    public TextMeshProUGUI goldFeedbackText;
 
     #endregion
 
@@ -43,12 +46,14 @@ public class SaveManager : MonoBehaviour
         {
             SaveGame();
             Debug.Log("Game Saved!");
+            goldFeedbackText.text = "Game Saved!";
         }
 
         if (Keyboard.current.lKey.wasPressedThisFrame)
         {
             LoadGame();
             Debug.Log("Game Loaded!");
+            goldFeedbackText.text = "Game Loaded!";
         }
     }
 

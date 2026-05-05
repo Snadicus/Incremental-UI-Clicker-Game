@@ -257,8 +257,182 @@ public class AreaList : MonoBehaviour
                     new enemyData
                     {
                         name = "Ancient Wraith",
-                        baseHealth = 420f,
+                        baseHealth = 840f,
                         baseGold = 46
+                    }
+                }
+            },
+
+            // Area Three: The Underway Tunnels
+            new areaData
+            {
+                areaName= "The Underway Tunnels",
+
+                enemies = new List<enemyData>()
+                {
+                    new enemyData
+                    {
+                        name = "Floating Eyeballs",
+                        baseHealth = 44f,
+                        baseGold = 5
+                    },
+
+                    new enemyData
+                    {
+                        name = "Darklings",
+                        baseHealth = 46f,
+                        baseGold = 5
+                    },
+
+                    new enemyData
+                    {
+                        name = "Lunatic Dwarves",
+                        baseHealth = 48f,
+                        baseGold = 5
+                    },
+
+                    new enemyData
+                    {
+                        name = "Troglodytes",
+                        baseHealth = 50f,
+                        baseGold = 5
+                    },
+
+                    new enemyData
+                    {
+                        name = "Dark Elven Scouts",
+                        baseHealth = 53f,
+                        baseGold = 5
+                    },
+
+                    new enemyData
+                    {
+                        name = "Intelligence Feeders",
+                        baseHealth = 55f,
+                        baseGold = 6
+                    },
+
+                    new enemyData
+                    {
+                        name = "Deep Trolls",
+                        baseHealth = 57f,
+                        baseGold = 6
+                    },
+
+                    new enemyData
+                    {
+                        name = "Caustic Zealots",
+                        baseHealth = 60f,
+                        baseGold = 6
+                    },
+
+                    new enemyData
+                    {
+                        name = "They Who Echo",
+                        baseHealth = 62f,
+                        baseGold = 6
+                    },
+
+                    new enemyData
+                    {
+                        name = "Tunnelling Nightmares",
+                        baseHealth = 65f,
+                        baseGold = 6
+                    },
+
+                    // Boss
+                    new enemyData
+                    {
+                        name = "Nemesis Beast",
+                        baseHealth = 1938f,
+                        baseGold = 62
+                    }
+                }
+            },
+
+            // Area Four: The Catacomb of St. Xenoth
+            new areaData
+            {
+                areaName= "The Catacomb of St. Xenoth",
+
+                enemies = new List<enemyData>()
+                {
+                    new enemyData
+                    {
+                        name = "Impish Swarms",
+                        baseHealth = 67f,
+                        baseGold = 6
+                    },
+
+                    new enemyData
+                    {
+                        name = "Lemures",
+                        baseHealth = 70f,
+                        baseGold = 7
+                    },
+
+                    new enemyData
+                    {
+                        name = "Doomed Wretches",
+                        baseHealth = 73f,
+                        baseGold = 7
+                    },
+
+                    new enemyData
+                    {
+                        name = "Gluttonous Fiend",
+                        baseHealth = 75f,
+                        baseGold = 7
+                    },
+
+                    new enemyData
+                    {
+                        name = "Wailing Cacodaemons",
+                        baseHealth = 78f,
+                        baseGold = 7
+                    },
+
+                    new enemyData
+                    {
+                        name = "Angels of Hate",
+                        baseHealth = 81f,
+                        baseGold = 7
+                    },
+
+                    new enemyData
+                    {
+                        name = "Effigies of Agony",
+                        baseHealth = 84f,
+                        baseGold = 7
+                    },
+
+                    new enemyData
+                    {
+                        name = "Assassin Demons",
+                        baseHealth = 88f,
+                        baseGold = 8
+                    },
+
+                    new enemyData
+                    {
+                        name = "Piscodaemons",
+                        baseHealth = 91f,
+                        baseGold = 8
+                    },
+
+                    new enemyData
+                    {
+                        name = "Ice Devils",
+                        baseHealth = 94f,
+                        baseGold = 8
+                    },
+
+                    // Boss
+                    new enemyData
+                    {
+                        name = "Pit Fiend",
+                        baseHealth = 3768f,
+                        baseGold = 78
                     }
                 }
             }

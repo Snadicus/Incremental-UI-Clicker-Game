@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
 
     public int currentArea = 1; // Current area the player is in
     private int areaMax; // Max amount of areas currently in the game, helps to loop.
-    private int enemyCounter = 0; // Tracks eney groups killed. Helps to spawn boss
+    public int enemyCounter = 0; // Tracks eney groups killed. Helps to spawn boss
 
     // Current enemy data and storage for stats
     private AreaList.enemyData currentEnemy;
@@ -56,7 +56,7 @@ public class EnemySpawner : MonoBehaviour
         SpawnEnemy();
         UpdateAreaText();
         areaMax = areaList.areas.Count - 1;
-        Debug.Log(areaMax);
+        Debug.Log("Maxium Area Count: " + areaMax);
     }
 
     #endregion
