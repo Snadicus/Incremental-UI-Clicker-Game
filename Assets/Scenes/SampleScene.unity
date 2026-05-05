@@ -957,6 +957,7 @@ MonoBehaviour:
   resourceTracker: {fileID: 1299122399}
   buildingsList: {fileID: 1775089858}
   currentArea: 1
+  enemyCounter: 0
   loop: 1
   isBossActive: 0
   enemyHealthText: {fileID: 892636352}
@@ -4170,9 +4171,9 @@ MonoBehaviour:
   gemText: {fileID: 1101759143}
   divineText: {fileID: 1315095712}
   prestigeText: {fileID: 848973034}
-  gold: 5000
+  gold: 0
   mana: 0
-  gem: 5000
+  gem: 0
   divineFavor: 0
   prestigeLevel: 0
   maxMana: 100
@@ -4362,6 +4363,7 @@ MonoBehaviour:
   playerAbilities: {fileID: 1564831930}
   player: {fileID: 1564831928}
   enemySpawner: {fileID: 269297731}
+  goldFeedbackText: {fileID: 980262280}
 --- !u!1 &1343995333
 GameObject:
   m_ObjectHideFlags: 0
@@ -5838,6 +5840,7 @@ Transform:
   - {fileID: 1406308985}
   - {fileID: 1323143948}
   - {fileID: 1768031944}
+  - {fileID: 1736901617}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1664447846
@@ -5951,6 +5954,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705819581}
   m_CullTransparentMesh: 1
+--- !u!1 &1736901616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1736901617}
+  - component: {fileID: 1736901618}
+  m_Layer: 0
+  m_Name: CheatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1736901617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736901616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1659329045}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1736901618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736901616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872c1fe5f78471142b83069052341a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CheatManager
+  resourceTracker: {fileID: 1299122399}
+  buildingsList: {fileID: 1775089858}
+  teammateManager: {fileID: 2049626815}
+  playerAbilities: {fileID: 1564831930}
+  player: {fileID: 1564831928}
+  enemySpawner: {fileID: 269297731}
+  goldFeedbackText: {fileID: 980262280}
 --- !u!1 &1741484646
 GameObject:
   m_ObjectHideFlags: 0

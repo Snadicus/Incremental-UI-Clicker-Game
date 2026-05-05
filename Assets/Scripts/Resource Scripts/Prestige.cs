@@ -31,6 +31,7 @@ public class Prestige : MonoBehaviour
     {
         UpdateDivineFavor();
         UpdatePrestigeCost();
+        UpdatePrestigeLevel();
     }
 
     #endregion
@@ -102,8 +103,6 @@ public class Prestige : MonoBehaviour
         {
             if (bar.attackSlider != null) bar.attackSlider.value = 0;
         }
-
-        UpdatePrestigeLevel();
         Debug.Log("Progress reset!");
     }
 
@@ -138,7 +137,7 @@ public class Prestige : MonoBehaviour
     void UpdatePrestigeCost()
     {
         prestigeCost = CalculatePrestigeCost();
-        prestigeCostText.text = "Cost: " + prestigeCost;
+        prestigeCostText.text = "Cost: " + prestigeCost + " gems";
     }
 
     #endregion

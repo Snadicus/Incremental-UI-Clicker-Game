@@ -40,25 +40,25 @@ public class ButtonCanClick : MonoBehaviour
         if (upgradeObject is TeammateManager.Teammates teammate)
         {
             this.teammate = teammate;
-            costText.text = "Cost: " + teammate.cost;
+            costText.text = "Cost: " + teammate.cost + " " + teammate.buyType;
         }
         else if (upgradeObject is BuildingsList.BuildingData building)
         {
             this.building = building;
-            costText.text = "Cost: " + building.cost;
+            costText.text = "Cost: " + building.cost + " " + building.buyType;
         }
         else if (upgradeObject is PlayerAbilities.AbilityData ability)
         {
             this.ability = ability;
             if (costText != null)
             {
-                costText.text = "Cost: " + ability.cost;
+                costText.text = "Cost: " + ability.cost + " gold";
             }
         }
         else
         {
             playerIndex = Convert.ToInt32(upgradeObject);
-            costText.text = "Cost: " + player.statsCost[playerIndex];
+            costText.text = "Cost: " + player.statsCost[playerIndex] + " gold";
         }
     }
 
@@ -165,7 +165,7 @@ public class ButtonCanClick : MonoBehaviour
                 resourceTraker.SpendResource(resourceType, cost);
 
                 cost += Convert.ToInt32(cost * 0.5f);
-                costText.text = "Cost: " + cost;
+                costText.text = "Cost: " + cost + " gold";
                 return;
             case Upgrades.upgradeTypes.Building:
                 cost = (building.level <= 0) ? building.cost : building.GetUpgradeCost();
@@ -174,7 +174,9 @@ public class ButtonCanClick : MonoBehaviour
                 //resourceTraker.SpendResource(resourceType, cost);
 
                 cost = Mathf.RoundToInt(building.baseUpgradeCost * Mathf.Pow(building.upgradeCostMultiplier, building.level));
-                costText.text = "Cost: " + cost;
+                costText.text = "Cost: " + cost + " " + building.buyType;
+                if (building.name == "GemMine")
+                    costText.text = "Cost: " + cost + " gems";
                 return;
             case Upgrades.upgradeTypes.Teammate:
                 cost = teammate.cost;
@@ -184,7 +186,7 @@ public class ButtonCanClick : MonoBehaviour
                 resourceTraker.SpendResource(resourceType, cost);
 
                 cost += Convert.ToInt32(cost * 0.5f);
-                costText.text = "Cost: " + cost;
+                costText.text = "Cost: " + cost + teammate.buyType;
                 return;
             case Upgrades.upgradeTypes.Abilities:
                 cost = ability.cost;
@@ -194,7 +196,7 @@ public class ButtonCanClick : MonoBehaviour
                 resourceTraker.SpendResource(resourceType, cost);
 
                 cost += Convert.ToInt32(cost * 0.5f);
-                costText.text = "Cost: " + cost;
+                costText.text = "Cost: " + cost + " gold";
                 return;
             default:
                 cost = 0;
@@ -207,25 +209,28 @@ public class ButtonCanClick : MonoBehaviour
     {
         if (teammate != null)
         {
-            costText.text = "Cost: " + teammate.cost;
+            costText.text = "Cost: " + teammate.cost + " " + teammate.buyType;
         }
         else if (building != null)
         {
             int currentCost = (building.level <= 0)
                 ? building.cost
                 : building.GetUpgradeCost();
-            costText.text = "Cost: " + currentCost;
+            costText.text = "Cost: " + currentCost + " " + building.buyType;
+
+            if (building.name == "GemMine")
+                costText.text = "Cost: " + currentCost + " gems";
         }
         else if (ability != null)
         {
             if (costText != null)
             {
-                costText.text = "Cost: " + ability.cost;
+                costText.text = "Cost: " + ability.cost + " gold";
             }
         }
         else if (upgradeObject != null && upgradeType == Upgrades.upgradeTypes.Player)
         {
-            costText.text = "Cost: " + player.statsCost[playerIndex];
+            costText.text = "Cost: " + player.statsCost[playerIndex] + " gold";
         }
     }
 }
