@@ -4,8 +4,6 @@ using System.Collections.Generic;
 [System.Serializable]
 public class SaveData
 {
-    public string version;
-
     // Saving teammate List
     public List<TeammateManager.Teammates> teammatesData = new List<TeammateManager.Teammates>();
 
@@ -24,7 +22,6 @@ public class SaveData
 
     // From Player
     public int[] playerStats;
-    public int[] playerCosts; 
 
     // From EnemySpawner
     public int currentArea;

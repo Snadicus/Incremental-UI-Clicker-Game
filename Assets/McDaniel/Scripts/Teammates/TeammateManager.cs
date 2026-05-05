@@ -32,7 +32,7 @@ public class TeammateManager : MonoBehaviour
         public int cost;
         public int baseCost;
         public int baseAttackPower;
-        public float baseAttackSpeed;
+        public int baseAttackSpeed;
         [System.Xml.Serialization.XmlIgnore] public EnemySpawner enemySpawner;
         public ResourceTracker.resources buyType;
 
@@ -87,46 +87,18 @@ public class TeammateManager : MonoBehaviour
                     attackSpeed = 5,
                     enemySpawner = enemySpawner,
                     buyType = ResourceTracker.resources.gold,
-                    cost = 100,
-                    baseCost = 100,
+                    cost = 10,
+                    baseCost = 10,
                     baseAttackPower = 5,
                     baseAttackSpeed = 5
-                },
-                new Teammates
-                {
-                    teammateType = "Fighter",
-                    level = 0,
-                    equipment = 0,
-                    attackPower = 3,
-                    attackSpeed = 3.5f,
-                    enemySpawner = enemySpawner,
-                    buyType = ResourceTracker.resources.gold,
-                    cost = 50,
-                    baseCost = 50,
-                    baseAttackPower = 3,
-                    baseAttackSpeed = 3
-                },
-                new Teammates
-                {
-                    teammateType = "Rogue",
-                    level = 0,
-                    equipment = 0,
-                    attackPower = 2,
-                    attackSpeed = 1.5f,
-                    enemySpawner = enemySpawner,
-                    buyType = ResourceTracker.resources.gold,
-                    cost = 20,
-                    baseCost = 20,
-                    baseAttackPower = 2,
-                    baseAttackSpeed = 1.5f
                 }
             };
         }
     }
     #endregion
 
-    // Get teammate based on name
-    #region
+        // Get teammate based on name
+        #region
     public Teammates? GetTeammate(string name)
     {
         int index = 0;
@@ -141,6 +113,24 @@ public class TeammateManager : MonoBehaviour
         return null;
     }
     #endregion
+
+    // Save Teammate stats
+    private void OnApplicationQuit()
+    {
+        string filePath = Application.persistentDataPath + "/Teammate_Data/";
+        string dataPath = filePath + "Teammates.xml";
+        var xmlSerializer = new XmlSerializer(typeof(List<Teammates>));
+
+        if (!Directory.Exists(filePath))
+        {
+            Directory.CreateDirectory(filePath);
+        }
+        using (FileStream stream = File.Create(dataPath))
+        {
+            xmlSerializer.Serialize(stream, teammates);
+        }
+
+    }
 
     // PrestigeProgress
     #region
